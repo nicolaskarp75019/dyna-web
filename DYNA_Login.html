@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DYNA — Connexion</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230A0A0C'/><text x='64' y='74' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='84' fill='%23C9CDD3' text-anchor='middle'>D</text></svg>" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080809;--bg2:#0D0D0F;--bg3:#111113;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.12);
+  --text:#E8E9EB;--text-mid:#9CA0A8;--text-dim:#6E7178;
+  --cyan:#C9CDD3;--green:#10B981;--red:#EF4444;
+  --font-display:'Barlow Condensed',sans-serif;--font-body:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;}
+body{
+  display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%,rgba(201,205,211,0.06) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 120%,rgba(139,92,246,0.04) 0%,transparent 50%);
+}
+
+/* ── Logo ── */
+@keyframes chromeShine{
+  0%{background-position:-150% 0,0 0;}
+  55%{background-position:250% 0,0 0;}
+  100%{background-position:250% 0,0 0;}
+}
+.logo-text{
+  font-family:var(--font-display);font-size:42px;font-weight:700;letter-spacing:6px;line-height:1;
+  background:
+    linear-gradient(100deg,transparent 30%,rgba(255,255,255,0.9) 45%,rgba(255,255,255,0.95) 50%,transparent 65%),
+    linear-gradient(160deg,#FFFFFF 0%,#E2E5E9 8%,#9398A0 20%,#6B7178 32%,#F4F6F8 44%,#B5B9C0 56%,#7D828A 68%,#EEF0F2 80%,#8A9099 92%,#D8DCE1 100%);
+  background-size:220% 100%,100% 100%;
+  background-position:-150% 0,0 0;
+  background-repeat:no-repeat;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 1px 0 rgba(255,255,255,0.5)) drop-shadow(0 2px 2px rgba(0,0,0,0.55)) drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+  animation:chromeShine 5s ease-in-out infinite;animation-delay:1s;
+}
+.logo-sub{font-size:9px;color:#A8AEB8;letter-spacing:3px;margin-top:4px;text-transform:uppercase;font-family:'Courier New',monospace;}
+
+/* ── Card ── */
+.card{
+  width:100%;max-width:420px;
+  background:linear-gradient(145deg,#111113,#0D0D0F);
+  border:1px solid rgba(255,255,255,0.1);border-radius:20px;
+  padding:40px 36px;box-shadow:0 32px 80px rgba(0,0,0,0.7);
+}
+.card-logo{text-align:center;margin-bottom:32px;}
+
+/* ── Tabs ── */
+.tabs{display:flex;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px;margin-bottom:28px;gap:3px;}
+.tab{flex:1;padding:8px;text-align:center;font-size:12px;font-weight:500;color:var(--text-dim);cursor:pointer;border-radius:6px;transition:all 0.15s;}
+.tab.active{background:linear-gradient(135deg,#C9CDD3 0%,#9398A0 100%);color:#08080A;font-weight:700;}
+
+/* ── Form ── */
+.form{display:none;}
+.form.active{display:block;}
+.field{margin-bottom:16px;}
+.label{display:block;font-size:10px;color:var(--text-mid);text-transform:uppercase;letter-spacing:.06em;font-weight:500;margin-bottom:7px;}
+.input{
+  width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;padding:11px 13px;font-size:13px;color:var(--text);font-family:var(--font-body);
+  outline:none;transition:all 0.15s ease;
+}
+.input:focus{border-color:rgba(201,205,211,0.4);box-shadow:0 0 0 3px rgba(201,205,211,0.08);}
+.input::placeholder{color:var(--text-dim);}
+.input option{background:#111113;}
+
+/* ── Error / Success ── */
+.msg{display:none;align-items:center;gap:7px;font-size:12px;border-radius:7px;padding:9px 12px;margin-bottom:16px;}
+.msg.show{display:flex;}
+.msg.error{color:var(--red);background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);}
+.msg.success{color:var(--green);background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);}
+
+/* ── Submit ── */
+.btn{
+  width:100%;background:linear-gradient(135deg,#C9CDD3 0%,#9398A0 100%);
+  color:#08080A;border:none;border-radius:8px;padding:12px;
+  font-size:13px;font-weight:700;font-family:var(--font-body);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all 0.15s ease;box-shadow:0 1px 0 rgba(255,255,255,0.3) inset,0 2px 8px rgba(0,0,0,0.4);
+  margin-top:4px;
+}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.spinner{width:14px;height:14px;border:2px solid rgba(6,20,26,0.3);border-top-color:#06141A;border-radius:50%;display:none;animation:spin 0.7s linear infinite;}
+.spinner.show{display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── Footer ── */
+.footer{margin-top:20px;font-size:11px;color:var(--text-dim);text-align:center;line-height:1.6;}
+
+/* ── Invite hint ── */
+.invite-hint{font-size:11px;color:var(--text-dim);margin-top:8px;text-align:center;line-height:1.5;}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-logo">
+    <div class="logo-text">DYNA</div>
+    <div class="logo-sub">Do You Need AI?</div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" id="tab-login" onclick="switchTab('login')">Se connecter</div>
+    <div class="tab" id="tab-register" onclick="switchTab('register')">S'inscrire</div>
+  </div>
+
+  <!-- Login form -->
+  <div class="form active" id="form-login">
+    <div class="msg error" id="login-error"><span>⚠</span><span id="login-error-text">Identifiants incorrects.</span></div>
+    <div class="field">
+      <label class="label" for="login-email">Email</label>
+      <input type="email" class="input" id="login-email" placeholder="votre@email.com" autocomplete="email">
+    </div>
+    <div class="field">
+      <label class="label" for="login-password">Mot de passe</label>
+      <input type="password" class="input" id="login-password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="btn" id="login-btn" onclick="doLogin()">
+      <span class="spinner" id="login-spinner"></span>
+      <span id="login-btn-text">Se connecter</span>
+    </button>
+  </div>
+
+  <!-- Register form -->
+  <div class="form" id="form-register">
+    <div class="msg error" id="register-error"><span>⚠</span><span id="register-error-text">Une erreur est survenue.</span></div>
+    <div class="msg success" id="register-success"><span>✓</span><span>Compte créé ! Redirection…</span></div>
+    <div class="field">
+      <label class="label" for="reg-name">Prénom</label>
+      <input type="text" class="input" id="reg-name" placeholder="Votre prénom" autocomplete="given-name">
+    </div>
+    <div class="field">
+      <label class="label" for="reg-email">Email</label>
+      <input type="email" class="input" id="reg-email" placeholder="votre@email.com" autocomplete="email">
+    </div>
+    <div class="field">
+      <label class="label" for="reg-password">Mot de passe</label>
+      <input type="password" class="input" id="reg-password" placeholder="Minimum 8 caractères" autocomplete="new-password">
+    </div>
+    <div class="field">
+      <label class="label" for="reg-team">Équipe</label>
+      <select class="input" id="reg-team">
+        <option value="">Sélectionner votre équipe</option>
+        <option>Commerciaux</option>
+        <option>Consultants</option>
+        <option>Développeurs</option>
+        <option>Administratif</option>
+        <option>Direction</option>
+      </select>
+    </div>
+    <div class="field">
+      <label class="label" for="reg-code">Code d'invitation</label>
+      <input type="text" class="input" id="reg-code" placeholder="Ex: ABC123XY" autocomplete="off" style="text-transform:uppercase;letter-spacing:2px;">
+    </div>
+    <button class="btn" id="register-btn" onclick="doRegister()">
+      <span class="spinner" id="register-spinner"></span>
+      <span id="register-btn-text">Créer mon compte</span>
+    </button>
+    <div class="invite-hint">Un code d'invitation est requis.<br>Contactez votre administrateur DYNA.</div>
+  </div>
+
+  <div class="footer">🔒 Privacy by Design — aucun prompt n'est stocké.</div>
+</div>
+
+<script>
+'use strict';
+
+const API_BASE = (window.location.hostname === 'localhost' || window.location.protocol === 'file:')
+  ? 'http://localhost:3000'
+  : 'https://dyna-backend-production.up.railway.app';
+
+// Si déjà connecté, rediriger directement
+(function checkExisting() {
+  const jwt  = localStorage.getItem('dyna_jwt');
+  const user = JSON.parse(localStorage.getItem('dyna_user') || '{}');
+  if (jwt && user.email) {
+    window.location.href = user.role === 'admin' ? 'DYNA_DashboardV6.html' : 'DYNA_User_Dashboard.html';
+  }
+})();
+
+function switchTab(tab) {
+  document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+  document.getElementById('tab-register').classList.toggle('active', tab === 'register');
+  document.getElementById('form-login').classList.toggle('active', tab === 'login');
+  document.getElementById('form-register').classList.toggle('active', tab === 'register');
+  hideErrors();
+}
+
+function hideErrors() {
+  ['login-error','register-error','register-success'].forEach(id => {
+    document.getElementById(id)?.classList.remove('show');
+  });
+}
+
+function setLoading(prefix, loading) {
+  const btn  = document.getElementById(prefix + '-btn');
+  const spin = document.getElementById(prefix + '-spinner');
+  const text = document.getElementById(prefix + '-btn-text');
+  if (btn)  btn.disabled = loading;
+  if (spin) spin.classList.toggle('show', loading);
+  if (text) text.textContent = loading
+    ? (prefix === 'login' ? 'Connexion…' : 'Création…')
+    : (prefix === 'login' ? 'Se connecter' : 'Créer mon compte');
+}
+
+function showError(prefix, msg) {
+  const el = document.getElementById(prefix + '-error-text');
+  if (el) el.textContent = msg;
+  document.getElementById(prefix + '-error')?.classList.add('show');
+}
+
+async function doLogin() {
+  hideErrors();
+  const email    = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  if (!email || !password) { showError('login', 'Veuillez remplir tous les champs.'); return; }
+
+  setLoading('login', true);
+  try {
+    const res = await fetch(API_BASE + '/v1/users/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) { showError('login', data.error || 'Identifiants incorrects.'); return; }
+
+    localStorage.setItem('dyna_jwt',       data.token);
+    localStorage.setItem('dyna_user',      JSON.stringify(data.user));
+    localStorage.setItem('dyna_user_team', data.user.team  || '');
+    localStorage.setItem('dyna_user_name', data.user.name  || '');
+    localStorage.setItem('dyna_user_role', data.user.role  || 'user');
+
+    window.location.href = data.user.role === 'admin' ? 'DYNA_DashboardV6.html' : 'DYNA_User_Dashboard.html';
+  } catch {
+    showError('login', 'Serveur inaccessible. Vérifiez votre connexion.');
+  } finally {
+    setLoading('login', false);
+  }
+}
+
+async function doRegister() {
+  hideErrors();
+  const name            = document.getElementById('reg-name').value.trim();
+  const email           = document.getElementById('reg-email').value.trim();
+  const password        = document.getElementById('reg-password').value;
+  const team            = document.getElementById('reg-team').value;
+  const invitation_code = document.getElementById('reg-code').value.trim().toUpperCase();
+
+  if (!name || !email || !password || !team || !invitation_code) {
+    showError('register', 'Veuillez remplir tous les champs.'); return;
+  }
+  if (password.length < 8) {
+    showError('register', 'Le mot de passe doit contenir au moins 8 caractères.'); return;
+  }
+
+  setLoading('register', true);
+  try {
+    const res = await fetch(API_BASE + '/v1/users/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password, team, invitation_code }),
+    });
+    const data = await res.json();
+    if (!res.ok) { showError('register', data.error || 'Erreur lors de l\'inscription.'); return; }
+
+    localStorage.setItem('dyna_jwt',       data.token);
+    localStorage.setItem('dyna_user',      JSON.stringify(data.user));
+    localStorage.setItem('dyna_user_team', data.user.team  || '');
+    localStorage.setItem('dyna_user_name', data.user.name  || '');
+    localStorage.setItem('dyna_user_role', data.user.role  || 'user');
+
+    document.getElementById('register-success').classList.add('show');
+    setTimeout(() => { window.location.href = 'DYNA_User_Dashboard.html'; }, 1200);
+  } catch {
+    showError('register', 'Serveur inaccessible. Vérifiez votre connexion.');
+  } finally {
+    setLoading('register', false);
+  }
+}
+
+// Enter key on login
+['login-email','login-password'].forEach(id => {
+  document.getElementById(id)?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+});
+['reg-name','reg-email','reg-password','reg-code'].forEach(id => {
+  document.getElementById(id)?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') doRegister();
+  });
+});
+// Force uppercase on invite code
+document.getElementById('reg-code')?.addEventListener('input', e => {
+  const pos = e.target.selectionStart;
+  e.target.value = e.target.value.toUpperCase();
+  e.target.setSelectionRange(pos, pos);
+});
+</script>
+</body>
+</html>

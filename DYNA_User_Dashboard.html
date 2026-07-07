@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DYNA  Mon Espace</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230A0A0C'/><text x='64' y='74' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='84' fill='%23C9CDD3' text-anchor='middle'>D</text></svg>" type="image/svg+xml">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#080809;--bg2:#0D0D0F;--bg3:#111113;--bg-card:#0F0F11;--bg-card2:#141416;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.05);
+  --text:#E8E9EB;--text-mid:#9CA0A8;--text-dim:#6E7178;
+  --cyan:#C9CDD3;--green:#10B981;--orange:#F59E0B;--purple:#8B5CF6;--red:#EF4444;--blue:#3B82F6;
+  --font-display:'Barlow Condensed',sans-serif;--font-body:'Inter',sans-serif;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.5;}
+
+/* ── LOGIN ── */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;background:radial-gradient(ellipse at 50% 0%,rgba(201,205,211,0.04) 0%,transparent 60%);}
+.login-box{width:100%;max-width:400px;background:linear-gradient(145deg,#111113,#0D0D0F);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:40px 36px;box-shadow:0 32px 80px rgba(0,0,0,0.7);}
+.login-logo{font-family:var(--font-display);font-size:42px;font-weight:700;letter-spacing:0.12em;background:linear-gradient(135deg,#fff 0%,#C9CDD3 40%,#9CA0A8 70%,#6E7178 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.6)) drop-shadow(0 0 30px rgba(201,205,211,0.2));text-align:center;margin-bottom:4px;}
+.login-sub{text-align:center;font-size:11px;letter-spacing:0.18em;color:var(--text-dim);text-transform:uppercase;margin-bottom:32px;}
+.login-label{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
+.login-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:11px 14px;color:var(--text);font-size:14px;font-family:var(--font-body);outline:none;transition:border-color 0.2s;margin-bottom:16px;}
+.login-input:focus{border-color:rgba(201,205,211,0.3);}
+.login-input option{background:#111113;}
+.login-btn{width:100%;background:linear-gradient(135deg,#fff 0%,#C9CDD3 50%,#9CA0A8 100%);color:#08080A;border:none;border-radius:10px;padding:13px;font-size:14px;font-weight:700;font-family:var(--font-body);cursor:pointer;margin-top:4px;letter-spacing:0.03em;transition:opacity 0.2s;}
+.login-btn:hover{opacity:0.9;}
+.login-privacy{margin-top:20px;font-size:10.5px;color:var(--text-dim);text-align:center;line-height:1.6;}
+
+/* ── APP ── */
+#app{display:none;min-height:100vh;flex-direction:column;}
+.app-header{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:rgba(8,8,9,0.9);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;}
+.header-logo{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:0.1em;background:linear-gradient(135deg,#fff 0%,#C9CDD3 50%,#9CA0A8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(255,255,255,0.4));}
+.header-greeting{font-size:14px;font-weight:500;color:var(--text);}
+.header-meta{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--text-dim);}
+.team-badge{background:rgba(201,205,211,0.08);border:1px solid rgba(201,205,211,0.15);border-radius:20px;padding:3px 12px;font-size:12px;color:var(--text-mid);}
+.logout-btn{background:transparent;border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:5px 12px;color:var(--text-dim);font-size:12px;cursor:pointer;font-family:var(--font-body);transition:color 0.2s;}
+.logout-btn:hover{color:var(--text);}
+
+.app-main{flex:1;padding:24px;max-width:960px;margin:0 auto;width:100%;}
+
+/* ── CARDS ── */
+.card{background:linear-gradient(135deg,#111113 0%,#0E0E10 100%);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:16px;box-shadow:0 4px 24px rgba(0,0,0,0.4);}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.card-title{font-size:13px;font-weight:600;color:var(--text);}
+.card-tag{font-size:11px;padding:2px 8px;background:rgba(201,205,211,0.08);border:1px solid rgba(201,205,211,0.15);border-radius:10px;color:var(--text-dim);}
+
+/* ── HERO ── */
+.hero-card{background:linear-gradient(135deg,#111315 0%,#0D0F11 100%);border:1px solid rgba(201,205,211,0.1);border-radius:16px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;}
+.hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(201,205,211,0.4),transparent);}
+.hero-score{font-family:var(--font-display);font-size:64px;font-weight:700;background:linear-gradient(135deg,#fff 0%,#C9CDD3 60%,#9CA0A8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+.hero-score-label{font-size:12px;color:var(--text-dim);margin-top:4px;letter-spacing:0.05em;}
+.progress-track{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;margin:12px 0;overflow:hidden;}
+.progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#C9CDD3,#fff);transition:width 0.8s cubic-bezier(0.4,0,0.2,1);}
+.hero-msg{font-size:13px;color:var(--text-mid);line-height:1.5;}
+.hero-rank{font-size:12px;color:var(--text-dim);margin-top:8px;}
+
+/* ── KPIs ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.kpi-card{background:linear-gradient(135deg,#111113,#0E0E10);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden;}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.kpi-card.cyan::before{background:var(--cyan);}
+.kpi-card.green::before{background:var(--green);}
+.kpi-card.orange::before{background:var(--orange);}
+.kpi-card.purple::before{background:var(--purple);}
+.kpi-label{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;}
+.kpi-info{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:#6E7178;font-size:9px;font-weight:700;cursor:pointer;margin-left:5px;vertical-align:middle;transition:all 0.15s;flex-shrink:0;}
+.kpi-info:hover{background:rgba(201,205,211,0.15);color:#C9CDD3;}
+.kpi-value{font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1;}
+.kpi-card.cyan .kpi-value{color:var(--cyan);}
+.kpi-card.green .kpi-value{color:var(--green);}
+.kpi-card.orange .kpi-value{color:var(--orange);}
+.kpi-card.purple .kpi-value{color:var(--purple);}
+.kpi-delta{font-size:11px;color:var(--text-dim);margin-top:5px;}
+
+/* ── CHART ── */
+.chart-wrap{position:relative;height:180px;}
+
+/* ── COACHING LIST ── */
+.coaching-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.coaching-item:last-child{border-bottom:none;}
+.coaching-site{width:20px;height:20px;border-radius:4px;background:rgba(201,205,211,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.coaching-info{flex:1;min-width:0;}
+.coaching-meta{font-size:12px;color:var(--text-mid);}
+.coaching-scores{font-size:12px;color:var(--text);}
+.coaching-gain{font-size:12px;font-weight:700;color:var(--green);white-space:nowrap;}
+
+/* ── BADGES ── */
+.badges-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.badge-card{border:1px solid;border-radius:12px;padding:16px;transition:all 0.2s;}
+.badge-card.unlocked{background:rgba(201,205,211,0.06);border-color:rgba(201,205,211,0.2);}
+.badge-card.locked{background:rgba(255,255,255,0.02);border-color:rgba(255,255,255,0.05);opacity:0.6;}
+.badge-icon{font-size:28px;margin-bottom:8px;}
+.badge-card.locked .badge-icon{opacity:0.25;filter:grayscale(1);}
+.badge-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.badge-desc{font-size:12px;color:var(--text-dim);line-height:1.4;}
+.badge-progress{font-size:11px;color:var(--text-dim);margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.06);}
+
+/* ── LIBRARY PROMPTS ── */
+.prompt-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.prompt-item:last-child{border-bottom:none;}
+.prompt-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.prompt-body{font-size:12px;color:var(--text-dim);line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.prompt-copy-btn{margin-top:7px;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 10px;color:var(--text-mid);font-size:12px;cursor:pointer;font-family:var(--font-body);transition:border-color 0.2s;}
+.prompt-copy-btn:hover{border-color:rgba(201,205,211,0.3);color:var(--text);}
+.lib-link{display:block;margin-top:12px;font-size:12px;color:var(--text-dim);text-decoration:none;text-align:right;}
+.lib-link:hover{color:var(--text);}
+
+/* ── FOOTER ── */
+.app-footer{padding:12px 24px;border-top:1px solid var(--border2);font-size:12px;color:var(--text-dim);text-align:center;line-height:1.5;}
+
+/* ── COACHING MODAL ── */
+@keyframes coachModalIn{from{opacity:0;transform:translate(-50%,-50%) scale(0.96)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+#coaching-modal-backdrop{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);}
+#coaching-modal-backdrop.open{display:block;}
+#coaching-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1001;width:480px;max-width:calc(100vw - 32px);background:linear-gradient(145deg,#111113,#0D0D0F);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px 26px;box-shadow:0 24px 80px rgba(0,0,0,0.7);animation:coachModalIn 0.22s ease;}
+.cm-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.cm-title{font-size:14px;font-weight:600;color:var(--text);}
+.cm-close{background:transparent;border:none;color:var(--text-dim);font-size:18px;cursor:pointer;line-height:1;padding:2px 6px;}
+.cm-close:hover{color:var(--text);}
+.msec-u{margin-bottom:16px;}
+.mlbl-u{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
+
+/* ── LOGO SIDEBAR ── */
+.logo-text{position:relative;font-family:var(--font-display);font-size:30px;font-weight:700;letter-spacing:4px;line-height:1;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,0.9) 45%,rgba(255,255,255,0.95) 50%,transparent 65%),linear-gradient(160deg,#FFFFFF 0%,#E2E5E9 8%,#9398A0 20%,#6B7178 32%,#F4F6F8 44%,#B5B9C0 56%,#7D828A 68%,#EEF0F2 80%,#8A9099 92%,#D8DCE1 100%);background-size:220% 100%,100% 100%;background-position:-150% 0,0 0;background-repeat:no-repeat;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 1px 0 rgba(255,255,255,0.5)) drop-shadow(0 2px 2px rgba(0,0,0,0.55)) drop-shadow(0 4px 10px rgba(0,0,0,0.4)) drop-shadow(0 0 22px rgba(201,205,211,0.25));animation:chromeShine 5s ease-in-out infinite;animation-delay:1s;}
+@keyframes chromeShine{0%{background-position:-150% 0,0 0;}55%{background-position:250% 0,0 0;}100%{background-position:250% 0,0 0;}}
+.logo-sub{font-size:9px;color:#A8AEB8;letter-spacing:2px;margin-top:3px;text-transform:uppercase;font-family:'Courier New',monospace;}
+
+/* ── SIDEBAR NAV ── */
+.u-nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:12px;font-weight:500;color:var(--text-dim);cursor:pointer;transition:all 0.15s;margin-bottom:2px;border-left:2px solid transparent;}
+.u-nav-item:hover{background:rgba(255,255,255,0.04);color:var(--text-mid);}
+.u-nav-item.active{background:rgba(201,205,211,0.08);color:var(--cyan);border-left-color:var(--cyan);}
+.u-page{display:none;}
+
+@media(max-width:900px){
+  .kpi-grid{grid-template-columns:1fr 1fr;}
+  .badges-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+
+<!-- ── COACHING MODAL ── -->
+<div id="coaching-modal-backdrop" onclick="closeCoachingModal()"></div>
+<div id="coaching-modal" style="display:none;">
+  <div class="cm-header">
+    <div class="cm-title">Détail du coaching</div>
+    <button class="cm-close" onclick="closeCoachingModal()">✕</button>
+  </div>
+  <div id="coaching-modal-body"></div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app">
+<div style="display:flex;min-height:100vh;">
+
+  <!-- SIDEBAR -->
+  <aside style="width:200px;flex-shrink:0;background:rgba(12,12,14,0.95);backdrop-filter:blur(20px);border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;overflow-y:auto;">
+    <div style="padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,0.06);">
+      <div class="logo-text">DYNA</div>
+      <div class="logo-sub">DO YOU NEED AI?</div>
+    </div>
+    <nav style="padding:12px 8px;flex:1;">
+      <div style="font-size:9px;color:#4A5568;text-transform:uppercase;letter-spacing:.08em;padding:8px 12px 4px;">Mon espace</div>
+      <div class="u-nav-item active" data-tab="progression">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Progression
+      </div>
+      <div class="u-nav-item" data-tab="requests">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg>
+        Mes requêtes
+      </div>
+      <div class="u-nav-item" data-tab="badges">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        Badges
+      </div>
+      <div class="u-nav-item" data-tab="team">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="7" r="3" opacity="0.6"/><path d="M3 21v-2a6 6 0 0 1 6-6"/><path d="M13 21v-2a6 6 0 0 1 6-6" opacity="0.6"/></svg>
+        Mon Équipe
+      </div>
+      <div class="u-nav-item" data-tab="formation">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2.5 9 2.5 12 0v-5"/></svg>
+        Formation
+      </div>
+      <div class="u-nav-item" data-tab="library">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Bibliothèque
+      </div>
+    </nav>
+    <div style="padding:16px;border-top:1px solid rgba(255,255,255,0.06);">
+      <div style="font-size:12px;font-weight:600;color:var(--text);" id="sidebar-name">—</div>
+      <div style="font-size:11px;color:var(--text-dim);margin-top:2px;" id="sidebar-team">—</div>
+      <button onclick="doLogout()" style="margin-top:10px;width:100%;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#EF4444;border-radius:6px;padding:6px;font-size:12px;cursor:pointer;font-family:var(--font-body);transition:all 0.15s;">Se déconnecter</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main style="margin-left:200px;flex:1;min-height:100vh;display:flex;flex-direction:column;">
+    <div style="height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(8,8,9,0.8);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.06);position:sticky;top:0;z-index:99;">
+      <div style="font-size:13px;color:var(--text-dim);">DYNA — <span id="u-page-title" style="background:linear-gradient(135deg,#F4F6F8 0%,#C9CDD3 50%,#9398A0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;">Progression</span></div>
+      <div id="u-greeting" style="font-size:13px;font-weight:600;color:var(--text);">Bonjour 👋</div>
+      <div id="backend-status" style="display:flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:12px;background:rgba(110,113,120,0.15);border:1px solid rgba(110,113,120,0.3);color:#6E7178;">
+        <span id="status-dot" style="width:6px;height:6px;border-radius:50%;background:#6E7178;display:inline-block;flex-shrink:0;"></span>
+        <span id="status-text">Connexion…</span>
+      </div>
+    </div>
+    <div style="padding:24px;flex:1;max-width:960px;margin:0 auto;width:100%;box-sizing:border-box;">
+
+    <div class="u-page" id="u-progression" style="display:block;">
+
+    <!-- HERO -->
+    <div class="hero-card">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+        <div style="flex:1;min-width:200px;">
+          <div style="font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Mon score cette semaine</div>
+          <div style="display:flex;align-items:baseline;gap:10px;">
+            <div class="hero-score" id="hero-score">—</div>
+            <div style="font-family:var(--font-display);font-size:28px;color:var(--text-dim);">/10</div>
+          </div>
+          <div class="progress-track" style="margin-top:14px;">
+            <div class="progress-fill" id="hero-bar" style="width:0%;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-dim);margin-top:4px;">
+            <span>0</span><span>Objectif : 7/10</span><span>10</span>
+          </div>
+          <div class="hero-msg" id="hero-msg" style="margin-top:14px;">Chargement de vos données…</div>
+          <div id="hero-streak" style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:var(--text-dim);">
+            <span>🔥</span><span id="streak-text">—</span>
+          </div>
+          <div class="hero-rank" id="hero-rank"></div>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Activité</div>
+          <div id="hero-stats" style="font-size:12px;color:var(--text-mid);line-height:1.8;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCORE DE MATURITÉ IA -->
+    <div style="background:linear-gradient(135deg,#111315,#0D0F11);border:1px solid rgba(201,205,211,0.1);border-radius:16px;padding:20px;margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <div>
+          <div style="font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Score de Maturité IA</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span id="maturity-emoji" style="font-size:24px;">—</span>
+            <span id="maturity-level" style="font-size:18px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:var(--silver);">—</span>
+          </div>
+          <div id="maturity-description" style="font-size:12px;color:var(--text-dim);margin-top:3px;">—</div>
+        </div>
+        <div style="text-align:right;">
+          <div id="maturity-score" style="font-size:48px;font-weight:700;font-family:'Barlow Condensed',sans-serif;background:linear-gradient(135deg,#FFFFFF,#9398A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">—</div>
+          <div style="font-size:12px;color:#6E7178;">/100</div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;">
+        <div style="background:rgba(255,255,255,0.06);border-radius:4px;height:8px;overflow:hidden;">
+          <div id="maturity-bar" style="height:8px;width:0%;border-radius:4px;background:linear-gradient(90deg,#8B5CF6,#C9CDD3);transition:width 0.8s ease;"></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="padding:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <div style="font-size:12px;color:var(--text-dim);">Qualité des prompts</div>
+            <div id="dim-quality" style="font-size:12px;font-weight:700;color:#8B5CF6;">—/40</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:4px;">
+            <div id="dim-quality-bar" style="height:4px;border-radius:2px;width:0%;background:#8B5CF6;transition:width 0.6s;"></div>
+          </div>
+        </div>
+        <div style="padding:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <div style="font-size:12px;color:var(--text-dim);">Adoption coaching</div>
+            <div id="dim-adoption" style="font-size:12px;font-weight:700;color:#10B981;">—/30</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:4px;">
+            <div id="dim-adoption-bar" style="height:4px;border-radius:2px;width:0%;background:#10B981;transition:width 0.6s;"></div>
+          </div>
+        </div>
+        <div style="padding:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <div style="font-size:12px;color:var(--text-dim);">Régularité</div>
+            <div id="dim-regularity" style="font-size:12px;font-weight:700;color:#F59E0B;">—/20</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:4px;">
+            <div id="dim-regularity-bar" style="height:4px;border-radius:2px;width:0%;background:#F59E0B;transition:width 0.6s;"></div>
+          </div>
+        </div>
+        <div style="padding:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <div style="font-size:12px;color:var(--text-dim);">Badges débloqués</div>
+            <div id="dim-badges" style="font-size:12px;font-weight:700;color:#EF4444;">—/10</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:4px;">
+            <div id="dim-badges-bar" style="height:4px;border-radius:2px;width:0%;background:#EF4444;transition:width 0.6s;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DÉFIS DE LA SEMAINE -->
+    <div class="card" style="margin-top:16px;">
+      <div class="card-header">
+        <div class="card-title">🎯 Mes défis de la semaine</div>
+        <div id="challenges-week" style="font-size:12px;color:var(--text-dim);">—</div>
+      </div>
+      <div id="challenges-content">
+        <div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">
+          Chargement de vos défis...
+        </div>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card cyan"><div class="kpi-label">Prompts ce mois</div><div class="kpi-value" id="u-total">—</div><div class="kpi-delta" id="u-total-delta">—</div></div>
+      <div class="kpi-card green"><div class="kpi-label">Coachings acceptés</div><div class="kpi-value" id="u-coached">—</div><div class="kpi-delta" id="u-coached-delta">—</div></div>
+      <div class="kpi-card orange"><div class="kpi-label">Temps économisé<span class="kpi-info" onclick="openKpiInfo('time')">?</span></div><div class="kpi-value" id="u-time">—</div><div class="kpi-delta" id="u-time-delta">ce mois</div></div>
+      <div class="kpi-card purple"><div class="kpi-label">Score moyen<span class="kpi-info" onclick="openKpiInfo('score')">?</span></div><div class="kpi-value" id="u-score">—</div><div class="kpi-delta" id="u-score-delta">/10 cette semaine</div></div>
+    </div>
+
+    <!-- CHART -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Mon évolution — 14 derniers jours</div>
+        <div class="card-tag">Score qualité</div>
+      </div>
+      <div class="chart-wrap"><canvas id="scoreChart"></canvas></div>
+      <div id="chart-empty" style="display:none;text-align:center;padding:32px 0;font-size:12px;color:var(--text-dim);">Commencez à utiliser DYNA sur claude.ai ou ChatGPT pour voir votre progression ici.</div>
+    </div>
+
+    <!-- DERNIERS COACHINGS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Mes derniers coachings</div>
+        <div class="card-tag" id="coaching-count">0 accepté</div>
+      </div>
+      <div id="coaching-list"><div style="font-size:12px;color:var(--text-dim);padding:8px 0;">Aucun coaching enregistré pour le moment.</div></div>
+    </div>
+
+    <!-- Section Coaching Personnel -->
+    <div class="card" style="margin-top:16px;">
+      <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="card-title">✦ Mon coaching personnalisé</div>
+        <button onclick="generateUserCoaching()" id="user-coaching-btn" style="background:linear-gradient(135deg,#C9CDD3,#9398A0);color:#08080A;border:none;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-body);">
+          Analyser ma progression
+        </button>
+      </div>
+      <div id="user-coaching-content">
+        <div style="color:var(--text-dim);font-size:12px;padding:20px 0;text-align:center;">Cliquez sur "Analyser ma progression" pour obtenir des conseils personnalisés basés sur vos données.</div>
+      </div>
+    </div>
+
+    <!-- Mes patterns -->
+    <div class="card" style="margin-top:16px;">
+      <div class="card-header">
+        <div class="card-title">Mes patterns de prompts</div>
+        <div style="font-size:12px;color:var(--text-dim);">Problèmes récurrents dans vos prompts</div>
+      </div>
+      <div id="user-patterns-content">
+        <div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Chargement...</div>
+      </div>
+    </div>
+
+    </div><!-- /u-progression -->
+
+    <div class="u-page" id="u-requests">
+
+    <!-- REQUÊTES -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Mes requêtes</div>
+        <select id="req-filter" onchange="renderRequests(_events)" style="font-size:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text-mid);border-radius:6px;padding:3px 8px;cursor:pointer;">
+          <option value="all">Toutes</option>
+          <option value="professionnel">Professionnel</option>
+          <option value="coaching">Coaching accepté</option>
+          <option value="warning">Blocage</option>
+        </select>
+      </div>
+      <div id="req-list"><div style="font-size:12px;color:var(--text-dim);padding:8px 0;">Aucune requête enregistrée.</div></div>
+    </div>
+
+    </div><!-- /u-requests -->
+
+    <div class="u-page" id="u-badges">
+
+    <!-- BADGES -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Mes badges</div>
+        <div class="card-tag" id="badge-count">0 débloqué</div>
+      </div>
+      <div class="badges-grid" id="badges-grid"></div>
+    </div>
+
+    </div><!-- /u-badges -->
+
+    <div class="u-page" id="u-team">
+
+      <div style="margin-bottom:20px;">
+        <div style="font-size:13px;color:var(--text-dim);">Comparez votre progression avec votre équipe</div>
+      </div>
+
+      <!-- Mon rang -->
+      <div style="background:linear-gradient(135deg,#111315,#0D0F11);border:1px solid rgba(201,205,211,0.1);border-radius:16px;padding:24px;margin-bottom:16px;text-align:center;">
+        <div style="font-size:11px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Mon rang dans l'équipe</div>
+        <div id="team-my-rank" style="font-size:56px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:var(--silver);line-height:1;">—</div>
+        <div id="team-my-rank-label" style="font-size:13px;color:var(--text-dim);margin-top:6px;">Chargement...</div>
+        <div id="team-my-score-display" style="margin-top:12px;display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(201,205,211,0.06);border:1px solid rgba(201,205,211,0.12);border-radius:20px;font-size:13px;color:var(--text-mid);">
+          Mon score : <strong id="team-my-score-val" style="color:var(--silver);">—</strong>/10
+        </div>
+      </div>
+
+      <!-- Classement équipe -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Classement de l'équipe</div>
+          <div id="team-period" style="font-size:12px;color:var(--text-dim);">Ce mois</div>
+        </div>
+        <div id="team-ranking-list">
+          <div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Chargement...</div>
+        </div>
+      </div>
+
+      <!-- Badges de l'équipe -->
+      <div class="card" style="margin-top:16px;">
+        <div class="card-header">
+          <div class="card-title">Badges de l'équipe</div>
+          <div style="font-size:12px;color:var(--text-dim);">Badges débloqués par vos collègues</div>
+        </div>
+        <div id="team-badges-list">
+          <div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Chargement...</div>
+        </div>
+      </div>
+
+      <!-- Privacy -->
+      <div style="margin-top:16px;padding:12px;background:rgba(201,205,211,0.03);border:1px solid rgba(201,205,211,0.08);border-radius:10px;font-size:12px;color:#6E7178;text-align:center;">
+        🔒 Seuls les scores agrégés et les badges sont visibles. Le contenu des prompts reste privé.
+      </div>
+
+    </div><!-- /u-team -->
+
+    <div class="u-page" id="u-formation">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">🎓 Mon parcours de formation IA</div>
+        <div id="learning-progress-label" style="font-size:12px;color:var(--text-dim);">—</div>
+      </div>
+      <div style="margin:16px 0;">
+        <div style="background:rgba(255,255,255,0.06);border-radius:4px;height:8px;overflow:hidden;">
+          <div id="learning-bar" style="height:8px;width:0%;border-radius:4px;background:linear-gradient(90deg,#8B5CF6,#C9CDD3);transition:width 0.6s;"></div>
+        </div>
+      </div>
+      <div id="learning-content">
+        <div style="text-align:center;color:var(--text-dim);padding:20px;font-size:13px;">Chargement du parcours...</div>
+      </div>
+    </div>
+    </div><!-- /u-formation -->
+
+    <div class="u-page" id="u-library">
+
+    <!-- BIBLIOTHÈQUE -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Prompts recommandés pour vous</div>
+        <div class="card-tag" id="lib-team-tag"></div>
+      </div>
+      <div id="lib-prompts"><div style="font-size:12px;color:var(--text-dim);">Chargement…</div></div>
+      <a href="#" class="lib-link" onclick="loadLibrary(true);return false;">Voir tous les prompts →</a>
+    </div>
+
+    </div><!-- /u-library -->
+
+    </div><!-- /pages wrapper -->
+
+    <div style="padding:12px 24px;border-top:1px solid rgba(255,255,255,0.06);font-size:11.5px;color:var(--text-dim);">
+      🔒 <strong style="color:var(--text-mid);">Privacy by Design actif</strong> — Le contenu de vos prompts n'est jamais stocké.
+    </div>
+  </main>
+
+</div><!-- /flex wrapper -->
+</div><!-- /app -->
+
+<script>
+'use strict';
+
+// ── ÉTAT ─────────────────────────────────────────────────────
+const useLocal = new URLSearchParams(window.location.search).get('local') === 'true';
+const API = {
+  base: useLocal ? 'http://localhost:3000' : 'https://dyna-backend-production.up.railway.app',
+  token: localStorage.getItem('dyna_jwt')
+};
+const KEY  = 'dyna-pilot-key-2024';
+let USER   = { name: '', team: '' };
+let _events = [];
+let _learningData = { completed: [], modules: [], bestExerciseScore: 0 };
+let _lastBadgeParams = null;
+let _knownBadges = new Set();
+let _achievementsReady = false;
+let _scoreChart = null;
+
+const SITE_ICONS  = { claude: '◉', chatgpt: '⬡', gemini: '◈', unknown: '·' };
+const SITE_NAMES  = { claude: 'claude.ai', chatgpt: 'ChatGPT', gemini: 'Gemini', unknown: '—' };
+const SITE_LABELS = { claude: 'claude.ai', chatgpt: 'ChatGPT', gemini: 'Gemini', unknown: 'Inconnu' };
+const CAT_LABELS  = { professionnel: 'Professionnel', vie_personnelle: 'Vie personnelle', divertissement: 'Divertissement', politique: 'Politique', medical: 'Médical', financier: 'Financier', unknown: 'Non classifié' };
+let _coachingCache = [];
+let _reqCache = [];
+
+// ── AUTH ──────────────────────────────────────────────────────
+function doLogout() {
+  localStorage.removeItem('dyna_jwt');
+  localStorage.removeItem('dyna_user');
+  window.location.href = 'DYNA_Login.html';
+}
+
+function showApp() {
+  const ls = document.getElementById('login-screen');
+  if (ls) ls.style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('sidebar-name').textContent = USER.name || '—';
+  document.getElementById('sidebar-team').textContent = USER.team || '—';
+  document.getElementById('u-greeting').textContent = 'Bonjour ' + USER.name + ' 👋';
+  const libTag = document.getElementById('lib-team-tag');
+  if (libTag) libTag.textContent = USER.team;
+  initApp();
+}
+
+// ── API ───────────────────────────────────────────────────────
+function _setStatus(online) {
+  const dot  = document.getElementById('status-dot');
+  const text = document.getElementById('status-text');
+  const box  = document.getElementById('backend-status');
+  if (!dot) return;
+  if (online) {
+    dot.style.background  = '#10B981';
+    text.textContent      = 'Connecté';
+    box.style.background  = 'rgba(16,185,129,0.1)';
+    box.style.borderColor = 'rgba(16,185,129,0.2)';
+    box.style.color       = '#10B981';
+  } else {
+    dot.style.background  = '#EF4444';
+    text.textContent      = 'Hors ligne';
+    box.style.background  = 'rgba(239,68,68,0.1)';
+    box.style.borderColor = 'rgba(239,68,68,0.2)';
+    box.style.color       = '#EF4444';
+  }
+}
+
+async function apiAuth() {
+  try {
+    const jwt = localStorage.getItem('dyna_jwt');
+    if (!jwt) { _setStatus(false); return false; }
+    API.token = jwt;
+    // Vérification légère : tenter un appel authentifié
+    const res = await fetch(API.base + '/v1/users/me', {
+      headers: { 'Authorization': 'Bearer ' + jwt },
+    });
+    if (res.status === 401) {
+      localStorage.removeItem('dyna_jwt');
+      localStorage.removeItem('dyna_user');
+      window.location.href = 'DYNA_Login.html';
+      return false;
+    }
+    _setStatus(res.ok);
+    return res.ok;
+  } catch { _setStatus(false); return false; }
+}
+
+async function apiGet(path) {
+  const res = await fetch(API.base + path, { headers: { 'Authorization': 'Bearer ' + API.token } });
+  if (!res.ok) throw new Error('api_' + res.status);
+  return res.json();
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+async function initApp() {
+  renderFromLocal();
+
+  const ok = await apiAuth();
+  console.log('DYNA: auth result', ok);
+
+  if (ok) {
+    try {
+      _events = await apiGet('/v1/events/recent?limit=100&team=' + encodeURIComponent(USER.team));
+      console.log('DYNA: initial load', _events.length, 'événements');
+    } catch(e) {
+      console.warn('DYNA: initial load failed', e.message);
+      _events = [];
+    }
+  }
+
+  // 1er renderBadges en mode "seed" (_achievementsReady=false) : mémorise les badges
+  // déjà débloqués SANS notifier. Puis on charge les badges connus du backend et on
+  // active les notifications → seuls les badges débloqués APRÈS déclenchent une notif.
+  renderAll();
+  await loadKnownAchievements();
+
+  setInterval(async () => {
+    console.log('DYNA: polling refresh...');
+    try {
+      const fresh = await apiGet('/v1/events/recent?limit=100&team=' + encodeURIComponent(USER.team));
+      console.log('DYNA: polling reçu', fresh.length, 'événements');
+      if (Array.isArray(fresh)) {
+        _events = fresh;
+        renderAll();
+        console.log('DYNA: renderAll() appelé');
+      }
+    } catch(e) {
+      console.warn('DYNA: polling échoué', e.message);
+    }
+  }, 30000);
+}
+
+// ── DONNÉES LOCALES ───────────────────────────────────────────
+function renderFromLocal() {
+  const scoresWeek  = JSON.parse(localStorage.getItem('dyna_scores_week')  || '[]');
+  const timeSaved   = parseInt(localStorage.getItem('dyna_time_saved_week') || '0');
+  const avg = scoresWeek.length > 0
+    ? (scoresWeek.reduce((s, v) => s + v, 0) / scoresWeek.length).toFixed(1)
+    : null;
+
+  updateHero(avg);
+
+  const uScore = document.getElementById('u-score');
+  const uScoreDelta = document.getElementById('u-score-delta');
+  if (uScore) uScore.textContent = avg != null ? avg : '—';
+  if (uScoreDelta) uScoreDelta.textContent = avg != null ? 'sur ' + scoresWeek.length + ' prompt(s)' : 'Aucun score cette semaine';
+
+  const uTime = document.getElementById('u-time');
+  if (uTime) uTime.textContent = timeSaved > 0 ? timeSaved + 'min' : '—';
+}
+
+function updateHero(avg) {
+  const heroScore = document.getElementById('hero-score');
+  const heroBar   = document.getElementById('hero-bar');
+  const heroMsg   = document.getElementById('hero-msg');
+  if (!heroScore) return;
+
+  if (avg == null) {
+    heroScore.textContent = '—';
+    if (heroMsg) heroMsg.textContent = 'Démarrez votre progression en acceptant le coaching DYNA.';
+    return;
+  }
+
+  const n = parseFloat(avg);
+  const message = n >= 7 ? 'Excellent ! Vous maîtrisez l\'art du prompt.'
+    : n >= 5 ? 'Bonne progression ! Continuez à utiliser le coaching.'
+    : n >= 3 ? 'En progression. Acceptez les suggestions DYNA pour monter.'
+    : 'Démarrez votre progression en acceptant le coaching DYNA.';
+
+  console.log('DYNA updateHero — avgWeek:', n, '→ message:', message);
+
+  heroScore.textContent = avg;
+  if (heroBar) {
+    heroBar.style.width = Math.min(100, Math.round(n / 10 * 100)) + '%';
+    heroBar.style.background = n >= 7 ? 'linear-gradient(90deg,#10B981,#34D399)'
+      : n >= 5 ? 'linear-gradient(90deg,#F59E0B,#FCD34D)'
+      : 'linear-gradient(90deg,#EF4444,#F87171)';
+  }
+  if (heroMsg) heroMsg.textContent = message;
+}
+
+// ── SCORE DE MATURITÉ IA ──────────────────────────────────────
+function calculateMaturityScore(evs, badges) {
+  evs = evs || [];
+  badges = badges || [];
+
+  const scored = evs.filter(e => e.score_before != null && e.category === 'professionnel');
+  const avgScore = scored.length > 0
+    ? scored.reduce((s, e) => s + e.score_before, 0) / scored.length : 0;
+  const qualityPoints = Math.round((avgScore / 10) * 40);
+
+  const coachingShown    = evs.filter(e => e.action === 'coaching_shown').length;
+  const coachingAccepted = evs.filter(e => e.action === 'coaching_accepted').length;
+  const adoptionRate     = coachingShown > 0 ? coachingAccepted / coachingShown : 0;
+  const adoptionPoints   = Math.round(adoptionRate * 30);
+
+  const activeDays       = new Set(evs.map(e => new Date(e.ts).toDateString())).size;
+  const regularityPoints = Math.round(Math.min(activeDays / 20, 1) * 20);
+
+  const unlockedBadges = badges.filter(b => b.unlocked).length;
+  const badgePoints    = Math.round((unlockedBadges / 12) * 10);
+
+  const total = qualityPoints + adoptionPoints + regularityPoints + badgePoints;
+
+  let level, emoji, description;
+  if      (total <= 20) { level = 'Débutant';  emoji = '🌱'; description = "Premiers pas avec l'IA professionnelle"; }
+  else if (total <= 40) { level = 'Apprenti';  emoji = '📘'; description = 'En cours d\'apprentissage'; }
+  else if (total <= 60) { level = 'Praticien'; emoji = '⚡'; description = 'Utilisation régulière et efficace'; }
+  else if (total <= 80) { level = 'Expert';    emoji = '🎯'; description = 'Maîtrise avancée des prompts'; }
+  else                  { level = 'Champion';  emoji = '🏆'; description = 'Excellence en gouvernance IA'; }
+
+  return {
+    total, level, emoji, description,
+    dimensions: {
+      quality:    { points: qualityPoints,    max: 40, label: 'Qualité des prompts' },
+      adoption:   { points: adoptionPoints,   max: 30, label: 'Adoption du coaching' },
+      regularity: { points: regularityPoints, max: 20, label: 'Régularité' },
+      badges:     { points: badgePoints,      max: 10, label: 'Badges débloqués' },
+    }
+  };
+}
+
+function renderMaturityScore() {
+  const evs      = _events || [];
+  const badgeEls = document.querySelectorAll('.badge-item');
+  const badges   = Array.from(badgeEls).map(el => ({ unlocked: !el.classList.contains('locked') }));
+  const maturity = calculateMaturityScore(evs, badges);
+
+  const set      = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  const setWidth = (id, pct) => { const el = document.getElementById(id); if (el) el.style.width = pct + '%'; };
+
+  set('maturity-score',       maturity.total);
+  set('maturity-level',       maturity.level);
+  set('maturity-emoji',       maturity.emoji);
+  set('maturity-description', maturity.description);
+  setWidth('maturity-bar',    maturity.total);
+
+  const dims = maturity.dimensions;
+  set('dim-quality',    dims.quality.points    + '/40'); setWidth('dim-quality-bar',    (dims.quality.points    / 40) * 100);
+  set('dim-adoption',   dims.adoption.points   + '/30'); setWidth('dim-adoption-bar',   (dims.adoption.points   / 30) * 100);
+  set('dim-regularity', dims.regularity.points + '/20'); setWidth('dim-regularity-bar', (dims.regularity.points / 20) * 100);
+  set('dim-badges',     dims.badges.points     + '/10'); setWidth('dim-badges-bar',     (dims.badges.points     / 10) * 100);
+}
+
+// ── DÉFIS DE LA SEMAINE ───────────────────────────────────────
+function calculateChallengeProgress(challenge, evs) {
+  const now  = new Date();
+  const day  = now.getDay();
+  const diff = now.getDate() - day + (day === 0 ? -6 : 1);
+  const monday = new Date(now.setDate(diff));
+  monday.setHours(0, 0, 0, 0);
+
+  const weekEvs = evs.filter(e => new Date(e.ts) >= monday);
+
+  switch (challenge.metric_type) {
+    case 'avg_score': {
+      const scored = weekEvs.filter(e => e.score_before != null && e.category === 'professionnel');
+      const avg = scored.length > 0 ? scored.reduce((s, e) => s + e.score_before, 0) / scored.length : 0;
+      return { current: avg.toFixed(1), completed: avg >= challenge.target };
+    }
+    case 'coaching_accepted': {
+      const count = weekEvs.filter(e => e.action === 'coaching_accepted').length;
+      return { current: count, completed: count >= challenge.target };
+    }
+    case 'active_days': {
+      const days = new Set(weekEvs.map(e => new Date(e.ts).toDateString())).size;
+      return { current: days, completed: days >= challenge.target };
+    }
+    case 'zero_blocked': {
+      const blocked = weekEvs.filter(e => e.category === 'vie_personnelle' && e.action === 'warning_shown').length;
+      return { current: blocked, completed: blocked === 0 && weekEvs.length > 0 };
+    }
+    case 'score_improvement': {
+      const scored = weekEvs.filter(e => e.score_before != null && e.category === 'professionnel').sort((a, b) => a.ts - b.ts);
+      if (scored.length < 2) return { current: 0, completed: false };
+      const firstHalf  = scored.slice(0, Math.floor(scored.length / 2));
+      const secondHalf = scored.slice(Math.floor(scored.length / 2));
+      const avg1 = firstHalf.reduce((s, e) => s + e.score_before, 0) / firstHalf.length;
+      const avg2 = secondHalf.reduce((s, e) => s + e.score_before, 0) / secondHalf.length;
+      const improvement = avg2 - avg1;
+      return { current: improvement.toFixed(1), completed: improvement >= challenge.target };
+    }
+    default:
+      return { current: 0, completed: false };
+  }
+}
+
+async function renderChallenges() {
+  const contentEl = document.getElementById('challenges-content');
+  if (!contentEl) return;
+
+  try {
+    const jwt    = localStorage.getItem('dyna_jwt');
+    const base   = API.base;
+    const userId = USER?.id || 1;
+    const evs    = _events || [];
+
+    const scored = evs.filter(e => e.score_before != null && e.category === 'professionnel');
+    const stats  = {
+      avgScore: scored.length > 0 ? (scored.reduce((s, e) => s + e.score_before, 0) / scored.length).toFixed(1) : 0,
+      coachingAccepted: evs.filter(e => e.action === 'coaching_accepted').length,
+      activeDays: new Set(evs.map(e => new Date(e.ts).toDateString())).size,
+      blocked: evs.filter(e => e.category === 'vie_personnelle' && e.action === 'warning_shown').length,
+    };
+
+    let profile = null;
+    try {
+      const pRes = await fetch(base + '/v1/profile/' + userId, { headers: { 'Authorization': 'Bearer ' + jwt } });
+      profile = await pRes.json();
+    } catch (e) {}
+
+    const res  = await fetch(base + '/v1/challenges/get', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + jwt },
+      body:    JSON.stringify({ userId, stats, profile }),
+    });
+    const data = await res.json();
+    const challenges = data.challenges || [];
+
+    const weekEl = document.getElementById('challenges-week');
+    if (weekEl && data.weekStart) {
+      weekEl.textContent = 'Semaine du ' + new Date(data.weekStart).toLocaleDateString('fr-FR');
+    }
+
+    if (!challenges.length) {
+      contentEl.innerHTML = '<div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Aucun défi disponible.</div>';
+      return;
+    }
+
+    const diffColors = { 'facile': '#10B981', 'moyen': '#F59E0B', 'ambitieux': '#EF4444' };
+
+    contentEl.innerHTML = challenges.map(ch => {
+      const prog  = calculateChallengeProgress(ch, evs);
+      const color = diffColors[ch.difficulty] || '#8B5CF6';
+      const pct   = ch.metric_type === 'zero_blocked'
+        ? (prog.completed ? 100 : 0)
+        : Math.min((parseFloat(prog.current) / ch.target) * 100, 100);
+
+      return `
+        <div style="padding:14px;margin-bottom:10px;background:${prog.completed ? 'rgba(16,185,129,0.06)' : 'rgba(255,255,255,0.02)'};border:1px solid ${prog.completed ? 'rgba(16,185,129,0.2)' : 'rgba(255,255,255,0.07)'};border-radius:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="flex:1;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span style="font-size:13px;font-weight:600;color:var(--text);">${prog.completed ? '✅ ' : ''}${ch.title}</span>
+                <span style="font-size:9px;padding:2px 6px;border-radius:4px;background:${color}22;color:${color};text-transform:uppercase;letter-spacing:.05em;">${ch.difficulty}</span>
+              </div>
+              <div style="font-size:12px;color:var(--text-dim);line-height:1.5;">${ch.description}</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+              <span style="font-size:11px;color:#6E7178;">Progression</span>
+              <span style="font-size:11px;font-weight:700;color:${prog.completed ? '#10B981' : color};">
+                ${prog.current}${ch.metric_type === 'avg_score' ? '/10' : ''}
+                ${ch.metric_type !== 'zero_blocked' && ch.metric_type !== 'avg_score' ? '/ ' + ch.target : ''}
+                ${ch.metric_type === 'zero_blocked' ? (prog.completed ? '✓' : 'blocages: ' + prog.current) : ''}
+              </span>
+            </div>
+            <div style="background:rgba(255,255,255,0.06);border-radius:3px;height:5px;">
+              <div style="width:${pct}%;height:5px;border-radius:3px;background:${prog.completed ? '#10B981' : color};transition:width 0.5s;"></div>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  } catch (e) {
+    console.error('renderChallenges error:', e);
+    contentEl.innerHTML = '<div style="color:#EF4444;font-size:12px;padding:16px 0;text-align:center;">Erreur de chargement des défis.</div>';
+  }
+}
+
+// ── RENDER ALL ────────────────────────────────────────────────
+function renderAll() {
+  const coachingAccepted = _events.filter(e => e.action === 'coaching_accepted');
+  const warningShown     = _events.filter(e => e.category === 'vie_personnelle' && e.action === 'warning_shown');
+  const scored           = _events.filter(e => e.score_before != null && e.category === 'professionnel');
+
+  const avgBackend = scored.length > 0
+    ? parseFloat((scored.reduce((s, e) => s + e.score_before, 0) / scored.length).toFixed(1))
+    : null;
+  const scoresWeek = JSON.parse(localStorage.getItem('dyna_scores_week') || '[]');
+  const avgLocal = scoresWeek.length > 0
+    ? parseFloat((scoresWeek.reduce((a, b) => a + b, 0) / scoresWeek.length).toFixed(1))
+    : null;
+  const avgScore = avgBackend !== null ? avgBackend : avgLocal;
+  console.log('DYNA renderAll — avgBackend:', avgBackend, 'avgLocal:', avgLocal, 'final:', avgScore);
+  updateHero(avgScore !== null ? String(avgScore) : null);
+
+  // Stats rapides dans hero
+  const heroStats = document.getElementById('hero-stats');
+  if (heroStats) {
+    heroStats.innerHTML = `${_events.length} requêtes<br>${coachingAccepted.length} coaching${coachingAccepted.length > 1 ? 's' : ''} accepté${coachingAccepted.length > 1 ? 's' : ''}<br>${warningShown.length} blocage${warningShown.length > 1 ? 's' : ''}`;
+  }
+
+  renderKPIs(_events, coachingAccepted);
+  renderChart(_events);
+  renderCoachings(coachingAccepted);
+  renderUserPatterns();
+
+  const allScores  = scored.map(e => e.score_before);
+  const dailyUsage = computeDailyUsage(_events);
+  const timeSaved  = parseInt(localStorage.getItem('dyna_time_saved_week') || '0');
+  renderBadges({ coached: coachingAccepted, allScores, scoresWeek, timeSaved, dailyUsage });
+  renderMaturityScore();
+  renderChallenges();
+  renderRequests(_events);
+
+  loadLibrary(false);
+}
+
+function renderKPIs(events, coachings) {
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+  set('u-total',       events.length > 0 ? events.length : '—');
+  set('u-total-delta', events.length > 0 ? 'ce mois (équipe ' + USER.team + ')' : 'Aucun prompt ce mois');
+
+  set('u-coached',       coachings.length > 0 ? coachings.length : '—');
+  const coachingShown = events.filter(e => e.action === 'coaching_shown').length;
+  const pct = coachingShown > 0 ? Math.round(coachings.length / coachingShown * 100) : null;
+  set('u-coached-delta', pct != null ? pct + '% de taux d\'acceptation' : 'Aucun coaching');
+  document.getElementById('coaching-count').textContent = coachings.length + ' accepté' + (coachings.length > 1 ? 's' : '');
+
+  const timeSaved = parseInt(localStorage.getItem('dyna_time_saved_week') || '0');
+  const timeSavedMonth = coachings.length * 12 + events.filter(e => e.category === 'vie_personnelle' && e.action === 'warning_shown').length * 8;
+  set('u-time',       timeSavedMonth > 0 ? timeSavedMonth + 'min' : '—');
+  set('u-time-delta', timeSavedMonth > 0 ? '≈ ' + (timeSavedMonth / 60).toFixed(1) + 'h économisées' : 'ce mois');
+
+  const scored = events.filter(e => e.score_before != null && e.category === 'professionnel');
+  const avg = scored.length > 0
+    ? (scored.reduce((s, e) => s + e.score_before, 0) / scored.length).toFixed(1)
+    : null;
+  set('u-score',       avg != null ? avg : '—');
+  set('u-score-delta', avg != null ? 'sur ' + scored.length + ' prompt(s) analysé(s)' : 'Aucun score disponible');
+}
+
+// ── CHART ─────────────────────────────────────────────────────
+function renderChart(events) {
+  const canvas  = document.getElementById('scoreChart');
+  const emptyEl = document.getElementById('chart-empty');
+  if (!canvas) return;
+
+  // Construire scores moyens par jour sur 14 jours
+  const today = new Date(); today.setHours(0,0,0,0);
+  const days = Array.from({ length: 14 }, (_, i) => {
+    const d = new Date(today); d.setDate(d.getDate() - (13 - i)); return d;
+  });
+  const labels = days.map(d => d.getDate() + '/' + (d.getMonth() + 1));
+  const data = days.map(d => {
+    const next = new Date(d); next.setDate(next.getDate() + 1);
+    const dayEvs = events.filter(e => {
+      const t = new Date(e.ts); return t >= d && t < next && e.score_before != null && e.category === 'professionnel';
+    });
+    if (!dayEvs.length) return null;
+    return parseFloat((dayEvs.reduce((s, e) => s + e.score_before, 0) / dayEvs.length).toFixed(1));
+  });
+
+  const hasData = data.some(v => v !== null);
+  if (!hasData) {
+    canvas.style.display = 'none';
+    emptyEl.style.display = 'block';
+    return;
+  }
+  canvas.style.display = 'block';
+  emptyEl.style.display = 'none';
+
+  if (_scoreChart) _scoreChart.destroy();
+  _scoreChart = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Score moyen',
+        data,
+        borderColor: '#C9CDD3',
+        backgroundColor: 'rgba(201,205,211,0.08)',
+        borderWidth: 2,
+        pointBackgroundColor: '#C9CDD3',
+        pointRadius: 3,
+        pointHoverRadius: 5,
+        fill: true,
+        tension: 0.4,
+        spanGaps: true,
+      }, {
+        label: 'Objectif 7/10',
+        data: days.map(() => 7),
+        borderColor: 'rgba(16,185,129,0.3)',
+        borderDash: [4, 4],
+        borderWidth: 1,
+        pointRadius: 0,
+        fill: false,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#64748B', font: { size: 10 }, boxWidth: 10 } },
+        tooltip: { backgroundColor: 'rgba(17,17,19,0.95)', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1, titleColor: '#E8E9EB', bodyColor: '#9CA0A8', padding: 10, cornerRadius: 8 },
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#4A5568', font: { size: 9 } } },
+        y: { min: 0, max: 10, grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#4A5568', font: { size: 9 } } },
+      },
+    },
+  });
+}
+
+// ── COACHINGS ─────────────────────────────────────────────────
+function renderCoachings(coachings) {
+  const el = document.getElementById('coaching-list');
+  if (!el) return;
+  _coachingCache = [...coachings].sort((a, b) => b.ts - a.ts).slice(0, 10);
+  if (!_coachingCache.length) {
+    el.innerHTML = '<div style="font-size:12px;color:var(--text-dim);padding:8px 0;">Aucun coaching accepté pour le moment.</div>';
+    return;
+  }
+  el.innerHTML = _coachingCache.map((ev, i) => {
+    const icon  = SITE_ICONS[ev.site] || '·';
+    const site  = SITE_NAMES[ev.site] || ev.site;
+    const date  = formatDate(ev.ts);
+    const before = ev.score_before != null ? ev.score_before : '?';
+    const after  = ev.score_after  != null ? ev.score_after  : '?';
+    const gain   = (ev.score_before != null && ev.score_after != null)
+      ? ev.score_after - ev.score_before : null;
+    return `<div class="coaching-item" onclick="openCoachingModal(${i})" style="cursor:pointer;" onmouseenter="this.style.background='rgba(255,255,255,0.02)'" onmouseleave="this.style.background=''">
+      <div class="coaching-site">${icon}</div>
+      <div class="coaching-info">
+        <div class="coaching-scores">${before}/10 → ${after}/10 <span style="color:var(--text-dim);font-size:12px;">· ${site}</span></div>
+        <div class="coaching-meta">${date}</div>
+      </div>
+      ${gain != null && gain > 0 ? `<div class="coaching-gain">+${gain} pts</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function openCoachingModal(i) {
+  const ev = _coachingCache[i];
+  if (!ev) return;
+  const before = ev.score_before != null ? ev.score_before : '?';
+  const after  = ev.score_after  != null ? ev.score_after  : '?';
+  const gain   = (ev.score_before != null && ev.score_after != null) ? ev.score_after - ev.score_before : null;
+  const beforeColor = ev.score_before < 5 ? '#EF4444' : '#F59E0B';
+  const timeSavedMin = gain != null ? Math.round(gain * 1.5) : 0;
+
+  document.getElementById('coaching-modal-body').innerHTML = `
+    <div class="msec-u">
+      <div class="mlbl-u">Statut</div>
+      <span style="color:#10B981;font-size:13px;">✓ Coaching accepté</span>
+    </div>
+    <div class="msec-u">
+      <div class="mlbl-u">Progression du prompt</div>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:${beforeColor};">${before}/10</div>
+          <div style="font-size:12px;color:var(--text-dim);">Avant coaching</div>
+        </div>
+        <div style="font-size:24px;color:var(--text-dim);">→</div>
+        <div style="text-align:center;">
+          <div style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#10B981;">${after}/10</div>
+          <div style="font-size:12px;color:var(--text-dim);">Après coaching</div>
+        </div>
+        ${gain != null && gain > 0 ? `<div style="margin-left:8px;padding:6px 12px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:8px;font-size:14px;font-weight:700;color:#10B981;">+${gain} pts</div>` : ''}
+      </div>
+    </div>
+    <div class="msec-u">
+      <div class="mlbl-u">Informations</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;">
+        <div><span style="color:var(--text-dim);">Site</span><div style="color:var(--text);font-weight:600;margin-top:2px;">${SITE_LABELS[ev.site] || ev.site}</div></div>
+        <div><span style="color:var(--text-dim);">Date et heure</span><div style="color:var(--text);font-weight:600;margin-top:2px;">${new Date(ev.ts).toLocaleString('fr-FR')}</div></div>
+        <div><span style="color:var(--text-dim);">Catégorie</span><div style="color:var(--text);font-weight:600;margin-top:2px;">${CAT_LABELS[ev.category] || ev.category || '—'}</div></div>
+        <div><span style="color:var(--text-dim);">Temps économisé</span><div style="color:#10B981;font-weight:600;margin-top:2px;">~${timeSavedMin} min</div></div>
+      </div>
+    </div>
+    <div style="margin-top:4px;padding:10px 12px;background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.15);border-radius:8px;font-size:12px;color:var(--text-dim);line-height:1.5;">
+      🔒 Le contenu de votre prompt n'est jamais stocké ni visible. Seules vos métriques de progression sont conservées.
+    </div>`;
+
+  document.getElementById('coaching-modal-backdrop').classList.add('open');
+  document.getElementById('coaching-modal').style.display = 'block';
+}
+
+function closeCoachingModal() {
+  document.getElementById('coaching-modal-backdrop').classList.remove('open');
+  document.getElementById('coaching-modal').style.display = 'none';
+}
+
+// ── BADGES ────────────────────────────────────────────────────
+function computeDailyUsage(events) {
+  const days = {};
+  events.forEach(ev => {
+    const d = new Date(ev.ts); d.setHours(0,0,0,0);
+    days[d.toDateString()] = true;
+  });
+  return Object.keys(days).sort();
+}
+
+function maxConsecutiveDays(days) {
+  if (!days.length) return 0;
+  const dates = days.map(d => new Date(d).getTime()).sort((a, b) => a - b);
+  let max = 1, cur = 1;
+  for (let i = 1; i < dates.length; i++) {
+    if (dates[i] - dates[i-1] === 86400000) { cur++; max = Math.max(max, cur); }
+    else cur = 1;
+  }
+  return max;
+}
+
+// ── REQUÊTES ──────────────────────────────────────────────────
+function renderRequests(events) {
+  _reqCache = [...events].sort((a, b) => b.ts - a.ts);
+  const filter = document.getElementById('req-filter')?.value || 'all';
+  let filtered = _reqCache;
+  if (filter === 'professionnel') filtered = _reqCache.filter(e => e.category === 'professionnel');
+  else if (filter === 'coaching')  filtered = _reqCache.filter(e => e.action === 'coaching_accepted');
+  else if (filter === 'warning')   filtered = _reqCache.filter(e => e.action === 'warning_shown');
+
+  const el = document.getElementById('req-list');
+  if (!el) return;
+  if (!filtered.length) {
+    el.innerHTML = '<div style="font-size:12px;color:var(--text-dim);padding:8px 0;">Aucune requête pour ce filtre.</div>';
+    return;
+  }
+  el.innerHTML = filtered.slice(0, 20).map(e => {
+    const date  = new Date(e.ts).toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+    const icon  = SITE_ICONS[e.site] || '·';
+    const cat   = CAT_LABELS[e.category] || e.category || '—';
+    const score = e.score_before != null ? `${e.score_before}/10` : '—';
+    const label = e.action === 'coaching_accepted' ? '✓ Coaching' : e.action === 'warning_shown' ? '⊘ Blocage' : e.action === 'prompt_sent' ? '→ Envoyé' : e.action || '—';
+    const idx   = _reqCache.indexOf(e);
+    return `<div class="coaching-item" style="cursor:pointer;" onclick="openRequestModal(${idx})" onmouseenter="this.style.background='rgba(255,255,255,0.02)'" onmouseleave="this.style.background=''">
+      <div style="display:flex;align-items:center;gap:10px;width:100%;">
+        <span style="font-size:15px;">${icon}</span>
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span style="font-size:12px;color:var(--text-mid);">${date}</span>
+            <span style="font-size:11px;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.06);color:var(--text-dim);">${cat}</span>
+            <span style="font-size:11px;color:var(--text-dim);">${label}</span>
+          </div>
+        </div>
+        <span style="font-size:12px;font-family:var(--font-display);color:var(--text-mid);flex-shrink:0;">${score}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openRequestModal(i) {
+  const e = _reqCache[i];
+  if (!e) return;
+  const date = new Date(e.ts).toLocaleString('fr-FR', { dateStyle: 'medium', timeStyle: 'short' });
+  const fields = [
+    ['Date',        date],
+    ['Site',        SITE_NAMES[e.site]  || e.site      || '—'],
+    ['Catégorie',   CAT_LABELS[e.category] || e.category || '—'],
+    ['Action',      e.action            || '—'],
+    ['Score avant', e.score_before != null ? `${e.score_before}/10` : '—'],
+    ['Score après', e.score_after  != null ? `${e.score_after}/10`  : '—'],
+    ['Pertinence',  e.relevance_score != null ? `${e.relevance_score}/10` : '—'],
+    ['Coaching',    e.coaching_issues  || '—'],
+    ['Équipe',      e.team             || '—'],
+  ];
+  const rows = fields.map(([k, v]) => `<div style="display:flex;gap:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+    <span style="font-size:12px;color:var(--text-dim);width:100px;flex-shrink:0;">${k}</span>
+    <span style="font-size:12px;color:var(--text-mid);">${v}</span>
+  </div>`).join('');
+
+  document.getElementById('req-modal-overlay')?.remove();
+  const overlay = document.createElement('div');
+  overlay.id = 'req-modal-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;';
+  overlay.innerHTML = `<div style="background:#1A1C21;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:24px;width:360px;max-width:90vw;position:relative;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <span style="font-size:13px;font-weight:600;color:var(--text);">Détail de la requête</span>
+      <button onclick="document.getElementById('req-modal-overlay').remove()" style="background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;line-height:1;">×</button>
+    </div>
+    ${rows}
+  </div>`;
+  overlay.addEventListener('mousedown', ev => { if (ev.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+}
+
+function renderBadges({ coached, allScores, scoresWeek, timeSaved, dailyUsage }) {
+  _lastBadgeParams = { coached, allScores, scoresWeek, timeSaved, dailyUsage };
+  const el = document.getElementById('badges-grid');
+  if (!el) return;
+
+  const bestScore = allScores.length ? Math.max(...allScores) : 0;
+  const avgWeek   = scoresWeek.length
+    ? scoresWeek.reduce((s, v) => s + v, 0) / scoresWeek.length
+    : 0;
+  const streak    = maxConsecutiveDays(dailyUsage);
+  const timeSavedMonth = coached.length * 12 + (coached.length > 0 ? coached.length * 4 : 0);
+
+  const BADGES = [
+    {
+      icon: '🌟', name: 'Premier pas',
+      desc: 'Vous avez accepté votre premier coaching DYNA',
+      unlocked: coached.length >= 1,
+      progress: coached.length + '/1 coaching accepté',
+    },
+    {
+      icon: '⚡', name: 'Prompt Master',
+      desc: 'Score qualité excellent sur une semaine entière',
+      unlocked: avgWeek >= 7,
+      progress: (avgWeek > 0 ? avgWeek.toFixed(1) : '0') + '/10 (objectif 7/10)',
+    },
+    {
+      icon: '📅', name: 'Régularité',
+      desc: '5 jours d\'utilisation consécutifs',
+      unlocked: streak >= 5,
+      progress: streak + '/5 jours consécutifs',
+    },
+    {
+      icon: '🎯', name: 'Perfectionniste',
+      desc: 'Vous avez atteint un score de 9/10 ou plus',
+      unlocked: bestScore >= 9,
+      progress: 'Meilleur score : ' + (bestScore || 0) + '/10',
+    },
+    {
+      icon: '⏱', name: 'Économe',
+      desc: '60 minutes de productivité récupérées grâce à DYNA',
+      unlocked: timeSaved >= 60 || timeSavedMonth >= 60,
+      progress: Math.max(timeSaved, timeSavedMonth) + '/60 minutes économisées',
+    },
+    {
+      icon: '🏆', name: 'Champion d\'équipe',
+      desc: 'Score qualité hebdomadaire remarquable (8/10+)',
+      unlocked: avgWeek >= 8,
+      progress: (avgWeek > 0 ? avgWeek.toFixed(1) : '0') + '/8 (moyenne semaine)',
+    },
+    {
+      icon: '🌐', name: 'Explorateur',
+      desc: 'Vous avez utilisé DYNA sur plusieurs outils IA',
+      unlocked: (() => { const sites = new Set(coached.map(e => e.site).filter(Boolean)); return sites.size >= 2; })(),
+      progress: (() => { const sites = new Set(coached.map(e => e.site).filter(Boolean)); return sites.size + '/2 outils utilisés'; })(),
+    },
+    {
+      icon: '💡', name: 'Coach accepté x10',
+      desc: 'Vous avez amélioré 10 prompts grâce au coaching',
+      unlocked: coached.length >= 10,
+      progress: coached.length + '/10 coachings acceptés',
+    },
+    {
+      icon: '⭐', name: 'Score parfait',
+      desc: 'Vous avez soumis un prompt parfait !',
+      unlocked: allScores.some(s => s >= 10),
+      progress: 'Obtenez un score de 10/10',
+    },
+    {
+      icon: '💰', name: 'Économiste',
+      desc: '2 heures de productivité récupérées !',
+      unlocked: timeSaved >= 120,
+      progress: Math.min(timeSaved, 120) + '/120 minutes',
+    },
+    {
+      icon: '🎓', name: 'Expert IA',
+      desc: 'Expert confirmé — score moyen ≥ 7/10 sur 10 prompts',
+      unlocked: (() => { const r = allScores.slice(-10); return r.length >= 10 && r.reduce((a, b) => a + b, 0) / r.length >= 7; })(),
+      progress: (() => {
+        if (allScores.length < 10) return allScores.length + '/10 prompts analysés';
+        const avg = (allScores.slice(-10).reduce((a, b) => a + b, 0) / 10).toFixed(1);
+        return avg + '/7.0 score moyen requis';
+      })(),
+    },
+    {
+      icon: '📆', name: 'Fidèle',
+      desc: '10 jours d\'utilisation de DYNA !',
+      unlocked: Object.keys(dailyUsage).length >= 10,
+      progress: Object.keys(dailyUsage).length + '/10 jours',
+    },
+    {
+      icon: '🎓', name: 'Diplômé DYNA',
+      desc: 'Vous avez complété tout le parcours de formation',
+      unlocked: _learningData.completed.length >= 12,
+      progress: _learningData.completed.length + '/12 modules complétés',
+    },
+    {
+      icon: '📚', name: 'Apprenti appliqué',
+      desc: 'Vous avez complété votre première semaine de formation',
+      unlocked: _learningData.completed.length >= 3,
+      progress: _learningData.completed.length + '/3 modules (semaine 1)',
+    },
+    {
+      icon: '✍️', name: 'Excellent élève',
+      desc: 'Un exercice réussi avec brio (score 8/10 ou plus)',
+      unlocked: _learningData.bestExerciseScore >= 8,
+      progress: _learningData.bestExerciseScore > 0
+        ? 'Meilleur exercice : ' + _learningData.bestExerciseScore + '/10'
+        : 'Réussis un exercice avec 8/10',
+    },
+  ];
+
+  const unlocked = BADGES.filter(b => b.unlocked).length;
+  document.getElementById('badge-count').textContent = unlocked + ' débloqué' + (unlocked > 1 ? 's' : '');
+
+  const streakEl = document.getElementById('streak-text');
+  if (streakEl) {
+    streakEl.textContent = streak >= 2
+      ? streak + ' jours consécutifs d\'utilisation'
+      : 'Utilisez DYNA demain pour démarrer une série !';
+    streakEl.parentElement.style.color = streak >= 3 ? '#F59E0B' : 'var(--text-dim)';
+  }
+
+  el.innerHTML = BADGES.map(b => `
+    <div class="badge-card ${b.unlocked ? 'unlocked' : 'locked'}">
+      <div class="badge-icon">${b.icon}</div>
+      <div class="badge-name">${b.name}</div>
+      <div class="badge-desc">${b.desc}</div>
+      ${!b.unlocked ? `<div class="badge-progress">${b.progress}</div>` : ''}
+    </div>`).join('');
+
+  // Détecter les badges nouvellement débloqués
+  const newlyUnlocked = BADGES.filter(b => b.unlocked && !_knownBadges.has(b.name));
+
+  if (!_achievementsReady) {
+    // Chargement initial pas terminé : mémoriser sans notifier ni enregistrer
+    BADGES.filter(b => b.unlocked).forEach(b => _knownBadges.add(b.name));
+  } else {
+    // Chargement terminé : notifier + enregistrer les vrais nouveaux badges
+    newlyUnlocked.forEach(b => {
+      _knownBadges.add(b.name);
+      const jwt = localStorage.getItem('dyna_jwt');
+      fetch(API.base + '/v1/achievements/unlock', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + jwt },
+        body:    JSON.stringify({ userId: USER?.id || 1, type: 'badge', achievementId: b.name, team: USER?.team }),
+      }).catch(() => {});
+      showBadgeNotification(b);
+    });
+  }
+}
+
+// Rappelle renderBadges avec les derniers paramètres connus (après maj formation)
+function refreshBadges() {
+  if (_lastBadgeParams) renderBadges(_lastBadgeParams);
+}
+
+// Charge les badges déjà débloqués (backend) pour ne notifier que les vrais nouveaux
+async function loadKnownAchievements() {
+  try {
+    const jwt = localStorage.getItem('dyna_jwt');
+    const userId = USER?.id || 1;
+    const res = await fetch(API.base + '/v1/achievements/' + userId, { headers: { 'Authorization': 'Bearer ' + jwt } });
+    const data = await res.json();
+    (data.achievements || []).forEach(a => {
+      if (a.achievement_type === 'badge') _knownBadges.add(a.achievement_id);
+    });
+  } catch (e) {}
+  _achievementsReady = true; // à la toute fin, même en cas d'erreur
+}
+
+// Notification "toast" d'un badge fraîchement débloqué
+function showBadgeNotification(badge) {
+  const existing = document.querySelectorAll('.dyna-badge-notif').length;
+  const notif = document.createElement('div');
+  notif.className = 'dyna-badge-notif';
+  notif.style.cssText = `position:fixed;bottom:${24 + existing * 96}px;right:24px;z-index:99999;width:300px;background:linear-gradient(145deg,#1a1a2e,#16162a);border:1px solid rgba(139,92,246,0.4);border-left:4px solid #8B5CF6;border-radius:12px;padding:16px;box-shadow:0 8px 32px rgba(139,92,246,0.2);animation:slideInBadge 0.4s cubic-bezier(0.34,1.56,0.64,1);font-family:Inter,sans-serif;`;
+  notif.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="font-size:36px;">${badge.icon}</div>
+      <div>
+        <div style="font-size:11px;color:#8B5CF6;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;">🎉 Badge débloqué !</div>
+        <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:2px;">${badge.name}</div>
+        <div style="font-size:11px;color:#9CA0A8;line-height:1.4;">${badge.desc}</div>
+      </div>
+    </div>`;
+
+  if (!document.getElementById('badge-notif-style')) {
+    const style = document.createElement('style');
+    style.id = 'badge-notif-style';
+    style.textContent = '@keyframes slideInBadge { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }';
+    document.head.appendChild(style);
+  }
+
+  document.body.appendChild(notif);
+  setTimeout(() => {
+    notif.style.transition = 'all 0.4s ease';
+    notif.style.transform = 'translateX(120%)';
+    notif.style.opacity = '0';
+    setTimeout(() => notif.remove(), 400);
+  }, 5000);
+}
+
+// ── BIBLIOTHÈQUE ──────────────────────────────────────────────
+async function loadLibrary(showAll) {
+  const el = document.getElementById('lib-prompts');
+  if (!el) return;
+
+  const LOCAL = [
+    { title: 'Rédiger un email professionnel', body: 'Tu es un expert en communication. Rédige un email professionnel pour [destinataire] concernant [sujet]. Ton : [formel/cordial]. Inclure : [points clés].' },
+    { title: 'Analyser un document', body: 'Analyse ce document et fournis : 1) Les points clés, 2) Les risques identifiés, 3) Tes recommandations. Document : [coller le contenu]' },
+    { title: 'Préparer une réunion', body: 'Aide-moi à préparer une réunion sur [sujet] avec [participants]. Durée : [X min]. Objectifs : [objectifs]. Génère un ordre du jour structuré.' },
+  ];
+
+  try {
+    const prompts = await apiGet('/v1/prompts');
+    const filtered = prompts.filter(p => !p.team || p.team === USER.team || p.team === 'all');
+    const display = showAll ? filtered : filtered.slice(0, 3);
+    const source = display.length ? display : LOCAL.slice(0, 3);
+    renderLibPrompts(el, source, !showAll && filtered.length > 3);
+  } catch {
+    renderLibPrompts(el, LOCAL.slice(0, 3), false);
+  }
+}
+
+function renderLibPrompts(el, prompts, showMore) {
+  if (!prompts.length) {
+    el.innerHTML = '<div style="font-size:12px;color:var(--text-dim);">Aucun prompt disponible pour votre équipe.</div>';
+    return;
+  }
+  el.innerHTML = prompts.map((p, i) => `
+    <div class="prompt-item">
+      <div class="prompt-title">${p.title || p.label || 'Prompt ' + (i+1)}</div>
+      <div class="prompt-body">${p.body || p.content || ''}</div>
+      <button class="prompt-copy-btn" onclick="copyPrompt(${i})">Copier</button>
+    </div>`).join('');
+  el._prompts = prompts;
+  const existing = el.parentElement.querySelector('.lib-show-more');
+  if (existing) existing.remove();
+  if (showMore) {
+    const btn = document.createElement('button');
+    btn.className = 'lib-show-more';
+    btn.textContent = 'Voir tous les prompts →';
+    btn.style.cssText = 'margin-top:10px;background:none;border:none;color:var(--accent);font-size:12px;cursor:pointer;padding:0;';
+    btn.onclick = () => loadLibrary(true);
+    el.parentElement.appendChild(btn);
+  }
+}
+
+function copyPrompt(i) {
+  const el = document.getElementById('lib-prompts');
+  const p = el._prompts?.[i];
+  if (!p) return;
+  navigator.clipboard.writeText(p.body || p.content || '').then(() => {
+    const btn = el.querySelectorAll('.prompt-copy-btn')[i];
+    if (btn) { btn.textContent = 'Copié ✓'; setTimeout(() => btn.textContent = 'Copier', 1500); }
+  });
+}
+
+// ── UTILS ─────────────────────────────────────────────────────
+function formatDate(ts) {
+  const d = new Date(ts);
+  const now = new Date();
+  const diff = now - d;
+  if (diff < 3600000) return 'Il y a ' + Math.round(diff / 60000) + ' min';
+  if (diff < 86400000) return 'Aujourd\'hui ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  if (diff < 172800000) return 'Hier ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+}
+
+// ── BOOT ──────────────────────────────────────────────────────
+(function boot() {
+  const jwt  = localStorage.getItem('dyna_jwt');
+  const user = JSON.parse(localStorage.getItem('dyna_user') || '{}');
+  if (!jwt || !user.email) { window.location.href = 'DYNA_Login.html'; return; }
+  USER = { id: user.id, name: user.name, team: user.team };
+  showApp();
+})();
+
+// ── COACHING PERSONNEL ──────────────────────────────────────
+
+function renderUserPatterns() {
+  const evs = _events || [];
+  const issuesMap = {};
+  evs.forEach(ev => {
+    if (!ev.coaching_issues) return;
+    ev.coaching_issues.split('|').forEach(issue => {
+      const key = issue.trim();
+      if (key) issuesMap[key] = (issuesMap[key] || 0) + 1;
+    });
+  });
+  const topIssues = Object.entries(issuesMap).sort((a,b) => b[1]-a[1]).slice(0,4);
+  const el = document.getElementById('user-patterns-content');
+  if (!el) return;
+  if (!topIssues.length) {
+    el.innerHTML = '<div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Pas encore assez de données. Continuez à utiliser DYNA pour voir vos patterns apparaître.</div>';
+    return;
+  }
+  const maxCount = topIssues[0][1];
+  const colors   = ['#EF4444','#F59E0B','#8B5CF6','#3B82F6'];
+  el.innerHTML = topIssues.map(([issue, count], i) => {
+    const pct = Math.round(count / maxCount * 100);
+    return `<div style="margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+        <div style="font-size:12px;color:var(--text);flex:1;padding-right:12px;">${issue}</div>
+        <div style="font-size:12px;font-weight:700;color:${colors[i]};flex-shrink:0;">${count}×</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.06);border-radius:3px;height:4px;">
+        <div style="width:${pct}%;height:4px;border-radius:3px;background:${colors[i]};transition:width 0.4s;"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function generateUserCoaching() {
+  const btn = document.getElementById('user-coaching-btn');
+  if (btn) { btn.textContent = '⏳ Analyse...'; btn.disabled = true; }
+
+  const evs            = _events || [];
+  const scored         = evs.filter(e => e.score_before != null && e.category === 'professionnel');
+  const avgScore       = scored.length > 0
+    ? (scored.reduce((s,e) => s + e.score_before, 0) / scored.length).toFixed(1) : 'N/A';
+  const coachingAccepted = evs.filter(e => e.action === 'coaching_accepted').length;
+  const coachingShown    = evs.filter(e => e.action === 'coaching_shown').length;
+  const blocked          = evs.filter(e => e.category === 'vie_personnelle' && e.action === 'warning_shown').length;
+
+  const issuesMap = {};
+  evs.forEach(ev => {
+    if (!ev.coaching_issues) return;
+    ev.coaching_issues.split('|').forEach(issue => {
+      const key = issue.trim();
+      if (key) issuesMap[key] = (issuesMap[key] || 0) + 1;
+    });
+  });
+  const topIssues = Object.entries(issuesMap).sort((a,b) => b[1]-a[1]).slice(0,3)
+    .map(([issue, count]) => `- ${issue} (${count} fois)`).join('\n');
+
+  const prompt = `Tu es un coach expert en utilisation professionnelle de l'IA.
+
+Voici les statistiques personnelles d'un utilisateur sur le dernier mois :
+- Total requêtes : ${evs.length}
+- Score qualité moyen : ${avgScore}/10
+- Coachings acceptés : ${coachingAccepted}/${coachingShown}
+- Requêtes bloquées : ${blocked}
+- Équipe : ${USER?.team || 'Non définie'}
+
+Ses problèmes récurrents :
+${topIssues || 'Pas encore de données'}
+
+Génère un coaching personnalisé bienveillant en JSON :
+{
+  "message_personnalise": "Message d'encouragement personnalisé en 2 phrases, basé sur ses données",
+  "point_fort": "Son principal point fort identifié",
+  "defi_principal": "Son principal défi à surmonter",
+  "exercices": [
+    { "titre": "Titre de l'exercice", "description": "Description en 1-2 phrases", "exemple": "Exemple concret de prompt à essayer" }
+  ],
+  "objectif_semaine": "Un objectif précis et atteignable pour cette semaine"
+}
+
+Ton : bienveillant, encourageant, concret. Pas de jargon technique. Maximum 3 exercices.`;
+
+  try {
+    const base     = 'https://dyna-backend-production.up.railway.app';
+    const jwt      = localStorage.getItem('dyna_jwt');
+    const response = await fetch(base + '/v1/coaching/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + jwt },
+      body: JSON.stringify({ prompt }),
+    });
+    if (!response.ok) throw new Error('Erreur ' + response.status);
+    const coaching = await response.json();
+
+    localStorage.setItem('dyna_user_coaching',      JSON.stringify(coaching));
+    localStorage.setItem('dyna_user_coaching_date', new Date().toDateString());
+    displayUserCoaching(coaching);
+  } catch(e) {
+    console.error('User coaching error:', e);
+    const el = document.getElementById('user-coaching-content');
+    if (el) el.innerHTML = '<div style="color:#EF4444;font-size:12px;padding:16px;text-align:center;">Erreur lors de la génération. Réessayez.</div>';
+  } finally {
+    if (btn) { btn.textContent = 'Analyser ma progression'; btn.disabled = false; }
+  }
+}
+
+function displayUserCoaching(coaching) {
+  const el = document.getElementById('user-coaching-content');
+  if (!el) return;
+  el.innerHTML = `
+    <div style="padding:14px;margin-bottom:16px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:10px;">
+      <div style="font-size:13px;color:var(--text);line-height:1.7;margin-bottom:12px;">${coaching.message_personnalise || '—'}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="padding:10px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:8px;">
+          <div style="font-size:10px;color:#10B981;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">✓ Point fort</div>
+          <div style="font-size:12px;color:var(--text-mid);">${coaching.point_fort || '—'}</div>
+        </div>
+        <div style="padding:10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:8px;">
+          <div style="font-size:10px;color:#F59E0B;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">⚡ Défi principal</div>
+          <div style="font-size:12px;color:var(--text-mid);">${coaching.defi_principal || '—'}</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <div style="font-size:10px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Exercices pratiques pour cette semaine</div>
+      ${(coaching.exercices || []).map((ex, i) => `
+        <div style="padding:12px;margin-bottom:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:10px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="width:20px;height:20px;border-radius:50%;background:rgba(139,92,246,0.15);color:#8B5CF6;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${i+1}</span>
+            <div style="font-size:12px;font-weight:600;color:var(--text);">${ex.titre}</div>
+          </div>
+          <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;padding-left:28px;">${ex.description}</div>
+          <div style="font-size:12px;color:#8B5CF6;padding:8px 10px;background:rgba(139,92,246,0.06);border-radius:6px;margin-left:28px;font-style:italic;">💡 Essayez : "${ex.exemple}"</div>
+        </div>
+      `).join('')}
+    </div>
+    <div style="padding:12px 14px;background:rgba(201,205,211,0.04);border:1px solid rgba(201,205,211,0.1);border-radius:10px;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:20px;">🎯</span>
+      <div>
+        <div style="font-size:10px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;">Objectif de la semaine</div>
+        <div style="font-size:12px;color:var(--text);line-height:1.5;">${coaching.objectif_semaine || '—'}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ── Tooltips KPI ─────────────────────────────────────────────────────────────
+
+const KPI_EXPLANATIONS = {
+  roi: { title:'ROI estimé ce mois', color:'#8B5CF6',
+    formula:'ROI = (Blocages × 8min + Coachings × 12min) × Salaire horaire',
+    details:['Chaque requête bloquée = 8 minutes économisées (temps non gaspillé)','Chaque coaching accepté = 12 minutes économisées (moins d\'allers-retours)','Multiplié par le salaire horaire moyen configuré (défaut: 35€/h)'],
+    source:'Paramètres configurables dans ROI & Économies' },
+  score: { title:'Score qualité moyen', color:'#F59E0B',
+    formula:'Moyenne des scores attribués par Claude Haiku à chaque prompt',
+    details:['0-3 : Prompt vague, incomplet, trop court','4-6 : Prompt acceptable mais améliorable','7-10 : Prompt complet avec contexte, objectif et format'],
+    source:'Évalué par Claude Haiku à chaque analyse de prompt' },
+  co2: { title:'CO₂ consommé', color:'#10B981',
+    formula:'Requêtes envoyées × 4,32g de CO₂ par requête',
+    details:['Basé sur les estimations EcoLogits 2026','Requête bloquée = 0g (évitée)','Coaching accepté = -30% de tokens = -30% de CO₂','Source : CarbonCredits, GPT-4 ≈ 4,32g CO₂/requête'],
+    source:'Méthodologie EcoLogits / GenAI Impact' },
+  coached: { title:'Prompts coachés acceptés', color:'#8B5CF6',
+    formula:'(Coachings acceptés / Coachings proposés) × 100',
+    details:['Un coaching est proposé quand le score < 7/10','Accepté = l\'utilisateur a envoyé le prompt amélioré','Ignoré = l\'utilisateur a envoyé quand même son prompt original'],
+    source:'Calculé depuis les événements coaching_accepted et coaching_shown' },
+  time: { title:'Temps économisé', color:'#10B981',
+    formula:'(Blocages × 8min) + (Coachings acceptés × 12min)',
+    details:['8 min/blocage : temps évité sur une requête hors périmètre','12 min/coaching : moins d\'allers-retours avec l\'IA grâce au meilleur prompt','Ces valeurs sont configurables dans ROI & Économies'],
+    source:'Estimations basées sur l\'usage moyen des outils IA en entreprise' },
+  out: { title:'Hors périmètre', color:'#EF4444',
+    formula:'(Requêtes bloquées / Total requêtes) × 100',
+    details:['Une requête est bloquée si son sujet est clairement personnel','Classification effectuée par Claude Haiku','Catégories : vie personnelle, divertissement, données sensibles...'],
+    source:'Basé sur les règles configurées dans la page Règles' }
+};
+
+function openKpiInfo(key) {
+  const info = KPI_EXPLANATIONS[key];
+  if (!info) return;
+  const existing = document.getElementById('kpi-info-modal');
+  if (existing) existing.remove();
+  const modal = document.createElement('div');
+  modal.id = 'kpi-info-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:9999;display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;';
+  modal.onclick = e => { if (e.target === modal) modal.remove(); };
+  modal.innerHTML = `
+    <div style="width:460px;max-width:90vw;background:linear-gradient(145deg,#111113,#0D0D0F);border:1px solid rgba(255,255,255,0.1);border-top:3px solid ${info.color};border-radius:16px;padding:24px;box-shadow:0 24px 80px rgba(0,0,0,0.7);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <div style="font-size:14px;font-weight:700;color:#E8E9EB;">${info.title}</div>
+        <button onclick="document.getElementById('kpi-info-modal').remove()" style="background:none;border:none;color:#6E7178;font-size:18px;cursor:pointer;">✕</button>
+      </div>
+      <div style="padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;margin-bottom:16px;font-family:'Courier New',monospace;font-size:12px;color:${info.color};line-height:1.5;">${info.formula}</div>
+      <div style="margin-bottom:16px;">
+        <div style="font-size:10px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Détail du calcul</div>
+        ${info.details.map(d => `<div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;color:#9CA0A8;"><span style="color:${info.color};flex-shrink:0;">•</span>${d}</div>`).join('')}
+      </div>
+      <div style="padding:10px 12px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:12px;color:#6E7178;font-style:italic;">📎 ${info.source}</div>
+    </div>`;
+  document.body.appendChild(modal);
+}
+
+// Charger le cache coaching si disponible au démarrage
+(function loadCachedCoaching() {
+  const cached     = localStorage.getItem('dyna_user_coaching');
+  const cachedDate = localStorage.getItem('dyna_user_coaching_date');
+  if (cached && cachedDate === new Date().toDateString()) {
+    displayUserCoaching(JSON.parse(cached));
+  }
+})();
+
+// ── SIDEBAR NAVIGATION ──────────────────────────────────────
+async function renderTeamPage() {
+  const myUser = USER || {};
+  const myTeam = myUser.team || 'Commerciaux';
+
+  try {
+    const teamEvents = await apiGet('/v1/events/recent?limit=200&team=' + encodeURIComponent(myTeam));
+
+    if (!Array.isArray(teamEvents) || !teamEvents.length) {
+      document.getElementById('team-ranking-list').innerHTML =
+        '<div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Pas encore assez de données pour le classement.</div>';
+      return;
+    }
+
+    const scored    = teamEvents.filter(e => e.score_before != null && e.category === 'professionnel');
+    const teamAvg   = scored.length > 0
+      ? (scored.reduce((s,e) => s + e.score_before, 0) / scored.length).toFixed(1) : null;
+
+    const myEvents  = _events || [];
+    const myScored  = myEvents.filter(e => e.score_before != null && e.category === 'professionnel');
+    const myAvg     = myScored.length > 0
+      ? parseFloat((myScored.reduce((s,e) => s + e.score_before, 0) / myScored.length).toFixed(1)) : null;
+
+    const rankEl      = document.getElementById('team-my-rank');
+    const rankLabel   = document.getElementById('team-my-rank-label');
+    const myScoreVal  = document.getElementById('team-my-score-val');
+
+    if (myAvg !== null && teamAvg !== null) {
+      const diff    = (myAvg - parseFloat(teamAvg)).toFixed(1);
+      const isAbove = myAvg >= parseFloat(teamAvg);
+      if (rankEl)     rankEl.textContent = myAvg >= 7 ? '🏆' : myAvg >= 5 ? '⭐' : '📈';
+      if (rankLabel)  rankLabel.innerHTML = isAbove
+        ? `<span style="color:#10B981;">+${Math.abs(diff)} pts au-dessus</span> de la moyenne équipe (${teamAvg}/10)`
+        : `<span style="color:#F59E0B;">${Math.abs(diff)} pts en dessous</span> de la moyenne équipe (${teamAvg}/10)`;
+      if (myScoreVal) myScoreVal.textContent = myAvg;
+    } else {
+      if (rankEl)    rankEl.textContent    = '—';
+      if (rankLabel) rankLabel.textContent = 'Pas encore assez de données';
+    }
+
+    const totalTeam      = teamEvents.length;
+    const blockedTeam    = teamEvents.filter(e => e.category === 'vie_personnelle' && e.action === 'warning_shown').length;
+    const coachedTeam    = teamEvents.filter(e => e.action === 'coaching_accepted').length;
+    const coachShownTeam = teamEvents.filter(e => e.action === 'coaching_shown').length;
+    const acceptRate     = coachShownTeam > 0 ? Math.round(coachedTeam / coachShownTeam * 100) : 0;
+
+    const listEl = document.getElementById('team-ranking-list');
+    if (listEl) {
+      listEl.innerHTML = `
+        <div style="margin-bottom:16px;padding:14px;background:rgba(255,255,255,0.02);border-radius:10px;">
+          <div style="font-size:11px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Statistiques équipe ${myTeam}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="text-align:center;padding:10px;background:rgba(201,205,211,0.04);border-radius:8px;">
+              <div style="font-size:22px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:var(--silver);">${teamAvg || '—'}</div>
+              <div style="font-size:11px;color:#6E7178;margin-top:2px;">Score moyen équipe</div>
+            </div>
+            <div style="text-align:center;padding:10px;background:rgba(139,92,246,0.06);border-radius:8px;">
+              <div style="font-size:22px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#8B5CF6;">${acceptRate}%</div>
+              <div style="font-size:11px;color:#6E7178;margin-top:2px;">Taux coaching accepté</div>
+            </div>
+            <div style="text-align:center;padding:10px;background:rgba(16,185,129,0.06);border-radius:8px;">
+              <div style="font-size:22px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#10B981;">${totalTeam}</div>
+              <div style="font-size:11px;color:#6E7178;margin-top:2px;">Requêtes analysées</div>
+            </div>
+            <div style="text-align:center;padding:10px;background:rgba(239,68,68,0.06);border-radius:8px;">
+              <div style="font-size:22px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#EF4444;">${blockedTeam}</div>
+              <div style="font-size:11px;color:#6E7178;margin-top:2px;">Requêtes bloquées</div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Ma contribution vs équipe</div>
+        ${myAvg !== null ? `
+        <div style="padding:12px;background:${myAvg >= parseFloat(teamAvg||0) ? 'rgba(16,185,129,0.06)' : 'rgba(245,158,11,0.06)'};border:1px solid ${myAvg >= parseFloat(teamAvg||0) ? 'rgba(16,185,129,0.15)' : 'rgba(245,158,11,0.15)'};border-radius:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-size:13px;font-weight:600;color:var(--text);">${myUser.name || 'Moi'}</span>
+            <span style="font-size:16px;font-weight:700;color:${myAvg >= parseFloat(teamAvg||0) ? '#10B981' : '#F59E0B'};">${myAvg}/10</span>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:3px;height:6px;margin-bottom:6px;">
+            <div style="width:${myAvg*10}%;height:6px;border-radius:3px;background:${myAvg >= parseFloat(teamAvg||0) ? '#10B981' : '#F59E0B'};transition:width 0.4s;"></div>
+          </div>
+          <div style="font-size:12px;color:#6E7178;">Moyenne équipe : ${teamAvg}/10</div>
+        </div>` :
+        '<div style="color:var(--text-dim);font-size:12px;padding:8px 0;">Pas encore assez de données personnelles.</div>'}
+      `;
+    }
+
+    const badgesEl = document.getElementById('team-badges-list');
+    if (badgesEl) {
+      const teamBadges = [
+        { icon:'🌟', name:'Équipe active',      desc:totalTeam + ' requêtes analysées',              unlocked: totalTeam >= 10 },
+        { icon:'🎯', name:'Bons élèves',         desc:acceptRate + '% de coaching accepté',           unlocked: acceptRate >= 50 },
+        { icon:'🛡',  name:'Conformité',          desc:blockedTeam + ' requêtes hors périmètre bloquées', unlocked: blockedTeam >= 5 },
+        { icon:'⭐', name:'Score d\'excellence', desc:'Score équipe >= 6/10',                         unlocked: parseFloat(teamAvg||0) >= 6 }
+      ];
+      badgesEl.innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          ${teamBadges.map(b => `
+            <div style="padding:12px;background:${b.unlocked ? 'rgba(201,205,211,0.06)' : 'rgba(255,255,255,0.02)'};border:1px solid ${b.unlocked ? 'rgba(201,205,211,0.15)' : 'rgba(255,255,255,0.06)'};border-radius:10px;opacity:${b.unlocked ? '1' : '0.5'};text-align:center;">
+              <div style="font-size:28px;margin-bottom:6px;filter:${b.unlocked ? 'none' : 'grayscale(1)'};">${b.icon}</div>
+              <div style="font-size:12px;font-weight:600;color:${b.unlocked ? 'var(--text)' : 'var(--text-dim)'};">${b.name}</div>
+              <div style="font-size:11px;color:#6E7178;margin-top:3px;">${b.desc}</div>
+            </div>`).join('')}
+        </div>`;
+    }
+
+  } catch(e) {
+    console.error('renderTeamPage error:', e);
+    document.getElementById('team-ranking-list').innerHTML =
+      '<div style="color:#EF4444;font-size:12px;padding:16px 0;text-align:center;">Erreur de chargement.</div>';
+  }
+}
+
+// ── FORMATION ─────────────────────────────────────────────────
+async function renderLearning() {
+  const contentEl = document.getElementById('learning-content');
+  if (!contentEl) return;
+
+  try {
+    const jwt    = localStorage.getItem('dyna_jwt');
+    const base   = API.base;
+    const userId = USER?.id || 1;
+
+    let profile = null;
+    try {
+      const pRes = await fetch(base + '/v1/profile/' + userId, { headers: { 'Authorization': 'Bearer ' + jwt } });
+      profile = await pRes.json();
+    } catch (e) {}
+
+    const res  = await fetch(base + '/v1/learning/get', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + jwt },
+      body:    JSON.stringify({ userId, profile }),
+    });
+    const data     = await res.json();
+    const modules  = data.modules || [];
+    const useCases = data.useCases || [];
+    const completed = data.completed || [];
+
+    // Exposer la progression formation aux badges + rafraîchir
+    _learningData.completed = completed;
+    _learningData.modules = modules;
+    refreshBadges();
+
+    const pct = modules.length > 0 ? Math.round(completed.length / modules.length * 100) : 0;
+    const barEl = document.getElementById('learning-bar');
+    if (barEl) barEl.style.width = pct + '%';
+    const lblEl = document.getElementById('learning-progress-label');
+    if (lblEl) lblEl.textContent = completed.length + '/' + modules.length + ' modules · ' + pct + '%';
+
+    const weeks = {};
+    modules.forEach(m => { if (!weeks[m.week]) weeks[m.week] = []; weeks[m.week].push(m); });
+
+    const useCasesHtml = useCases.length ? `
+      <div style="margin-bottom:20px;padding:14px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:10px;">
+        <div style="font-size:12px;color:#8B5CF6;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">💡 Cas d'usage IA pour votre métier</div>
+        ${useCases.map(uc => `
+          <div style="margin-bottom:8px;">
+            <div style="font-size:13px;font-weight:600;color:var(--text);">${uc.title || ''}</div>
+            <div style="font-size:11px;color:var(--text-dim);font-style:italic;margin-top:2px;">${uc.example || ''}</div>
+          </div>
+        `).join('')}
+      </div>
+    ` : '';
+
+    contentEl.innerHTML = useCasesHtml + Object.keys(weeks).map(week => `
+      <div style="margin-bottom:20px;">
+        <div style="font-size:12px;color:#8B5CF6;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Semaine ${week}</div>
+        ${weeks[week].map(m => {
+          const isDone = completed.includes(m.id);
+          const ex = m.example;
+          return `
+            <div style="padding:14px;margin-bottom:8px;background:${isDone ? 'rgba(16,185,129,0.06)' : 'rgba(255,255,255,0.02)'};border:1px solid ${isDone ? 'rgba(16,185,129,0.2)' : 'rgba(255,255,255,0.07)'};border-radius:10px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <div style="font-size:14px;font-weight:600;color:var(--text);">${isDone ? '✅ ' : ''}${m.title}</div>
+                ${!isDone ? `<button onclick="completeModule('${m.id}')" style="background:linear-gradient(135deg,#8B5CF6,#7C3AED);color:white;border:none;border-radius:6px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;">Marquer terminé</button>` : ''}
+              </div>
+              <div style="font-size:12px;color:var(--text-dim);line-height:1.6;margin-bottom:${ex ? '10px' : '0'};">${m.lesson}</div>
+              ${ex ? `
+                <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:10px;font-size:11px;">
+                  <div style="color:#EF4444;margin-bottom:6px;">❌ ${ex.avant || ''}</div>
+                  <div style="color:#10B981;">✅ ${ex.apres || ''}</div>
+                </div>
+              ` : ''}
+              ${m.template ? `
+                <div style="margin-top:10px;">
+                  <div style="font-size:11px;color:#8B5CF6;font-weight:600;margin-bottom:6px;">📋 Template prêt à l'emploi</div>
+                  <div style="display:flex;gap:8px;align-items:stretch;">
+                    <div style="flex:1;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:8px;padding:10px;font-size:11px;color:var(--text);font-family:monospace;line-height:1.5;" id="tpl-${m.id}">${m.template}</div>
+                    <button onclick="copyTemplate('${m.id}')" style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);color:#8B5CF6;border-radius:8px;padding:0 14px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;">Copier</button>
+                  </div>
+                </div>
+              ` : ''}
+              ${!isDone && m.exercise ? `
+                <div style="margin-top:12px;padding:12px;background:rgba(0,0,0,0.15);border-radius:8px;">
+                  <div style="font-size:11px;color:#10B981;font-weight:600;margin-bottom:6px;">✍️ À toi de jouer</div>
+                  <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;">${m.exercise}</div>
+                  <textarea id="exercise-${m.id}" placeholder="Écris ton prompt ici..." style="width:100%;min-height:60px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:8px;font-size:12px;color:var(--text);font-family:inherit;resize:vertical;box-sizing:border-box;"></textarea>
+                  <div id="exercise-feedback-${m.id}" style="margin-top:8px;"></div>
+                  <button onclick="evaluateExercise('${m.id}', '${(m.skill || m.title || '').replace(/'/g, "\\'")}')" style="margin-top:8px;background:linear-gradient(135deg,#10B981,#059669);color:white;border:none;border-radius:6px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;">Valider mon exercice</button>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `).join('');
+  } catch (e) {
+    console.error('renderLearning error:', e);
+    contentEl.innerHTML = '<div style="color:#EF4444;text-align:center;padding:20px;font-size:13px;">Erreur de chargement du parcours.</div>';
+  }
+}
+
+async function completeModule(moduleId) {
+  try {
+    const jwt    = localStorage.getItem('dyna_jwt');
+    const base   = API.base;
+    const userId = USER?.id || 1;
+    await fetch(base + '/v1/learning/complete', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + jwt },
+      body:    JSON.stringify({ userId, moduleId }),
+    });
+    renderLearning();
+  } catch (e) {
+    console.error('completeModule error:', e);
+  }
+}
+
+// Copier un template de prompt
+function copyTemplate(moduleId) {
+  const el = document.getElementById('tpl-' + moduleId);
+  if (el) {
+    navigator.clipboard.writeText(el.textContent.trim());
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copié';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  }
+}
+
+// Évaluer la réponse à un exercice
+async function evaluateExercise(moduleId, skill) {
+  const textarea = document.getElementById('exercise-' + moduleId);
+  const feedbackEl = document.getElementById('exercise-feedback-' + moduleId);
+  if (!textarea || !textarea.value.trim()) {
+    if (feedbackEl) feedbackEl.innerHTML = '<div style="color:#F59E0B;font-size:11px;">Écris d\'abord un prompt.</div>';
+    return;
+  }
+
+  feedbackEl.innerHTML = '<div style="color:#9CA0A8;font-size:11px;">Évaluation en cours...</div>';
+
+  try {
+    const jwt  = localStorage.getItem('dyna_jwt');
+    const base = API.base;
+
+    let domain = 'professionnel';
+    try {
+      const pRes = await fetch(base + '/v1/profile/' + (USER?.id || 1), { headers: { 'Authorization': 'Bearer ' + jwt } });
+      const p = await pRes.json();
+      domain = p.domain_detected || 'professionnel';
+    } catch (e) {}
+
+    const res  = await fetch(base + '/v1/learning/evaluate', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + jwt },
+      body:    JSON.stringify({ skill, userPrompt: textarea.value, domain }),
+    });
+    const data = await res.json();
+
+    const color = data.success ? '#10B981' : '#F59E0B';
+    feedbackEl.innerHTML = `
+      <div style="padding:10px;background:rgba(${data.success ? '16,185,129' : '245,158,11'},0.08);border:1px solid rgba(${data.success ? '16,185,129' : '245,158,11'},0.2);border-radius:6px;">
+        <div style="font-size:11px;color:${color};font-weight:600;margin-bottom:4px;">
+          ${data.success ? '✓ Bien joué !' : '💡 Presque !'} ${data.score ? '(' + data.score + '/10)' : ''}
+        </div>
+        <div style="font-size:11px;color:var(--text-dim);line-height:1.5;">${data.feedback || ''}</div>
+        ${data.improved ? `<div style="margin-top:6px;font-size:10px;color:#10B981;font-family:monospace;background:rgba(16,185,129,0.06);padding:6px;border-radius:4px;">💡 ${data.improved}</div>` : ''}
+      </div>
+    `;
+
+    // Mémoriser le meilleur score d'exercice pour le badge "Excellent élève"
+    if (data.score && data.score > _learningData.bestExerciseScore) {
+      _learningData.bestExerciseScore = data.score;
+      refreshBadges();
+    }
+
+    if (data.success) {
+      setTimeout(() => completeModule(moduleId), 2000);
+    }
+  } catch (e) {
+    feedbackEl.innerHTML = '<div style="color:#EF4444;font-size:11px;">Erreur d\'évaluation.</div>';
+  }
+}
+
+document.querySelectorAll('.u-nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.u-nav-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.u-page').forEach(p => p.style.display = 'none');
+    item.classList.add('active');
+    const tab = item.dataset.tab;
+    const page = document.getElementById('u-' + tab);
+    if (page) page.style.display = 'block';
+    const titles = { progression: 'Progression', requests: 'Mes requêtes', badges: 'Badges', team: 'Mon Équipe', formation: 'Formation', library: 'Bibliothèque' };
+    const titleEl = document.getElementById('u-page-title');
+    if (titleEl) titleEl.textContent = titles[tab] || tab;
+    if (tab === 'library') loadLibrary(false);
+    if (tab === 'team') renderTeamPage();
+    if (tab === 'formation') renderLearning();
+  });
+});
+</script>
+</body>
+</html>
