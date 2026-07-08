@@ -22,8 +22,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 body{
   display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%,rgba(201,205,211,0.06) 0%,transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 120%,rgba(139,92,246,0.04) 0%,transparent 50%);
+    radial-gradient(ellipse 80% 50% at 50% -20%,rgba(109,94,252,0.06) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 120%,rgba(109,94,252,0.04) 0%,transparent 50%);
 }
 
 /* ── Logo ── */
@@ -36,7 +36,7 @@ body{
   font-family:var(--font-display);font-size:42px;font-weight:700;letter-spacing:6px;line-height:1;
   background:
     linear-gradient(100deg,transparent 30%,rgba(255,255,255,0.9) 45%,rgba(255,255,255,0.95) 50%,transparent 65%),
-    linear-gradient(160deg,#FFFFFF 0%,#E2E5E9 8%,#9398A0 20%,#6B7178 32%,#F4F6F8 44%,#B5B9C0 56%,#7D828A 68%,#EEF0F2 80%,#8A9099 92%,#D8DCE1 100%);
+    linear-gradient(160deg,#FFFFFF 0%,#E2E5E9 8%,#9AA0B8 20%,#5E6584 32%,#F4F6F8 44%,#B5B9C0 56%,#7D828A 68%,#EEF0F2 80%,#8A9099 92%,#D8DCE1 100%);
   background-size:220% 100%,100% 100%;
   background-position:-150% 0,0 0;
   background-repeat:no-repeat;
@@ -49,7 +49,7 @@ body{
 /* ── Card ── */
 .card{
   width:100%;max-width:420px;
-  background:linear-gradient(145deg,#111113,#0D0D0F);
+  background:linear-gradient(145deg,#141829,#141829);
   border:1px solid rgba(255,255,255,0.1);border-radius:20px;
   padding:40px 36px;box-shadow:0 32px 80px rgba(0,0,0,0.7);
 }
@@ -58,7 +58,7 @@ body{
 /* ── Tabs ── */
 .tabs{display:flex;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px;margin-bottom:28px;gap:3px;}
 .tab{flex:1;padding:8px;text-align:center;font-size:12px;font-weight:500;color:var(--text-dim);cursor:pointer;border-radius:6px;transition:all 0.15s;}
-.tab.active{background:linear-gradient(135deg,#C9CDD3 0%,#9398A0 100%);color:#08080A;font-weight:700;}
+.tab.active{background:linear-gradient(135deg,#6D5EFC 0%,#9AA0B8 100%);color:#0A0D18;font-weight:700;}
 
 /* ── Form ── */
 .form{display:none;}
@@ -70,20 +70,20 @@ body{
   border-radius:8px;padding:11px 13px;font-size:13px;color:var(--text);font-family:var(--font-body);
   outline:none;transition:all 0.15s ease;
 }
-.input:focus{border-color:rgba(201,205,211,0.4);box-shadow:0 0 0 3px rgba(201,205,211,0.08);}
+.input:focus{border-color:rgba(109,94,252,0.4);box-shadow:0 0 0 3px rgba(109,94,252,0.08);}
 .input::placeholder{color:var(--text-dim);}
-.input option{background:#111113;}
+.input option{background:#141829;}
 
 /* ── Error / Success ── */
 .msg{display:none;align-items:center;gap:7px;font-size:12px;border-radius:7px;padding:9px 12px;margin-bottom:16px;}
 .msg.show{display:flex;}
-.msg.error{color:var(--red);background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);}
-.msg.success{color:var(--green);background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);}
+.msg.error{color:var(--red);background:rgba(247,100,100,0.08);border:1px solid rgba(247,100,100,0.25);}
+.msg.success{color:var(--green);background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.25);}
 
 /* ── Submit ── */
 .btn{
-  width:100%;background:linear-gradient(135deg,#C9CDD3 0%,#9398A0 100%);
-  color:#08080A;border:none;border-radius:8px;padding:12px;
+  width:100%;background:linear-gradient(135deg,#6D5EFC 0%,#9AA0B8 100%);
+  color:#0A0D18;border:none;border-radius:8px;padding:12px;
   font-size:13px;font-weight:700;font-family:var(--font-body);cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:8px;
   transition:all 0.15s ease;box-shadow:0 1px 0 rgba(255,255,255,0.3) inset,0 2px 8px rgba(0,0,0,0.4);
@@ -130,7 +130,7 @@ body{
       <span class="spinner" id="login-spinner"></span>
       <span id="login-btn-text">Se connecter</span>
     </button>
-    <div style="margin-top:12px;font-size:11px;color:#6E7178;text-align:center;line-height:1.5;">
+    <div style="margin-top:12px;font-size:11px;color:#5E6584;text-align:center;line-height:1.5;">
       ⚠️ Utilisez ce dashboard dans le même navigateur Chrome où l'extension Knowstell est installée pour que la synchronisation fonctionne.
     </div>
   </div>

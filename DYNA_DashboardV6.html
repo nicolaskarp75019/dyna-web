@@ -22,10 +22,10 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
-  background:#080809;
+  background:#070A14;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(201,205,211,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 120%, rgba(139,92,246,0.04) 0%, transparent 50%);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(109,94,252,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 120%, rgba(109,94,252,0.04) 0%, transparent 50%);
   color:var(--text);font-family:var(--font-body);min-height:100vh;
 }
 #app-shell{display:none;min-height:100vh;}
@@ -47,7 +47,7 @@ body{
     linear-gradient(100deg,
       transparent 30%, rgba(255,255,255,0.9) 45%, rgba(255,255,255,0.95) 50%, transparent 65%),
     linear-gradient(160deg,
-      #FFFFFF 0%, #E2E5E9 8%, #9398A0 20%, #6B7178 32%,
+      #FFFFFF 0%, #E2E5E9 8%, #9AA0B8 20%, #5E6584 32%,
       #F4F6F8 44%, #B5B9C0 56%, #7D828A 68%, #EEF0F2 80%,
       #8A9099 92%, #D8DCE1 100%);
   background-size:220% 100%, 100% 100%;
@@ -58,7 +58,7 @@ body{
     drop-shadow(0 1px 0 rgba(255,255,255,0.5))
     drop-shadow(0 2px 2px rgba(0,0,0,0.55))
     drop-shadow(0 4px 10px rgba(0,0,0,0.4))
-    drop-shadow(0 0 20px rgba(201,205,211,0.15));
+    drop-shadow(0 0 20px rgba(109,94,252,0.15));
   animation:chromeShine 5s ease-in-out infinite;
   animation-delay:1s;
 }
@@ -67,7 +67,7 @@ body{
 .nav-section{font-size:10px;color:var(--text-dim);letter-spacing:1.5px;text-transform:uppercase;padding:10px 12px 5px;font-weight:500;}
 .nav-item{display:flex;align-items:center;gap:10px;padding:8px 12px;font-size:13px;color:var(--text-mid);cursor:pointer;border-left:2px solid transparent;border-radius:6px;margin:1px 0;transition:all 0.15s cubic-bezier(0.4,0,0.2,1);}
 .nav-item:hover{color:var(--text);background:rgba(255,255,255,0.04);}
-.nav-item.active{color:var(--cyan);border-left-color:var(--cyan);background:rgba(201,205,211,0.08);}
+.nav-item.active{color:var(--cyan);border-left-color:var(--cyan);background:rgba(109,94,252,0.08);}
 .nav-icon{font-size:14px;width:18px;text-align:center;}
 .sidebar-footer{padding:14px 20px;border-top:1px solid rgba(255,255,255,0.06);}
 .company-badge{display:flex;align-items:center;gap:10px;}
@@ -77,12 +77,12 @@ body{
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
 .topbar{height:52px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(8,8,9,0.8);backdrop-filter:blur(16px);flex-shrink:0;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 rgba(255,255,255,0.04);}
 .topbar-title{font-size:13px;color:var(--text-dim);font-weight:500;}
-.topbar-title span{background:linear-gradient(135deg,#F4F6F8 0%,#C9CDD3 50%,#9398A0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;}
+.topbar-title span{background:linear-gradient(135deg,#F4F6F8 0%,#6D5EFC 50%,#9AA0B8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;}
 .topbar-right{display:flex;align-items:center;gap:12px;}
 .period-selector{display:flex;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;}
 .period-btn{padding:5px 11px;font-size:12px;color:var(--text-dim);cursor:pointer;border:none;background:transparent;font-family:var(--font-body);transition:all 0.15s ease;}
-.period-btn.active{background:linear-gradient(135deg,#C9CDD3 0%,#9398A0 100%);color:#08080A;font-weight:600;}
-.live-badge{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--green);background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:20px;padding:4px 10px;}
+.period-btn.active{background:linear-gradient(135deg,#6D5EFC 0%,#9AA0B8 100%);color:#0A0D18;font-weight:600;}
+.live-badge{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--green);background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.25);border-radius:20px;padding:4px 10px;}
 .live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
 .live-dot.on{animation:blink 1.5s infinite;}
@@ -94,7 +94,7 @@ body{
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
-.kpi-card{background:linear-gradient(135deg,#111113 0%,#0E0E10 100%);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,0.05) inset,0 4px 24px rgba(0,0,0,0.4),0 1px 2px rgba(0,0,0,0.5);transition:all 0.2s ease;}
+.kpi-card{background:linear-gradient(135deg,#141829 0%,#0E0E10 100%);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden;box-shadow:0 1px 0 rgba(255,255,255,0.05) inset,0 4px 24px rgba(0,0,0,0.4),0 1px 2px rgba(0,0,0,0.5);transition:all 0.2s ease;}
 .kpi-card:hover{transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,0.05) inset,0 8px 32px rgba(0,0,0,0.5);}
 .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
 .kpi-card.cyan::before{background:var(--cyan);}
@@ -103,14 +103,14 @@ body{
 .kpi-card.purple::before{background:var(--purple);}
 .kpi-card.red::before{background:var(--red);}
 .kpi-label{font-size:10px;color:var(--text-dim);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:8px;font-weight:500;}
-.kpi-info{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:#6E7178;font-size:9px;font-weight:700;cursor:pointer;margin-left:5px;vertical-align:middle;transition:all 0.15s;flex-shrink:0;}
-.kpi-info:hover{background:rgba(201,205,211,0.15);color:#C9CDD3;}
+.kpi-info{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:#5E6584;font-size:9px;font-weight:700;cursor:pointer;margin-left:5px;vertical-align:middle;transition:all 0.15s;flex-shrink:0;}
+.kpi-info:hover{background:rgba(109,94,252,0.15);color:#6D5EFC;}
 .kpi-value{font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1;margin-bottom:6px;letter-spacing:-0.03em;}
-.kpi-card.cyan .kpi-value{color:var(--cyan);text-shadow:0 0 20px rgba(201,205,211,0.3);}
-.kpi-card.green .kpi-value{color:var(--green);text-shadow:0 0 20px rgba(16,185,129,0.3);}
-.kpi-card.orange .kpi-value{color:var(--orange);text-shadow:0 0 20px rgba(245,158,11,0.3);}
-.kpi-card.purple .kpi-value{color:var(--purple);text-shadow:0 0 20px rgba(139,92,246,0.3);}
-.kpi-card.red .kpi-value{color:var(--red);text-shadow:0 0 20px rgba(239,68,68,0.3);}
+.kpi-card.cyan .kpi-value{color:var(--cyan);text-shadow:0 0 20px rgba(109,94,252,0.3);}
+.kpi-card.green .kpi-value{color:var(--green);text-shadow:0 0 20px rgba(52,211,153,0.3);}
+.kpi-card.orange .kpi-value{color:var(--orange);text-shadow:0 0 20px rgba(245,165,36,0.3);}
+.kpi-card.purple .kpi-value{color:var(--purple);text-shadow:0 0 20px rgba(109,94,252,0.3);}
+.kpi-card.red .kpi-value{color:var(--red);text-shadow:0 0 20px rgba(247,100,100,0.3);}
 @keyframes countUp{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 .kpi-value.animate{animation:countUp 0.3s ease forwards;}
 .kpi-delta{font-size:12px;color:var(--text-dim);}
@@ -119,10 +119,10 @@ body{
 .grid-2{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-bottom:20px;}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px;}
 .grid-full{margin-bottom:20px;}
-.card{background:linear-gradient(145deg,#111113 0%,#0D0D0F 100%);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:18px;box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 8px 32px rgba(0,0,0,0.35);}
+.card{background:linear-gradient(145deg,#141829 0%,#141829 100%);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:18px;box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 8px 32px rgba(0,0,0,0.35);}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06);}
 .card-title{font-size:13px;font-weight:600;letter-spacing:-0.02em;}
-.card-tag{font-size:11px;padding:3px 8px;border-radius:4px;background:var(--cyan-dim);color:var(--cyan);border:1px solid rgba(201,205,211,0.2);}
+.card-tag{font-size:11px;padding:3px 8px;border-radius:4px;background:var(--cyan-dim);color:var(--cyan);border:1px solid rgba(109,94,252,0.2);}
 .chart-wrap{position:relative;height:190px;}
 .chart-wrap-sm{position:relative;height:155px;}
 .cat-list{display:flex;flex-direction:column;gap:10px;}
@@ -139,9 +139,9 @@ body{
 .score-val{font-size:12px;font-weight:600;width:32px;text-align:right;flex-shrink:0;}
 .alert-list{display:flex;flex-direction:column;gap:8px;}
 .alert-item{display:flex;align-items:flex-start;gap:10px;padding:9px 11px;border-radius:7px;font-size:12px;border:1px solid;}
-.alert-item.warn{background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2);}
-.alert-item.info{background:rgba(201,205,211,0.06);border-color:rgba(201,205,211,0.2);}
-.alert-item.good{background:rgba(16,185,129,0.06);border-color:rgba(16,185,129,0.2);}
+.alert-item.warn{background:rgba(245,165,36,0.06);border-color:rgba(245,165,36,0.2);}
+.alert-item.info{background:rgba(109,94,252,0.06);border-color:rgba(109,94,252,0.2);}
+.alert-item.good{background:rgba(52,211,153,0.06);border-color:rgba(52,211,153,0.2);}
 .alert-icon{font-size:13px;flex-shrink:0;margin-top:1px;}
 .alert-text{line-height:1.4;flex:1;}
 .alert-text strong{display:block;margin-bottom:1px;}
@@ -156,10 +156,10 @@ body{
 .req-dept{color:var(--text-dim);}
 .req-cost{color:var(--text-mid);font-variant-numeric:tabular-nums;}
 .status-badge{display:inline-flex;align-items:center;gap:3px;font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;white-space:nowrap;}
-.s-ok{background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.25);box-shadow:0 0 8px rgba(16,185,129,0.1);}
-.s-blocked{background:rgba(239,68,68,0.1);color:var(--red);border:1px solid rgba(239,68,68,0.25);}
-.s-coached{background:rgba(139,92,246,0.1);color:var(--purple);border:1px solid rgba(139,92,246,0.25);}
-.s-flagged{background:rgba(245,158,11,0.1);color:var(--orange);border:1px solid rgba(245,158,11,0.25);}
+.s-ok{background:rgba(52,211,153,0.1);color:var(--green);border:1px solid rgba(52,211,153,0.25);box-shadow:0 0 8px rgba(52,211,153,0.1);}
+.s-blocked{background:rgba(247,100,100,0.1);color:var(--red);border:1px solid rgba(247,100,100,0.25);}
+.s-coached{background:rgba(109,94,252,0.1);color:var(--purple);border:1px solid rgba(109,94,252,0.25);}
+.s-flagged{background:rgba(245,165,36,0.1);color:var(--orange);border:1px solid rgba(245,165,36,0.25);}
 .section-title{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.04em;font-weight:500;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .section-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.06);}
 .prompt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
@@ -172,14 +172,14 @@ body{
 .prompt-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;}
 .prompt-uses{font-size:11px;color:var(--text-dim);}
 .prompt-score{font-size:11px;color:var(--green);font-weight:600;}
-.copy-btn{font-size:11px;color:#15161A;background:linear-gradient(165deg,#F4F6F8 0%,#C9CDD3 50%,#9398A0 100%);border:1px solid rgba(201,205,211,0.4);border-radius:4px;padding:3px 8px;cursor:pointer;font-family:var(--font-body);font-weight:600;transition:filter 0.15s;}
+.copy-btn{font-size:11px;color:#15161A;background:linear-gradient(165deg,#F4F6F8 0%,#6D5EFC 50%,#9AA0B8 100%);border:1px solid rgba(109,94,252,0.4);border-radius:4px;padding:3px 8px;cursor:pointer;font-family:var(--font-body);font-weight:600;transition:filter 0.15s;}
 .copy-btn:hover{filter:brightness(1.08);}
 .rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.rule-card{background:linear-gradient(145deg,#111113 0%,#0D0D0F 100%);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px;box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 4px 16px rgba(0,0,0,0.3);}
+.rule-card{background:linear-gradient(145deg,#141829 0%,#141829 100%);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px;box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 4px 16px rgba(0,0,0,0.3);}
 .rule-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
 .rule-title{font-size:13px;font-weight:600;}
 .toggle{width:36px;height:20px;border-radius:10px;position:relative;cursor:pointer;border:none;flex-shrink:0;transition:all 0.15s ease;}
-.toggle.on{background:linear-gradient(135deg,#C9CDD3,#9398A0);box-shadow:0 0 12px rgba(201,205,211,0.3);}
+.toggle.on{background:linear-gradient(135deg,#6D5EFC,#9AA0B8);box-shadow:0 0 12px rgba(109,94,252,0.3);}
 .toggle.off{background:var(--border);}
 .toggle::after{content:'';position:absolute;width:14px;height:14px;background:white;border-radius:50%;top:3px;transition:left 0.15s;}
 .toggle.on::after{left:19px;}
@@ -188,7 +188,7 @@ body{
 .rule-tag{font-size:11px;padding:3px 8px;border-radius:4px;background:var(--bg3);color:var(--text-mid);border:1px solid var(--border);}
 .rule-card-clickable{cursor:pointer;transition:border-color 0.15s;}
 .rule-card-clickable:hover{border-color:var(--cyan);}
-.rule-tag-more{color:var(--silver-mid);border-color:rgba(201,205,211,0.3);font-weight:600;}
+.rule-tag-more{color:var(--silver-mid);border-color:rgba(109,94,252,0.3);font-weight:600;}
 .rule-hint{font-size:12px;color:var(--text-dim);margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
 .rule-card-clickable:hover .rule-hint{color:var(--silver-mid);}
 .rule-keyword-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
@@ -197,7 +197,7 @@ body{
 .rule-example-item{font-size:12px;color:var(--text-mid);font-style:italic;padding:8px 10px;background:var(--bg3);border-radius:6px;}
 .feed-item{display:flex;align-items:center;gap:12px;padding:8px 6px;border-bottom:1px solid var(--border);font-size:12px;border-radius:6px;}
 .feed-item-clickable{cursor:pointer;transition:background 0.15s;}
-.feed-item-clickable:hover{background:rgba(201,205,211,0.05);}
+.feed-item-clickable:hover{background:rgba(109,94,252,0.05);}
 .feed-arrow{color:var(--text-dim);font-size:13px;flex-shrink:0;}
 .feed-item-clickable:hover .feed-arrow{color:var(--silver-mid);}
 .feed-item:last-child{border-bottom:none;}
@@ -206,7 +206,7 @@ body{
 .feed-dept{color:var(--text-dim);width:90px;flex-shrink:0;font-size:12px;}
 .feed-counter{font-size:12px;color:var(--cyan);text-align:right;margin-top:8px;}
 .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
-.team-card{background:linear-gradient(145deg,#111113 0%,#0D0D0F 100%);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:16px;box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 4px 16px rgba(0,0,0,0.3);transition:all 0.2s ease;}
+.team-card{background:linear-gradient(145deg,#141829 0%,#141829 100%);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:16px;box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 4px 16px rgba(0,0,0,0.3);transition:all 0.2s ease;}
 .team-card:hover{transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,0.04) inset,0 8px 32px rgba(0,0,0,0.45);}
 .team-name{font-size:14px;font-weight:600;margin-bottom:4px;}
 .team-sub{font-size:12px;color:var(--text-dim);margin-bottom:12px;}
@@ -219,7 +219,7 @@ body{
 /* MODAL */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:500;display:none;align-items:center;justify-content:center;}
 .overlay.open{display:flex;}
-.modal{background:linear-gradient(145deg,#131315 0%,#0F0F11 100%);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;width:560px;max-width:92vw;max-height:82vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.7);animation:modalIn 0.2s ease;}
+.modal{background:linear-gradient(145deg,#131315 0%,#10141F 100%);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;width:560px;max-width:92vw;max-height:82vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.7);animation:modalIn 0.2s ease;}
 .modal-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px;}
 .modal-ttl{font-size:14px;font-weight:600;line-height:1.4;color:var(--text);flex:1;letter-spacing:-0.02em;}
 .modal-x{background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;line-height:1;padding:0;flex-shrink:0;transition:color 0.15s ease;}
@@ -232,15 +232,15 @@ body{
 .mbox.purple{border-left:3px solid var(--purple);color:var(--text);}
 .mbox.green{border-left:3px solid var(--green);color:var(--text);}
 .mbox.cyan{border-left:3px solid var(--cyan);color:var(--text);}
-.msaving{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--green);background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:4px;padding:4px 10px;margin-top:4px;}
+.msaving{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--green);background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.25);border-radius:4px;padding:4px 10px;margin-top:4px;}
 /* TOAST */
 .toast{position:fixed;bottom:20px;right:20px;background:var(--bg2);border:1px solid var(--cyan);border-radius:8px;padding:10px 16px;font-size:12px;color:var(--cyan);z-index:1000;opacity:0;pointer-events:none;transition:opacity 0.2s;}
 .toast.show{opacity:1;}
 
 /* LOGIN SCREEN */
-#login-screen{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;position:relative;overflow-y:auto;padding:20px 0;background:#080809;background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(201,205,211,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 120%,rgba(139,92,246,0.04) 0%,transparent 50%);}
-#login-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%, rgba(201,205,211,0.06), transparent 45%), radial-gradient(circle at 80% 80%, rgba(139,92,246,0.05), transparent 40%);pointer-events:none;}
-.login-card{position:relative;width:380px;max-width:90vw;padding:40px 36px;background:linear-gradient(145deg,#111113,#0D0D0F);border:1px solid rgba(255,255,255,0.1);border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,0.6);}
+#login-screen{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;position:relative;overflow-y:auto;padding:20px 0;background:#070A14;background-image:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(109,94,252,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 120%,rgba(109,94,252,0.04) 0%,transparent 50%);}
+#login-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%, rgba(109,94,252,0.06), transparent 45%), radial-gradient(circle at 80% 80%, rgba(109,94,252,0.05), transparent 40%);pointer-events:none;}
+.login-card{position:relative;width:380px;max-width:90vw;padding:40px 36px;background:linear-gradient(145deg,#141829,#141829);border:1px solid rgba(255,255,255,0.1);border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,0.6);}
 .login-logo{margin-bottom:32px;text-align:center;}
 .login-logo .logo-text{font-size:42px;}
 .login-logo .logo-sub{font-size:11px;margin-top:6px;letter-spacing:3px;}
@@ -249,11 +249,11 @@ body{
 .login-field{margin-bottom:18px;}
 .login-label{display:block;font-size:10px;color:var(--text-mid);text-transform:uppercase;letter-spacing:0.04em;font-weight:500;margin-bottom:7px;}
 .login-input{width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:11px 13px;font-size:13px;color:var(--text);font-family:var(--font-body);transition:all 0.15s ease;}
-.login-input:focus{outline:none;border-color:rgba(201,205,211,0.4);box-shadow:0 0 0 3px rgba(201,205,211,0.08);}
+.login-input:focus{outline:none;border-color:rgba(109,94,252,0.4);box-shadow:0 0 0 3px rgba(109,94,252,0.08);}
 .login-input::placeholder{color:var(--text-dim);}
-.login-error{display:none;align-items:center;gap:7px;font-size:12px;color:var(--red);background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:7px;padding:9px 12px;margin-bottom:18px;}
+.login-error{display:none;align-items:center;gap:7px;font-size:12px;color:var(--red);background:rgba(247,100,100,0.08);border:1px solid rgba(247,100,100,0.25);border-radius:7px;padding:9px 12px;margin-bottom:18px;}
 .login-error.show{display:flex;}
-.login-btn{width:100%;background:linear-gradient(135deg,#C9CDD3 0%,#9398A0 100%);color:#08080A;border:none;border-radius:8px;padding:12px;font-size:13px;font-weight:700;font-family:var(--font-body);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.15s ease;box-shadow:0 1px 0 rgba(255,255,255,0.3) inset,0 2px 8px rgba(0,0,0,0.4);}
+.login-btn{width:100%;background:linear-gradient(135deg,#6D5EFC 0%,#9AA0B8 100%);color:#0A0D18;border:none;border-radius:8px;padding:12px;font-size:13px;font-weight:700;font-family:var(--font-body);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.15s ease;box-shadow:0 1px 0 rgba(255,255,255,0.3) inset,0 2px 8px rgba(0,0,0,0.4);}
 .login-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
 .login-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
 .login-spinner{width:14px;height:14px;border:2px solid rgba(6,20,26,0.3);border-top-color:#06141A;border-radius:50%;display:none;animation:spin 0.7s linear infinite;}
@@ -372,7 +372,7 @@ body{
       <div class="company-avatar" id="company-avatar">D</div>
       <div><div class="company-name" id="company-name">Knowstell Pilote</div><div class="company-plan" id="company-plan">Phase de test</div></div>
     </div>
-    <button onclick="doLogout()" style="margin-top:10px;width:100%;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#EF4444;border-radius:6px;padding:7px;font-size:12px;cursor:pointer;font-family:var(--font-body);transition:all 0.15s;" onmouseover="this.style.background='rgba(239,68,68,0.12)'" onmouseout="this.style.background='rgba(239,68,68,0.08)'">Se déconnecter</button>
+    <button onclick="doLogout()" style="margin-top:10px;width:100%;background:rgba(247,100,100,0.08);border:1px solid rgba(247,100,100,0.2);color:#F76464;border-radius:6px;padding:7px;font-size:12px;cursor:pointer;font-family:var(--font-body);transition:all 0.15s;" onmouseover="this.style.background='rgba(247,100,100,0.12)'" onmouseout="this.style.background='rgba(247,100,100,0.08)'">Se déconnecter</button>
   </div>
 </aside>
 
@@ -397,8 +397,8 @@ body{
         <button class="period-btn" data-days="90">90j</button>
       </div>
       <div class="live-badge"><div class="live-dot on"></div> En direct</div>
-      <div id="backend-status" style="display:flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:12px;background:rgba(110,113,120,0.15);border:1px solid rgba(110,113,120,0.3);color:#6E7178;">
-        <span id="backend-status-dot" style="width:6px;height:6px;border-radius:50%;background:#6E7178;display:inline-block;flex-shrink:0;"></span>
+      <div id="backend-status" style="display:flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:12px;background:rgba(110,113,120,0.15);border:1px solid rgba(110,113,120,0.3);color:#5E6584;">
+        <span id="backend-status-dot" style="width:6px;height:6px;border-radius:50%;background:#5E6584;display:inline-block;flex-shrink:0;"></span>
         <span id="backend-status-text">Connexion…</span>
       </div>
       <button onclick="exportCSV()" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text-mid);border-radius:6px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:var(--font-body);">↓ Export CSV</button>
@@ -418,7 +418,7 @@ body{
       <div style="display:flex;align-items:center;justify-content:space-between;">
         <div>
           <div class="kpi-label">🌱 CO₂ consommé ce mois<span class="kpi-info" onclick="openKpiInfo('co2')">?</span></div>
-          <div class="kpi-value" id="kpi-co2" style="color:#10B981;">—</div>
+          <div class="kpi-value" id="kpi-co2" style="color:#34D399;">—</div>
           <div class="kpi-delta" id="kpi-co2-delta">vs utilisation sans Knowstell</div>
         </div>
         <div style="text-align:right;">
@@ -431,12 +431,12 @@ body{
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
         <div>
           <div class="kpi-label">🔒 Données sensibles détectées</div>
-          <div class="kpi-value" id="kpi-sensitive" style="color:#EF4444;">—</div>
+          <div class="kpi-value" id="kpi-sensitive" style="color:#F76464;">—</div>
           <div class="kpi-delta">alertes affichées sur la période</div>
         </div>
         <div>
           <div class="kpi-label">🔍 Questions factuelles détournées</div>
-          <div class="kpi-value" id="kpi-factual" style="color:#F59E0B;">—</div>
+          <div class="kpi-value" id="kpi-factual" style="color:#F5A524;">—</div>
           <div class="kpi-delta">redirigées vers une recherche</div>
         </div>
       </div>
@@ -469,15 +469,15 @@ body{
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:12px;">
         <div style="text-align:center;">
-          <div style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#10B981;" id="ai-avg-score">—</div>
+          <div style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#34D399;" id="ai-avg-score">—</div>
           <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-top:4px;">Score moyen /10</div>
         </div>
         <div style="text-align:center;">
-          <div style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#10B981;" id="ai-rel-pct">—</div>
+          <div style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#34D399;" id="ai-rel-pct">—</div>
           <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-top:4px;">Prompts IA pertinents</div>
         </div>
         <div style="text-align:center;">
-          <div style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#F59E0B;" id="ai-not-pct">—</div>
+          <div style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#F5A524;" id="ai-not-pct">—</div>
           <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-top:4px;">Pourraient éviter l'IA</div>
         </div>
       </div>
@@ -505,34 +505,34 @@ body{
         <div class="chart-wrap"><canvas id="chartRealtime"></canvas></div>
       </div>
     </div>
-    <div class="card" style="margin-top:16px;border-color:rgba(239,68,68,0.2);">
+    <div class="card" style="margin-top:16px;border-color:rgba(247,100,100,0.2);">
       <div class="card-header">
-        <div class="card-title" style="color:#EF4444;">🔴 Alertes données sensibles</div>
+        <div class="card-title" style="color:#F76464;">🔴 Alertes données sensibles</div>
         <div id="sensitive-count" style="font-size:12px;color:var(--text-dim);">0 alerte ce mois</div>
       </div>
       <div id="sensitive-list">
         <div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Aucune alerte pour le moment. Knowstell surveille activement les données sensibles.</div>
       </div>
     </div>
-    <div class="card" style="margin-top:16px;border-color:rgba(239,68,68,0.2);">
+    <div class="card" style="margin-top:16px;border-color:rgba(247,100,100,0.2);">
       <div class="card-header">
-        <div class="card-title" style="color:#EF4444;">🔒 Conformité données sensibles</div>
+        <div class="card-title" style="color:#F76464;">🔒 Conformité données sensibles</div>
         <div style="font-size:11px;color:var(--text-dim);">Comportement face aux alertes RGPD</div>
       </div>
 
       <!-- KPIs conformité -->
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;">
-        <div style="text-align:center;padding:14px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:10px;">
-          <div id="compliance-total" style="font-size:28px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#EF4444;">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:4px;">Alertes déclenchées</div>
+        <div style="text-align:center;padding:14px;background:rgba(247,100,100,0.06);border:1px solid rgba(247,100,100,0.15);border-radius:10px;">
+          <div id="compliance-total" style="font-size:28px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#F76464;">—</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:4px;">Alertes déclenchées</div>
         </div>
-        <div style="text-align:center;padding:14px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:10px;">
-          <div id="compliance-cancelled" style="font-size:28px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#10B981;">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:4px;">Annulées (vertueux)</div>
+        <div style="text-align:center;padding:14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:10px;">
+          <div id="compliance-cancelled" style="font-size:28px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#34D399;">—</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:4px;">Annulées (vertueux)</div>
         </div>
-        <div style="text-align:center;padding:14px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:10px;">
-          <div id="compliance-confirmed" style="font-size:28px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#F59E0B;">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:4px;">Envoyées malgré l'alerte</div>
+        <div style="text-align:center;padding:14px;background:rgba(245,165,36,0.06);border:1px solid rgba(245,165,36,0.15);border-radius:10px;">
+          <div id="compliance-confirmed" style="font-size:28px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#F5A524;">—</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:4px;">Envoyées malgré l'alerte</div>
         </div>
       </div>
 
@@ -540,16 +540,16 @@ body{
       <div style="margin-bottom:16px;">
         <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
           <span style="font-size:12px;color:var(--text-mid);">Taux de conformité<span class="kpi-info" onclick="openKpiInfo('compliance')">?</span></span>
-          <span id="compliance-rate" style="font-size:12px;font-weight:700;color:#10B981;">—</span>
+          <span id="compliance-rate" style="font-size:12px;font-weight:700;color:#34D399;">—</span>
         </div>
         <div style="background:rgba(255,255,255,0.06);border-radius:4px;height:8px;">
-          <div id="compliance-bar" style="height:8px;border-radius:4px;width:0%;background:linear-gradient(90deg,#10B981,#34D399);transition:width 0.5s;"></div>
+          <div id="compliance-bar" style="height:8px;border-radius:4px;width:0%;background:linear-gradient(90deg,#34D399,#34D399);transition:width 0.5s;"></div>
         </div>
       </div>
 
       <!-- Détail des cas à risque (confirmées) -->
       <div>
-        <div style="font-size:11px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">⚠️ Cas à risque (données envoyées malgré l'alerte)</div>
+        <div style="font-size:11px;color:#5E6584;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">⚠️ Cas à risque (données envoyées malgré l'alerte)</div>
         <div id="compliance-risk-list">
           <div style="color:var(--text-dim);font-size:12px;padding:12px 0;text-align:center;">Aucun cas à risque. Excellente conformité !</div>
         </div>
@@ -569,7 +569,7 @@ body{
           <option value="coached">Coachées</option>
         </select>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;background:rgba(201,205,211,0.06);border:1px solid rgba(201,205,211,0.2);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--text-mid);">
+      <div style="display:flex;align-items:center;gap:10px;background:rgba(109,94,252,0.06);border:1px solid rgba(109,94,252,0.2);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--text-mid);">
         <span style="font-size:16px;">🔒</span>
         <span><strong style="color:var(--cyan);">Privacy by Design</strong> — Les libellés affichés sont des catégories agrégées. Le contenu réel des requêtes n'est jamais accessible par l'admin. Conforme RGPD et droit du travail français.</span>
       </div>
@@ -590,21 +590,21 @@ body{
         <div style="font-size:12px;color:var(--text-dim);">Moyenne pondérée de toutes les équipes</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px;">
-        <div style="text-align:center;padding:14px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:10px;">
-          <div id="org-maturity-score" style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#8B5CF6;">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:4px;">Score global /100</div>
+        <div style="text-align:center;padding:14px;background:rgba(109,94,252,0.06);border:1px solid rgba(109,94,252,0.15);border-radius:10px;">
+          <div id="org-maturity-score" style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#6D5EFC;">—</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:4px;">Score global /100</div>
         </div>
         <div style="text-align:center;padding:14px;background:rgba(255,255,255,0.02);border-radius:10px;">
           <div id="org-maturity-level" style="font-size:22px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:var(--silver);">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:4px;">Niveau moyen</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:4px;">Niveau moyen</div>
         </div>
-        <div style="text-align:center;padding:14px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:10px;">
-          <div id="org-maturity-quality" style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#10B981;">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:4px;">Qualité prompts /40</div>
+        <div style="text-align:center;padding:14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:10px;">
+          <div id="org-maturity-quality" style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#34D399;">—</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:4px;">Qualité prompts /40</div>
         </div>
-        <div style="text-align:center;padding:14px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:10px;">
-          <div id="org-maturity-adoption" style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#F59E0B;">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:4px;">Adoption coaching /30</div>
+        <div style="text-align:center;padding:14px;background:rgba(245,165,36,0.06);border:1px solid rgba(245,165,36,0.15);border-radius:10px;">
+          <div id="org-maturity-adoption" style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#F5A524;">—</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:4px;">Adoption coaching /30</div>
         </div>
       </div>
     </div>
@@ -614,13 +614,13 @@ body{
         <div style="font-size:12px;color:var(--text-dim);">Gamification — badges & défis</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:8px;">
-        <div style="text-align:center;padding:14px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:10px;">
-          <div id="org-badges-unlocked" style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#8B5CF6;">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:4px;">🏅 Badges débloqués</div>
+        <div style="text-align:center;padding:14px;background:rgba(109,94,252,0.06);border:1px solid rgba(109,94,252,0.15);border-radius:10px;">
+          <div id="org-badges-unlocked" style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#6D5EFC;">—</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:4px;">🏅 Badges débloqués</div>
         </div>
-        <div style="text-align:center;padding:14px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:10px;">
-          <div id="org-challenges-completed" style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#10B981;">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:4px;">🎯 Défis complétés</div>
+        <div style="text-align:center;padding:14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:10px;">
+          <div id="org-challenges-completed" style="font-size:32px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#34D399;">—</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:4px;">🎯 Défis complétés</div>
         </div>
       </div>
     </div>
@@ -651,17 +651,17 @@ body{
         <div class="card-tag" id="maturity-ai-tag">—</div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
-        <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:14px 16px;">
+        <div style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.2);border-radius:8px;padding:14px 16px;">
           <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Score moyen de pertinence</div>
-          <div style="font-size:30px;font-weight:700;font-family:var(--font-display);color:#10B981;" id="maturity-ai-score">—</div>
+          <div style="font-size:30px;font-weight:700;font-family:var(--font-display);color:#34D399;" id="maturity-ai-score">—</div>
           <div style="font-size:12px;color:var(--text-mid);margin-top:6px;" id="maturity-ai-verdict">—</div>
         </div>
-        <div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:14px 16px;">
+        <div style="background:rgba(245,165,36,0.06);border:1px solid rgba(245,165,36,0.2);border-radius:8px;padding:14px 16px;">
           <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Alternatives suggérées</div>
           <div id="maturity-alternatives" style="display:flex;flex-direction:column;gap:5px;"></div>
         </div>
       </div>
-      <div style="font-size:12px;color:var(--text-mid);padding:10px 12px;background:rgba(201,205,211,0.05);border-radius:6px;" id="maturity-ai-insight">
+      <div style="font-size:12px;color:var(--text-mid);padding:10px 12px;background:rgba(109,94,252,0.05);border-radius:6px;" id="maturity-ai-insight">
         Données insuffisantes — utilisez Knowstell sur quelques jours pour voir l'analyse.
       </div>
     </div>
@@ -706,7 +706,7 @@ body{
         </div>
       </div>
       <div style="margin-top:14px;">
-        <button onclick="recalculateROI()" style="background:linear-gradient(135deg,#C9CDD3,#9398A0);color:#08080A;border:none;border-radius:8px;padding:9px 20px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-body);">Recalculer le ROI</button>
+        <button onclick="recalculateROI()" style="background:linear-gradient(135deg,#6D5EFC,#9AA0B8);color:#0A0D18;border:none;border-radius:8px;padding:9px 20px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-body);">Recalculer le ROI</button>
         <button onclick="saveROISettings()" style="margin-left:8px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--text-mid);border-radius:8px;padding:9px 20px;font-size:12px;cursor:pointer;font-family:var(--font-body);">Sauvegarder les paramètres</button>
       </div>
     </div>
@@ -725,16 +725,16 @@ body{
     <div class="card" style="margin-top:16px;">
       <div class="card-header"><div class="card-title">📈 Projection annuelle</div></div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;" id="roi-projection">
-        <div style="text-align:center;padding:16px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:10px;">
-          <div id="roi-proj-savings" style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#10B981;">—</div>
+        <div style="text-align:center;padding:16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:10px;">
+          <div id="roi-proj-savings" style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#34D399;">—</div>
           <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Économies annuelles estimées</div>
         </div>
-        <div style="text-align:center;padding:16px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:10px;">
-          <div id="roi-proj-cost" style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#EF4444;">—</div>
+        <div style="text-align:center;padding:16px;background:rgba(247,100,100,0.06);border:1px solid rgba(247,100,100,0.15);border-radius:10px;">
+          <div id="roi-proj-cost" style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#F76464;">—</div>
           <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Coût Knowstell annuel</div>
         </div>
-        <div style="text-align:center;padding:16px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:10px;">
-          <div id="roi-proj-ratio" style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#8B5CF6;">—</div>
+        <div style="text-align:center;padding:16px;background:rgba(109,94,252,0.06);border:1px solid rgba(109,94,252,0.15);border-radius:10px;">
+          <div id="roi-proj-ratio" style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#6D5EFC;">—</div>
           <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Ratio ROI (x fois le coût)</div>
         </div>
       </div>
@@ -793,7 +793,7 @@ body{
           </select>
         </div>
         <div style="display:flex;align-items:flex-end;">
-          <button onclick="createRule()" style="padding:9px 20px;background:linear-gradient(135deg,#fff 0%,#C9CDD3 100%);color:#0A0A0C;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;width:100%;">+ Créer la règle</button>
+          <button onclick="createRule()" style="padding:9px 20px;background:linear-gradient(135deg,#fff 0%,#6D5EFC 100%);color:#0A0D18;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;width:100%;">+ Créer la règle</button>
         </div>
       </div>
     </div>
@@ -801,14 +801,14 @@ body{
   <div class="page" id="page-my-space">
 
     <!-- Hero personnel -->
-    <div style="background:linear-gradient(135deg,#111315 0%,#0D0F11 100%);border:1px solid rgba(201,205,211,0.1);border-radius:16px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(201,205,211,0.04) 0%,transparent 70%);pointer-events:none;"></div>
+    <div style="background:linear-gradient(135deg,#111315 0%,#0D0F11 100%);border:1px solid rgba(109,94,252,0.1);border-radius:16px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(109,94,252,0.04) 0%,transparent 70%);pointer-events:none;"></div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
         <div>
-          <div style="font-size:11px;color:#6E7178;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Mon score cette semaine</div>
+          <div style="font-size:11px;color:#5E6584;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Mon score cette semaine</div>
           <div style="display:flex;align-items:baseline;gap:8px;">
             <div id="my-hero-score" style="font-size:42px;font-weight:700;font-family:var(--font-display);color:var(--silver);line-height:1;">—</div>
-            <div style="font-size:16px;color:#6E7178;">/10</div>
+            <div style="font-size:16px;color:#5E6584;">/10</div>
           </div>
         </div>
         <div id="my-hero-msg" style="max-width:280px;text-align:right;font-size:13px;color:var(--text-mid);line-height:1.5;font-style:italic;">Chargement...</div>
@@ -818,7 +818,7 @@ body{
       </div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:#4A5568;">
         <span>0</span>
-        <span style="color:#F59E0B;">Objectif 7/10</span>
+        <span style="color:#F5A524;">Objectif 7/10</span>
         <span>10</span>
       </div>
     </div>
@@ -869,7 +869,7 @@ body{
     <div class="card" style="margin-top:16px;">
       <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;">
         <div class="card-title">✦ Mon coaching personnalisé</div>
-        <button onclick="generateMyCoaching()" id="my-coaching-btn" style="background:linear-gradient(135deg,#C9CDD3,#9398A0);color:#08080A;border:none;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-body);">
+        <button onclick="generateMyCoaching()" id="my-coaching-btn" style="background:linear-gradient(135deg,#6D5EFC,#9AA0B8);color:#0A0D18;border:none;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-body);">
           Analyser ma progression
         </button>
       </div>
@@ -878,7 +878,7 @@ body{
 
     <!-- Lien dashboard complet -->
     <div style="text-align:center;margin-top:20px;">
-      <a href="DYNA_User_Dashboard.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:linear-gradient(135deg,#C9CDD3,#9398A0);color:#08080A;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;font-family:var(--font-body);">
+      <a href="DYNA_User_Dashboard.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:linear-gradient(135deg,#6D5EFC,#9AA0B8);color:#0A0D18;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;font-family:var(--font-body);">
         Voir mon espace complet →
       </a>
     </div>
@@ -896,8 +896,8 @@ body{
         <div style="font-size:12px;color:var(--text-dim);">Comptes actifs, invitations et accès au tableau de bord.</div>
       </div>
       <div style="display:flex;gap:10px;">
-        <button onclick="openInviteModal()" style="padding:8px 16px;background:rgba(201,205,211,0.08);border:1px solid rgba(201,205,211,0.2);color:var(--cyan);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-body);">+ Invitation</button>
-        <button onclick="openCreateUserModal()" style="padding:8px 16px;background:linear-gradient(135deg,#C9CDD3,#9398A0);color:#08080A;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-body);">+ Créer un compte</button>
+        <button onclick="openInviteModal()" style="padding:8px 16px;background:rgba(109,94,252,0.08);border:1px solid rgba(109,94,252,0.2);color:var(--cyan);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-body);">+ Invitation</button>
+        <button onclick="openCreateUserModal()" style="padding:8px 16px;background:linear-gradient(135deg,#6D5EFC,#9AA0B8);color:#0A0D18;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-body);">+ Créer un compte</button>
       </div>
     </div>
 
@@ -944,20 +944,20 @@ body{
 
   <!-- Modal: Invitation -->
   <div id="invite-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9000;align-items:center;justify-content:center;">
-    <div style="background:linear-gradient(145deg,#111113,#0D0D0F);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:32px;width:420px;max-width:90vw;">
+    <div style="background:linear-gradient(145deg,#141829,#141829);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:32px;width:420px;max-width:90vw;">
       <div style="font-size:16px;font-weight:600;margin-bottom:6px;">Générer un code d'invitation</div>
       <div style="font-size:12px;color:var(--text-dim);margin-bottom:24px;">Le destinataire pourra créer son compte avec ce code.</div>
       <label style="display:block;font-size:10px;color:var(--text-mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Email du destinataire (optionnel)</label>
       <input id="invite-email" type="email" placeholder="prenom@entreprise.com" style="width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;font-size:13px;color:var(--text);font-family:var(--font-body);outline:none;margin-bottom:20px;">
-      <div id="invite-result" style="display:none;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:14px;margin-bottom:16px;">
+      <div id="invite-result" style="display:none;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.25);border-radius:8px;padding:14px;margin-bottom:16px;">
         <div style="font-size:10px;color:var(--green);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Code généré</div>
         <div style="display:flex;align-items:center;gap:10px;">
           <span id="invite-code-display" style="font-size:20px;font-weight:700;letter-spacing:4px;font-family:'Courier New',monospace;color:var(--text);">—</span>
-          <button onclick="copyInviteCode()" style="padding:5px 12px;background:rgba(201,205,211,0.1);border:1px solid rgba(201,205,211,0.2);color:var(--cyan);border-radius:6px;font-size:12px;cursor:pointer;font-family:var(--font-body);">Copier</button>
+          <button onclick="copyInviteCode()" style="padding:5px 12px;background:rgba(109,94,252,0.1);border:1px solid rgba(109,94,252,0.2);color:var(--cyan);border-radius:6px;font-size:12px;cursor:pointer;font-family:var(--font-body);">Copier</button>
         </div>
       </div>
       <div style="display:flex;gap:10px;">
-        <button onclick="generateInvitation()" style="flex:1;padding:10px;background:linear-gradient(135deg,#C9CDD3,#9398A0);color:#08080A;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font-body);">Générer</button>
+        <button onclick="generateInvitation()" style="flex:1;padding:10px;background:linear-gradient(135deg,#6D5EFC,#9AA0B8);color:#0A0D18;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font-body);">Générer</button>
         <button onclick="document.getElementById('invite-modal').style.display='none'" style="padding:10px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--text-mid);border-radius:8px;font-size:13px;cursor:pointer;font-family:var(--font-body);">Fermer</button>
       </div>
     </div>
@@ -965,7 +965,7 @@ body{
 
   <!-- Modal: Créer / éditer utilisateur -->
   <div id="user-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9000;align-items:center;justify-content:center;">
-    <div style="background:linear-gradient(145deg,#111113,#0D0D0F);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:32px;width:440px;max-width:90vw;">
+    <div style="background:linear-gradient(145deg,#141829,#141829);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:32px;width:440px;max-width:90vw;">
       <div style="font-size:16px;font-weight:600;margin-bottom:24px;" id="user-modal-title">Créer un compte</div>
       <input type="hidden" id="user-modal-id">
       <label style="display:block;font-size:10px;color:var(--text-mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Prénom</label>
@@ -977,20 +977,20 @@ body{
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
         <div>
           <label style="display:block;font-size:10px;color:var(--text-mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Équipe</label>
-          <select id="um-team" style="width:100%;background:#111113;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;font-size:13px;color:var(--text);font-family:var(--font-body);outline:none;">
+          <select id="um-team" style="width:100%;background:#141829;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;font-size:13px;color:var(--text);font-family:var(--font-body);outline:none;">
             <option>Commerciaux</option><option>Consultants</option><option>Développeurs</option><option>Administratif</option><option>Direction</option>
           </select>
         </div>
         <div>
           <label style="display:block;font-size:10px;color:var(--text-mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Rôle</label>
-          <select id="um-role" style="width:100%;background:#111113;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;font-size:13px;color:var(--text);font-family:var(--font-body);outline:none;">
+          <select id="um-role" style="width:100%;background:#141829;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 13px;font-size:13px;color:var(--text);font-family:var(--font-body);outline:none;">
             <option value="user">Utilisateur</option><option value="admin">Administrateur</option>
           </select>
         </div>
       </div>
-      <div id="um-error" style="display:none;font-size:12px;color:var(--red);background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:6px;padding:9px 12px;margin-bottom:14px;"></div>
+      <div id="um-error" style="display:none;font-size:12px;color:var(--red);background:rgba(247,100,100,0.08);border:1px solid rgba(247,100,100,0.2);border-radius:6px;padding:9px 12px;margin-bottom:14px;"></div>
       <div style="display:flex;gap:10px;">
-        <button onclick="submitUserModal()" style="flex:1;padding:10px;background:linear-gradient(135deg,#C9CDD3,#9398A0);color:#08080A;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font-body);" id="um-submit-btn">Créer</button>
+        <button onclick="submitUserModal()" style="flex:1;padding:10px;background:linear-gradient(135deg,#6D5EFC,#9AA0B8);color:#0A0D18;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font-body);" id="um-submit-btn">Créer</button>
         <button onclick="document.getElementById('user-modal').style.display='none'" style="padding:10px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--text-mid);border-radius:8px;font-size:13px;cursor:pointer;font-family:var(--font-body);">Annuler</button>
       </div>
     </div>
@@ -999,7 +999,7 @@ body{
   <div class="page" id="page-coaching">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
       <div style="font-size:13px;color:var(--text-dim);">Analyse IA des patterns de prompts de vos équipes</div>
-      <button onclick="generateCoachingInsights()" id="coaching-generate-btn" style="background:linear-gradient(135deg,#C9CDD3,#9398A0);color:#08080A;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-body);display:flex;align-items:center;gap:6px;">
+      <button onclick="generateCoachingInsights()" id="coaching-generate-btn" style="background:linear-gradient(135deg,#6D5EFC,#9AA0B8);color:#0A0D18;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-body);display:flex;align-items:center;gap:6px;">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         Analyser avec IA
       </button>
@@ -1091,29 +1091,29 @@ body{
       </div>
       <div style="text-align:center;padding:20px 0;">
         <div style="display:flex;align-items:baseline;justify-content:center;gap:8px;">
-          <span id="org-co2-value" style="font-size:48px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#10B981;">—</span>
-          <span id="org-co2-unit" style="font-size:18px;color:#10B981;font-weight:600;">kg CO₂</span>
+          <span id="org-co2-value" style="font-size:48px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#34D399;">—</span>
+          <span id="org-co2-unit" style="font-size:18px;color:#34D399;font-weight:600;">kg CO₂</span>
         </div>
         <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">économisés ce mois par l'organisation</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;">
-        <div style="text-align:center;padding:14px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.12);border-radius:10px;">
+        <div style="text-align:center;padding:14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.12);border-radius:10px;">
           <div style="font-size:24px;margin-bottom:4px;">🚗</div>
           <div id="org-co2-km" style="font-size:20px;font-weight:700;color:var(--text);">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:2px;">km en voiture</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:2px;">km en voiture</div>
         </div>
-        <div style="text-align:center;padding:14px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.12);border-radius:10px;">
+        <div style="text-align:center;padding:14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.12);border-radius:10px;">
           <div style="font-size:24px;margin-bottom:4px;">📱</div>
           <div id="org-co2-recharges" style="font-size:20px;font-weight:700;color:var(--text);">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:2px;">recharges smartphone</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:2px;">recharges smartphone</div>
         </div>
-        <div style="text-align:center;padding:14px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.12);border-radius:10px;">
+        <div style="text-align:center;padding:14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.12);border-radius:10px;">
           <div style="font-size:24px;margin-bottom:4px;">📺</div>
           <div id="org-co2-streaming" style="font-size:20px;font-weight:700;color:var(--text);">—</div>
-          <div style="font-size:11px;color:#6E7178;margin-top:2px;">heures de streaming</div>
+          <div style="font-size:11px;color:#5E6584;margin-top:2px;">heures de streaming</div>
         </div>
       </div>
-      <div style="font-size:10px;color:#6E7178;text-align:center;margin-top:12px;font-style:italic;">
+      <div style="font-size:10px;color:#5E6584;text-align:center;margin-top:12px;font-style:italic;">
         Estimation basée sur EcoLogits 2026 (4,32g CO₂/requête). Équivalences à titre indicatif.
       </div>
     </div>
@@ -1192,11 +1192,11 @@ const CAT_LABELS = {
   finance_personnelle: 'Finance personnelle',
 };
 const CAT_COLORS = {
-  professionnel:       '#10B981',
-  vie_personnelle:     '#EF4444',
-  divertissement:      '#F59E0B',
-  recherche_emploi:    '#F59E0B',
-  finance_personnelle: '#C9CDD3',
+  professionnel:       '#34D399',
+  vie_personnelle:     '#F76464',
+  divertissement:      '#F5A524',
+  recherche_emploi:    '#F5A524',
+  finance_personnelle: '#6D5EFC',
 };
 const ACTION_STATUS = {
   prompt_sent:       'ok',
@@ -1243,9 +1243,9 @@ function emptyTr(msg, cols) {
 function _scoreGauge(n) {
   if (n == null) return '';
   const filled = Math.round(n);
-  return '<span style="font-family:monospace;letter-spacing:1px;color:#4ade80;">'
-    + '█'.repeat(filled) + '<span style="color:#2A2A2E;">' + '█'.repeat(10-filled) + '</span></span>'
-    + ' <strong style="color:#4ade80;">' + n + '/10</strong>';
+  return '<span style="font-family:monospace;letter-spacing:1px;color:#34D399;">'
+    + '█'.repeat(filled) + '<span style="color:#242A42;">' + '█'.repeat(10-filled) + '</span></span>'
+    + ' <strong style="color:#34D399;">' + n + '/10</strong>';
 }
 
 function openModal(ev) {
@@ -1257,14 +1257,14 @@ function openModal(ev) {
   if (ev.action === 'coaching_accepted' || ev.action === 'coaching_shown' || ev.action === 'coaching_ignored') {
     let issues;
     if (ev.category === 'donnees_sensibles') {
-      issues = `<div style="padding:10px 12px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:8px;font-size:12px;color:#EF4444;line-height:1.6;">
+      issues = `<div style="padding:10px 12px;background:rgba(247,100,100,0.06);border:1px solid rgba(247,100,100,0.15);border-radius:8px;font-size:12px;color:#F76464;line-height:1.6;">
         🔒 Le détail des données détectées n'est pas affiché ici conformément au RGPD et au droit du travail français.<br>
         <span style="color:var(--text-dim);font-size:12px;">Knowstell a détecté des données potentiellement sensibles dans ce prompt et a alerté l'utilisateur. Le contenu exact n'est jamais stocké.</span>
       </div>`;
     } else if (ev.coaching_issues) {
       issues = ev.coaching_issues.split('|').map(i =>
         `<div style="display:flex;gap:6px;padding:3px 0;font-size:12px;color:var(--text-mid);">
-          <span style="color:#F59E0B;">⚠</span>${i.trim()}
+          <span style="color:#F5A524;">⚠</span>${i.trim()}
         </div>`).join('');
     } else {
       issues = '<div style="font-size:12px;color:var(--text-dim);">Aucun problème détecté</div>';
@@ -1274,8 +1274,8 @@ function openModal(ev) {
     const scoreAfter  = ev.score_after  != null ? ev.score_after  + '/10' : '—';
     const gain        = ev.score_before != null && ev.score_after != null
       ? '+' + (ev.score_after - ev.score_before).toFixed(1) + ' pts' : null;
-    const scoreColor = ev.score_before >= 7 ? '#10B981' : ev.score_before >= 4 ? '#F59E0B' : '#EF4444';
-    const afterColor = ev.score_after  >= 7 ? '#10B981' : ev.score_after  >= 4 ? '#F59E0B' : '#EF4444';
+    const scoreColor = ev.score_before >= 7 ? '#34D399' : ev.score_before >= 4 ? '#F5A524' : '#F76464';
+    const afterColor = ev.score_after  >= 7 ? '#34D399' : ev.score_after  >= 4 ? '#F5A524' : '#F76464';
 
     coachingSection = `
       <div class="msec">
@@ -1292,7 +1292,7 @@ function openModal(ev) {
         <div class="mlbl">Après coaching</div>
         <div style="display:flex;align-items:center;gap:12px;">
           <div style="font-size:24px;font-weight:700;font-family:var(--font-display);color:${afterColor};">${scoreAfter}</div>
-          ${gain ? `<div style="font-size:13px;font-weight:600;color:#10B981;background:rgba(16,185,129,0.1);padding:3px 8px;border-radius:4px;">${gain}</div>` : ''}
+          ${gain ? `<div style="font-size:13px;font-weight:600;color:#34D399;background:rgba(52,211,153,0.1);padding:3px 8px;border-radius:4px;">${gain}</div>` : ''}
           <div style="font-size:12px;color:var(--text-dim);">après amélioration</div>
         </div>
       </div>` : ''}
@@ -1304,14 +1304,14 @@ function openModal(ev) {
     sensitiveSection = `
       <div class="msec">
         <div class="mlbl">Alerte données sensibles</div>
-        <div style="padding:10px 12px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:8px;font-size:12px;color:#EF4444;line-height:1.6;">
+        <div style="padding:10px 12px;background:rgba(247,100,100,0.06);border:1px solid rgba(247,100,100,0.15);border-radius:8px;font-size:12px;color:#F76464;line-height:1.6;">
           🔒 Des données potentiellement sensibles ont été détectées dans ce prompt.<br>
           <span style="color:var(--text-dim);font-size:12px;display:block;margin-top:6px;">
             Conformément au RGPD et au droit du travail français, le détail des données détectées n'est pas stocké ni affiché.
             L'utilisateur a été alerté et a pu choisir de modifier ou confirmer l'envoi.
           </span>
         </div>
-        ${ev.coaching_issues ? `<div style="margin-top:8px;font-size:12px;color:#6E7178;">Type de données : ${ev.coaching_issues}</div>` : ''}
+        ${ev.coaching_issues ? `<div style="margin-top:8px;font-size:12px;color:#5E6584;">Type de données : ${ev.coaching_issues}</div>` : ''}
       </div>
     `;
   }
@@ -1323,8 +1323,8 @@ function openModal(ev) {
         <div class="mlbl">Pertinence IA</div>
         <div style="font-size:13px;color:var(--text);">
           ${ev.ai_relevant
-            ? `<span style="color:#10B981;">✓ L'IA était pertinente</span>`
-            : `<span style="color:#F59E0B;">~ Pas forcément nécessaire</span>`}
+            ? `<span style="color:#34D399;">✓ L'IA était pertinente</span>`
+            : `<span style="color:#F5A524;">~ Pas forcément nécessaire</span>`}
           ${ev.relevance_score != null ? ` — score ${ev.relevance_score}/10` : ''}
         </div>
         ${ev.alternative_suggested
@@ -1357,7 +1357,7 @@ function openModal(ev) {
 
     <div class="msec">
       <div class="mlbl">Privacy by Design actif</div>
-      <div style="font-size:12px;color:var(--text-dim);padding:8px 10px;background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.15);border-radius:6px;">
+      <div style="font-size:12px;color:var(--text-dim);padding:8px 10px;background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.15);border-radius:6px;">
         🔒 Le contenu du prompt n'est jamais stocké ni accessible.
         Seules les métriques agrégées sont conservées.
         Conforme RGPD et droit du travail français.
@@ -1464,16 +1464,16 @@ function renderSensitiveAlerts(evs) {
 
     let statusBadge = '';
     if (decision === 'sensitive_cancelled') {
-      statusBadge = `<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:rgba(16,185,129,0.12);color:#10B981;font-weight:600;">✓ Annulée</span>`;
+      statusBadge = `<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:rgba(52,211,153,0.12);color:#34D399;font-weight:600;">✓ Annulée</span>`;
     } else if (decision === 'sensitive_confirmed') {
-      statusBadge = `<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:rgba(239,68,68,0.12);color:#EF4444;font-weight:600;">⚠ Envoyée malgré l'alerte</span>`;
+      statusBadge = `<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:rgba(247,100,100,0.12);color:#F76464;font-weight:600;">⚠ Envoyée malgré l'alerte</span>`;
     }
 
     return `<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
-      <span style="color:#EF4444;font-size:16px;flex-shrink:0;">⚠</span>
+      <span style="color:#F76464;font-size:16px;flex-shrink:0;">⚠</span>
       <div style="flex:1;">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-          <span style="font-size:12px;font-weight:600;color:#EF4444;">${dataType}</span>
+          <span style="font-size:12px;font-weight:600;color:#F76464;">${dataType}</span>
           ${statusBadge}
         </div>
         <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">${ev.team || '—'} · ${ev.site || '—'} · ${time}</div>
@@ -1503,9 +1503,9 @@ function renderCompliance(evs) {
   const bar = document.getElementById('compliance-bar');
   if (bar) {
     bar.style.width = rate + '%';
-    if (rate >= 80)      bar.style.background = 'linear-gradient(90deg,#10B981,#34D399)';
-    else if (rate >= 50) bar.style.background = 'linear-gradient(90deg,#F59E0B,#FBBF24)';
-    else                 bar.style.background = 'linear-gradient(90deg,#EF4444,#F87171)';
+    if (rate >= 80)      bar.style.background = 'linear-gradient(90deg,#34D399,#34D399)';
+    else if (rate >= 50) bar.style.background = 'linear-gradient(90deg,#F5A524,#F5A524)';
+    else                 bar.style.background = 'linear-gradient(90deg,#F76464,#F76464)';
   }
 
   const riskList = document.getElementById('compliance-risk-list');
@@ -1519,9 +1519,9 @@ function renderCompliance(evs) {
         const dataType = ev.coaching_issues || 'Donnée sensible';
         return `
           <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
-            <span style="color:#F59E0B;font-size:16px;flex-shrink:0;">⚠</span>
+            <span style="color:#F5A524;font-size:16px;flex-shrink:0;">⚠</span>
             <div style="flex:1;">
-              <div style="font-size:12px;font-weight:600;color:#F59E0B;">${dataType}</div>
+              <div style="font-size:12px;font-weight:600;color:#F5A524;">${dataType}</div>
               <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">${ev.team || '—'} · ${ev.site || '—'} · ${time}</div>
             </div>
           </div>`;
@@ -1565,7 +1565,7 @@ function renderTeams(evs) {
     const avgScore = t.scores.length
       ? (t.scores.reduce((a,b)=>a+b,0) / t.scores.length).toFixed(1)
       : null;
-    const scoreColor = avgScore >= 7 ? '#10B981' : avgScore >= 4 ? '#F59E0B' : '#EF4444';
+    const scoreColor = avgScore >= 7 ? '#34D399' : avgScore >= 4 ? '#F5A524' : '#F76464';
 
     const proRatio    = t.total > 0 ? Math.round(t.professional / t.total * 100) : 0;
     const coachRatio  = t.total > 0 ? Math.round(t.coached_shown / t.total * 100) : 0;
@@ -1603,13 +1603,13 @@ function renderTeams(evs) {
             : ''}
         </div>
         <div style="margin-bottom:4px;">
-          ${metricRow('✓', 'Prompts professionnels', proRatio, '#10B981')}
-          ${metricRow('◉', 'Prompts coachés', coachRatio, '#8B5CF6')}
-          ${metricRow('✕', 'Requêtes bloquées', blockRatio, '#EF4444')}
-          ${acceptRatio !== null ? metricRow('★', 'Coaching accepté', acceptRatio, '#F59E0B') : ''}
+          ${metricRow('✓', 'Prompts professionnels', proRatio, '#34D399')}
+          ${metricRow('◉', 'Prompts coachés', coachRatio, '#6D5EFC')}
+          ${metricRow('✕', 'Requêtes bloquées', blockRatio, '#F76464')}
+          ${acceptRatio !== null ? metricRow('★', 'Coaching accepté', acceptRatio, '#F5A524') : ''}
         </div>
         ${avgScore
-          ? `<div style="margin-top:10px;padding:8px 10px;background:rgba(201,205,211,0.05);border-radius:6px;font-size:12px;color:var(--text-mid);">
+          ? `<div style="margin-top:10px;padding:8px 10px;background:rgba(109,94,252,0.05);border-radius:6px;font-size:12px;color:var(--text-mid);">
               ${avgScore >= 7
                 ? `✓ Excellente utilisation de l'IA — score qualité au-dessus de la moyenne.`
                 : avgScore >= 5
@@ -1647,7 +1647,7 @@ function renderScoreRings(containerId, evs) {
 
   container.innerHTML = teams.map(t => {
     const pct   = Math.round(t.avg * 10);
-    const color = t.avg >= 7 ? '#10B981' : t.avg >= 4 ? '#F59E0B' : '#EF4444';
+    const color = t.avg >= 7 ? '#34D399' : t.avg >= 4 ? '#F5A524' : '#F76464';
     return `
       <div class="score-item" style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
         <div class="score-dept" style="width:90px;font-size:12px;color:var(--text-mid);flex-shrink:0;">${t.team}</div>
@@ -1724,10 +1724,10 @@ function buildMaturityChart(evs) {
       datasets: [{
         label: 'Score qualité moyen',
         data,
-        borderColor: '#C9CDD3',
-        backgroundColor: 'rgba(201,205,211,0.1)',
+        borderColor: '#6D5EFC',
+        backgroundColor: 'rgba(109,94,252,0.1)',
         borderWidth: 2,
-        pointBackgroundColor: '#C9CDD3',
+        pointBackgroundColor: '#6D5EFC',
         pointRadius: 3,
         tension: 0.3,
         spanGaps: true
@@ -1804,7 +1804,7 @@ function buildEmptyVol() {
   const labels=[];
   for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);labels.push(d.getDate()+'/'+(d.getMonth()+1));}
   if(vChart)vChart.destroy();
-  vChart=new Chart(document.getElementById('chartVolume'),{type:'bar',data:{labels,datasets:[{label:'Autorisées',data:Array(30).fill(0),backgroundColor:'rgba(201,205,211,0.5)',stack:'a'},{label:'Coachées',data:Array(30).fill(0),backgroundColor:'rgba(139,92,246,0.6)',stack:'a'},{label:'Bloquées',data:Array(30).fill(0),backgroundColor:'rgba(239,68,68,0.6)',stack:'a'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#64748B',font:{size:10},boxWidth:10}},tooltip:{backgroundColor:'rgba(17,17,19,0.95)',borderColor:'rgba(255,255,255,0.1)',borderWidth:1,titleColor:'#E8E9EB',bodyColor:'#9CA0A8',padding:10,cornerRadius:8}},scales:{x:{stacked:true,grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4A5568',font:{size:9},maxTicksLimit:12}},y:{stacked:true,grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4A5568',font:{size:10}}}}}});
+  vChart=new Chart(document.getElementById('chartVolume'),{type:'bar',data:{labels,datasets:[{label:'Autorisées',data:Array(30).fill(0),backgroundColor:'rgba(109,94,252,0.5)',stack:'a'},{label:'Coachées',data:Array(30).fill(0),backgroundColor:'rgba(109,94,252,0.6)',stack:'a'},{label:'Bloquées',data:Array(30).fill(0),backgroundColor:'rgba(247,100,100,0.6)',stack:'a'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#64748B',font:{size:10},boxWidth:10}},tooltip:{backgroundColor:'rgba(17,17,19,0.95)',borderColor:'rgba(255,255,255,0.1)',borderWidth:1,titleColor:'#F2F3F9',bodyColor:'#9AA0B8',padding:10,cornerRadius:8}},scales:{x:{stacked:true,grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4A5568',font:{size:9},maxTicksLimit:12}},y:{stacked:true,grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4A5568',font:{size:10}}}}}});
 }
 function buildRealtime() {
   const el = document.getElementById('chartRealtime');
@@ -1818,7 +1818,7 @@ function buildRealtime() {
   const hourData=Array(14).fill(0);
   recentEvents.forEach(ev=>{const h=new Date(ev.ts).getHours()-8;if(h>=0&&h<14)hourData[h]++;});
   if(el._chart)el._chart.destroy();
-  el._chart=new Chart(el,{type:'bar',data:{labels,datasets:[{label:'Requêtes',data:hourData,backgroundColor:'rgba(201,205,211,0.5)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4A5568',font:{size:10}}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4A5568',font:{size:10}}}}}});
+  el._chart=new Chart(el,{type:'bar',data:{labels,datasets:[{label:'Requêtes',data:hourData,backgroundColor:'rgba(109,94,252,0.5)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4A5568',font:{size:10}}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#4A5568',font:{size:10}}}}}});
 }
 
 // ── APPLY LIVE DATA ───────────────────────────────────────────
@@ -2020,13 +2020,13 @@ function applyLiveData({stats, recent}) {
     const outOfScope = Object.entries(stats.by_category).filter(([k])=>k!=='professionnel' && k!=='factual' && k!=='donnees_sensibles').sort((a,b)=>b[1]-a[1]);
     const maxCat = outOfScope[0]?.[1]||1;
     document.getElementById('cat-list').innerHTML = outOfScope.length
-      ? outOfScope.map(([k,n])=>`<div class="cat-item"><div class="cat-header"><span class="cat-name">${CAT_LABELS[k]||k}</span><span class="cat-count">${n} req.</span></div><div class="cat-bar-bg"><div class="cat-bar" style="width:${Math.round(n/maxCat*100)}%;background:${CAT_COLORS[k]||'#C9CDD3'}"></div></div></div>`).join('')
+      ? outOfScope.map(([k,n])=>`<div class="cat-item"><div class="cat-header"><span class="cat-name">${CAT_LABELS[k]||k}</span><span class="cat-count">${n} req.</span></div><div class="cat-bar-bg"><div class="cat-bar" style="width:${Math.round(n/maxCat*100)}%;background:${CAT_COLORS[k]||'#6D5EFC'}"></div></div></div>`).join('')
       : '<div style="color:var(--text-dim);font-size:12px;padding:8px 0">Aucune donnée hors périmètre sur la période.</div>';
 
     if (stats.daily_volume?.length) {
       const labels=stats.daily_volume.map(d=>{const dt=new Date(d.date+'T12:00:00');return dt.getDate()+'/'+(dt.getMonth()+1);});
       if(vChart)vChart.destroy();
-      vChart=new Chart(document.getElementById('chartVolume'),{type:'bar',data:{labels,datasets:[{label:'Autorisées',data:stats.daily_volume.map(d=>d.allowed),backgroundColor:'rgba(201,205,211,0.5)',stack:'a'},{label:'Coachées',data:stats.daily_volume.map(d=>d.coached),backgroundColor:'rgba(139,92,246,0.6)',stack:'a'},{label:'Bloquées',data:stats.daily_volume.map(d=>d.blocked),backgroundColor:'rgba(239,68,68,0.6)',stack:'a'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#64748B',font:{size:10},boxWidth:10}},tooltip:{backgroundColor:'rgba(17,17,19,0.95)',borderColor:'rgba(255,255,255,0.1)',borderWidth:1,titleColor:'#E8E9EB',bodyColor:'#9CA0A8',padding:10,cornerRadius:8}},scales:{x:{stacked:true,grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4A5568',font:{size:9},maxTicksLimit:12}},y:{stacked:true,grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4A5568',font:{size:10}}}}}});
+      vChart=new Chart(document.getElementById('chartVolume'),{type:'bar',data:{labels,datasets:[{label:'Autorisées',data:stats.daily_volume.map(d=>d.allowed),backgroundColor:'rgba(109,94,252,0.5)',stack:'a'},{label:'Coachées',data:stats.daily_volume.map(d=>d.coached),backgroundColor:'rgba(109,94,252,0.6)',stack:'a'},{label:'Bloquées',data:stats.daily_volume.map(d=>d.blocked),backgroundColor:'rgba(247,100,100,0.6)',stack:'a'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#64748B',font:{size:10},boxWidth:10}},tooltip:{backgroundColor:'rgba(17,17,19,0.95)',borderColor:'rgba(255,255,255,0.1)',borderWidth:1,titleColor:'#F2F3F9',bodyColor:'#9AA0B8',padding:10,cornerRadius:8}},scales:{x:{stacked:true,grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4A5568',font:{size:9},maxTicksLimit:12}},y:{stacked:true,grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'#4A5568',font:{size:10}}}}}});
     } else {
       if (vChart) { vChart.destroy(); vChart = null; }
       const cvs = document.getElementById('chartVolume');
@@ -2072,13 +2072,13 @@ function applyLiveData({stats, recent}) {
       : '—';
     if (mVerdict && ai.avg_score != null) {
       const isHighValue = ai.avg_score >= 7;
-      mVerdict.style.color = isHighValue ? '#10B981' : '#F59E0B';
+      mVerdict.style.color = isHighValue ? '#34D399' : '#F5A524';
       mVerdict.textContent = isHighValue
         ? 'Cette équipe utilise l\'IA sur des tâches à haute valeur ajoutée.'
         : 'Cette équipe pourrait optimiser ses cas d\'usage IA.';
     }
     if (mAlt) mAlt.innerHTML = ai.top_alternatives?.length
-      ? ai.top_alternatives.slice(0,3).map(a=>`<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="color:var(--text-mid)">${a.label}</span><span style="color:#F59E0B;font-weight:600;">${a.count}×</span></div>`).join('')
+      ? ai.top_alternatives.slice(0,3).map(a=>`<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="color:var(--text-mid)">${a.label}</span><span style="color:#F5A524;font-weight:600;">${a.count}×</span></div>`).join('')
       : '<span style="font-size:12px;color:var(--text-dim)">Aucune donnée.</span>';
     if (mInsight && ai.relevant_pct != null) {
       const pct = ai.relevant_pct;
@@ -2176,7 +2176,7 @@ async function renderRulesPage() {
     status.textContent = `${_rules.length} règle(s) — synchronisé à ${new Date().toLocaleTimeString('fr-FR')}`;
     renderRuleCards();
   } catch(e) {
-    grid.innerHTML = '<div style="color:#f87171;font-size:12px;">Impossible de contacter le backend.</div>';
+    grid.innerHTML = '<div style="color:#F76464;font-size:12px;">Impossible de contacter le backend.</div>';
   }
 }
 
@@ -2189,15 +2189,15 @@ function renderRuleCards() {
     const more  = kws.length - 4;
     const isDefault = r.id <= 9;
     const badge = isDefault
-      ? `<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:rgba(99,102,241,.18);color:#a5b4fc;">Défaut</span>`
-      : `<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:rgba(245,158,11,.12);color:#fbbf24;">Personnalisée</span>`;
+      ? `<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:rgba(99,102,241,.18);color:#897CFF;">Défaut</span>`
+      : `<span style="font-size:11px;padding:2px 7px;border-radius:10px;background:rgba(245,165,36,.12);color:#F5A524;">Personnalisée</span>`;
     const actionLabel = r.action === 'block' ? '🔴 Bloquer' : '🟡 Alerter';
     return `
     <div class="rule-card" style="opacity:${r.active?'1':'.5'}">
       <div class="rule-header">
         <span class="rule-title">${r.label}</span>
         <div style="display:flex;align-items:center;gap:7px;">
-          ${r.blocked_this_month > 0 ? `<span style="font-size:11px;padding:2px 7px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#EF4444;border-radius:10px;">${r.blocked_this_month} ce mois</span>` : ''}
+          ${r.blocked_this_month > 0 ? `<span style="font-size:11px;padding:2px 7px;background:rgba(247,100,100,0.1);border:1px solid rgba(247,100,100,0.2);color:#F76464;border-radius:10px;">${r.blocked_this_month} ce mois</span>` : ''}
           <button class="toggle ${r.active?'on':'off'}" onclick="toggleRule(${r.id},${r.active})" title="${r.active?'Désactiver':'Activer'}"></button>
         </div>
       </div>
@@ -2211,7 +2211,7 @@ function renderRuleCards() {
         ${more > 0 ? `<span class="rule-tag-more">+${more}</span>` : ''}
       </div>
       <div style="display:flex;align-items:center;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);font-size:12px;">
-        <span style="color:var(--text-dim);">Ce mois : <strong style="color:${r.blocked_this_month > 0 ? '#EF4444' : 'var(--text-dim)'};">${r.blocked_this_month || 0} blocage${r.blocked_this_month > 1 ? 's' : ''}</strong></span>
+        <span style="color:var(--text-dim);">Ce mois : <strong style="color:${r.blocked_this_month > 0 ? '#F76464' : 'var(--text-dim)'};">${r.blocked_this_month || 0} blocage${r.blocked_this_month > 1 ? 's' : ''}</strong></span>
         <span style="color:var(--text-dim);">·</span>
         <span style="color:var(--text-dim);">Total : <strong style="color:var(--text-mid);">${r.blocked_total || 0}</strong></span>
         ${r.last_triggered ? `<span style="color:var(--text-dim);">·</span><span style="color:var(--text-dim);">Dernier : <strong style="color:var(--text-mid);">${new Date(r.last_triggered).toLocaleDateString('fr-FR')}</strong></span>` : ''}
@@ -2262,23 +2262,23 @@ function openRuleModal(id) {
     <div class="msec">
       <div class="mlbl">Statistiques d'usage</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:6px;">
-        <div style="text-align:center;padding:10px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.12);border-radius:8px;">
-          <div style="font-size:22px;font-weight:700;font-family:var(--font-display);color:#EF4444;">${rule.blocked_this_month || 0}</div>
+        <div style="text-align:center;padding:10px;background:rgba(247,100,100,0.06);border:1px solid rgba(247,100,100,0.12);border-radius:8px;">
+          <div style="font-size:22px;font-weight:700;font-family:var(--font-display);color:#F76464;">${rule.blocked_this_month || 0}</div>
           <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">Ce mois</div>
         </div>
-        <div style="text-align:center;padding:10px;background:rgba(201,205,211,0.04);border:1px solid rgba(201,205,211,0.1);border-radius:8px;">
-          <div style="font-size:22px;font-weight:700;font-family:var(--font-display);color:#C9CDD3;">${rule.blocked_total || 0}</div>
+        <div style="text-align:center;padding:10px;background:rgba(109,94,252,0.04);border:1px solid rgba(109,94,252,0.1);border-radius:8px;">
+          <div style="font-size:22px;font-weight:700;font-family:var(--font-display);color:#6D5EFC;">${rule.blocked_total || 0}</div>
           <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">Total</div>
         </div>
-        <div style="text-align:center;padding:10px;background:rgba(201,205,211,0.04);border:1px solid rgba(201,205,211,0.1);border-radius:8px;">
-          <div style="font-size:13px;font-weight:600;color:#C9CDD3;margin-top:4px;">${rule.last_triggered ? new Date(rule.last_triggered).toLocaleDateString('fr-FR') : 'Jamais'}</div>
+        <div style="text-align:center;padding:10px;background:rgba(109,94,252,0.04);border:1px solid rgba(109,94,252,0.1);border-radius:8px;">
+          <div style="font-size:13px;font-weight:600;color:#6D5EFC;margin-top:4px;">${rule.last_triggered ? new Date(rule.last_triggered).toLocaleDateString('fr-FR') : 'Jamais'}</div>
           <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">Dernier déclenchement</div>
         </div>
       </div>
     </div>
     <div style="display:flex;gap:8px;margin-top:18px;">
-      <button onclick="saveRuleModal(${id})" style="flex:1;padding:9px;background:linear-gradient(135deg,#fff 0%,#C9CDD3 100%);color:#0A0A0C;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">Enregistrer</button>
-      ${!isDefault ? `<button onclick="deleteRuleModal(${id})" style="padding:9px 14px;background:transparent;border:1px solid #f87171;border-radius:6px;color:#f87171;font-size:13px;cursor:pointer;">Supprimer</button>` : ''}
+      <button onclick="saveRuleModal(${id})" style="flex:1;padding:9px;background:linear-gradient(135deg,#fff 0%,#6D5EFC 100%);color:#0A0D18;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;">Enregistrer</button>
+      ${!isDefault ? `<button onclick="deleteRuleModal(${id})" style="padding:9px 14px;background:transparent;border:1px solid #F76464;border-radius:6px;color:#F76464;font-size:13px;cursor:pointer;">Supprimer</button>` : ''}
       <button onclick="closeModal()" style="padding:9px 14px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-mid);font-size:13px;cursor:pointer;">Annuler</button>
     </div>`;
 
@@ -2360,16 +2360,16 @@ function _setBackendStatus(online) {
   const text = document.getElementById('backend-status-text');
   if (!el) return;
   if (online) {
-    el.style.background   = 'rgba(16,185,129,0.1)';
-    el.style.borderColor  = 'rgba(16,185,129,0.2)';
-    el.style.color        = '#10B981';
-    dot.style.background  = '#10B981';
+    el.style.background   = 'rgba(52,211,153,0.1)';
+    el.style.borderColor  = 'rgba(52,211,153,0.2)';
+    el.style.color        = '#34D399';
+    dot.style.background  = '#34D399';
     text.textContent      = 'Backend connecté';
   } else {
-    el.style.background   = 'rgba(239,68,68,0.1)';
-    el.style.borderColor  = 'rgba(239,68,68,0.2)';
-    el.style.color        = '#EF4444';
-    dot.style.background  = '#EF4444';
+    el.style.background   = 'rgba(247,100,100,0.1)';
+    el.style.borderColor  = 'rgba(247,100,100,0.2)';
+    el.style.color        = '#F76464';
+    dot.style.background  = '#F76464';
     text.textContent      = 'Backend hors ligne';
   }
 }
@@ -2444,7 +2444,7 @@ function copyPrompt(btn, text) {
   navigator.clipboard.writeText(text).then(() => {
     const orig = btn.textContent;
     btn.textContent = '✓ Copié !';
-    btn.style.color = '#10B981';
+    btn.style.color = '#34D399';
     setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 2000);
   });
 }
@@ -2471,17 +2471,17 @@ async function renderLibrary(filter = 'all') {
   grid.innerHTML = filtered.map(p => {
     const dept = p.dept || p.team || '';
     const safeText = JSON.stringify(p.text).replace(/</g, '\\u003c');
-    const deleteBtn = p.is_default ? '' : `<button onclick="deleteLibPrompt(${p.id})" style="font-size:12px;color:#EF4444;background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px;transition:color .15s;" onmouseover="this.style.color='#FCA5A5'" onmouseout="this.style.color='#EF4444'">Supprimer</button>`;
-    return `<div style="background:linear-gradient(145deg,#111113,#0D0D0F);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px 18px;">
+    const deleteBtn = p.is_default ? '' : `<button onclick="deleteLibPrompt(${p.id})" style="font-size:12px;color:#F76464;background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px;transition:color .15s;" onmouseover="this.style.color='#F76464'" onmouseout="this.style.color='#F76464'">Supprimer</button>`;
+    return `<div style="background:linear-gradient(145deg,#141829,#141829);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px 18px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-        <span style="font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#C9CDD3;background:rgba(201,205,211,0.08);border:1px solid rgba(201,205,211,0.15);border-radius:20px;padding:2px 10px;">${dept}</span>
+        <span style="font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6D5EFC;background:rgba(109,94,252,0.08);border:1px solid rgba(109,94,252,0.15);border-radius:20px;padding:2px 10px;">${dept}</span>
         <div style="display:flex;gap:4px;">
           ${deleteBtn}
-          <button onclick="copyPrompt(this,${safeText})" style="font-size:12px;color:#6E7178;background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px;transition:color .15s;" onmouseover="this.style.color='#C9CDD3'" onmouseout="this.style.color='#6E7178'">Copier</button>
+          <button onclick="copyPrompt(this,${safeText})" style="font-size:12px;color:#5E6584;background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px;transition:color .15s;" onmouseover="this.style.color='#6D5EFC'" onmouseout="this.style.color='#5E6584'">Copier</button>
         </div>
       </div>
-      <div style="font-size:13px;font-weight:600;color:#E8E9EB;margin-bottom:8px;">${p.title}</div>
-      <div style="font-size:12px;color:#6E7178;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">${p.text}</div>
+      <div style="font-size:13px;font-weight:600;color:#F2F3F9;margin-bottom:8px;">${p.title}</div>
+      <div style="font-size:12px;color:#5E6584;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">${p.text}</div>
     </div>`;
   }).join('');
 
@@ -2520,7 +2520,7 @@ async function renderLibrary(filter = 'all') {
             <textarea id="lib-new-text" rows="4" placeholder="Rédigez ici le prompt avec des [variables] à compléter…" style="width:100%;box-sizing:border-box;background:var(--bg-card2);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px 10px;font-size:13px;outline:none;resize:vertical;font-family:inherit;line-height:1.6;"></textarea>
           </div>
           <div style="grid-column:1/-1;">
-            <button id="lib-add-btn" onclick="addLibPrompt()" style="background:linear-gradient(135deg,#C9CDD3,#9398A0);color:#08080A;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Ajouter à la bibliothèque</button>
+            <button id="lib-add-btn" onclick="addLibPrompt()" style="background:linear-gradient(135deg,#6D5EFC,#9AA0B8);color:#0A0D18;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">Ajouter à la bibliothèque</button>
             <span id="lib-add-status" style="font-size:12px;margin-left:12px;"></span>
           </div>
         </div>
@@ -2534,7 +2534,7 @@ async function addLibPrompt() {
   const dept  = document.getElementById('lib-new-dept').value;
   const text  = document.getElementById('lib-new-text').value.trim();
   const status = document.getElementById('lib-add-status');
-  if (!title || !text) { status.style.color='#EF4444'; status.textContent='Titre et contenu requis.'; return; }
+  if (!title || !text) { status.style.color='#F76464'; status.textContent='Titre et contenu requis.'; return; }
   try {
     const res = await fetch(`${DYNA_API.base}/v1/prompts`, {
       method: 'POST',
@@ -2544,12 +2544,12 @@ async function addLibPrompt() {
     if (!res.ok) throw new Error();
     document.getElementById('lib-new-title').value = '';
     document.getElementById('lib-new-text').value  = '';
-    status.style.color = '#10B981'; status.textContent = '✓ Prompt ajouté !';
+    status.style.color = '#34D399'; status.textContent = '✓ Prompt ajouté !';
     setTimeout(() => { status.textContent = ''; }, 3000);
     _libAllPrompts = []; // reset cache
     renderLibrary(document.getElementById('lib-filter')?.value || 'all');
   } catch (_) {
-    status.style.color = '#EF4444'; status.textContent = 'Erreur lors de l\'ajout.';
+    status.style.color = '#F76464'; status.textContent = 'Erreur lors de l\'ajout.';
   }
 }
 
@@ -2638,17 +2638,17 @@ function recalculateROI() {
   if (timeDetailEl && (blockedCount > 0 || coachedCount > 0)) {
     timeDetailEl.innerHTML = `
       <div style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(239,68,68,0.06);border-radius:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(247,100,100,0.06);border-radius:8px;">
           <div><div style="font-size:13px;font-weight:600;color:var(--text);">Blocages hors périmètre</div><div style="font-size:12px;color:var(--text-dim);">${blockedCount} × ${minsBlock} min</div></div>
-          <div style="text-align:right;"><div style="font-size:16px;font-weight:700;color:#EF4444;">${blockedCount * minsBlock} min</div><div style="font-size:12px;color:var(--text-dim);">${(blockedCount * minsBlock / 60 * hourlyRate).toFixed(0)}€</div></div>
+          <div style="text-align:right;"><div style="font-size:16px;font-weight:700;color:#F76464;">${blockedCount * minsBlock} min</div><div style="font-size:12px;color:var(--text-dim);">${(blockedCount * minsBlock / 60 * hourlyRate).toFixed(0)}€</div></div>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(139,92,246,0.06);border-radius:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(109,94,252,0.06);border-radius:8px;">
           <div><div style="font-size:13px;font-weight:600;color:var(--text);">Coachings acceptés</div><div style="font-size:12px;color:var(--text-dim);">${coachedCount} × ${minsCoach} min</div></div>
-          <div style="text-align:right;"><div style="font-size:16px;font-weight:700;color:#8B5CF6;">${coachedCount * minsCoach} min</div><div style="font-size:12px;color:var(--text-dim);">${(coachedCount * minsCoach / 60 * hourlyRate).toFixed(0)}€</div></div>
+          <div style="text-align:right;"><div style="font-size:16px;font-weight:700;color:#6D5EFC;">${coachedCount * minsCoach} min</div><div style="font-size:12px;color:var(--text-dim);">${(coachedCount * minsCoach / 60 * hourlyRate).toFixed(0)}€</div></div>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:8px;">
-          <div style="font-size:13px;font-weight:700;color:#10B981;">Total</div>
-          <div style="text-align:right;"><div style="font-size:18px;font-weight:700;color:#10B981;">${minutesSaved} min</div><div style="font-size:12px;color:#10B981;">${timeSavedEuros.toFixed(0)}€</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:8px;">
+          <div style="font-size:13px;font-weight:700;color:#34D399;">Total</div>
+          <div style="text-align:right;"><div style="font-size:18px;font-weight:700;color:#34D399;">${minutesSaved} min</div><div style="font-size:12px;color:#34D399;">${timeSavedEuros.toFixed(0)}€</div></div>
         </div>
       </div>`;
   }
@@ -2658,11 +2658,11 @@ function recalculateROI() {
   if (tokenDetailEl && blockedCount > 0) {
     tokenDetailEl.innerHTML = `
       <div style="display:flex;flex-direction:column;gap:10px;">
-        <div style="padding:10px;background:rgba(201,205,211,0.04);border-radius:8px;">
+        <div style="padding:10px;background:rgba(109,94,252,0.04);border-radius:8px;">
           <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--text-mid);">Prompts bloqués</span><span style="font-size:12px;font-weight:600;color:var(--text);">${blockedCount}</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--text-mid);">Tokens moyens / prompt</span><span style="font-size:12px;font-weight:600;color:var(--text);">500</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--text-mid);">Total tokens économisés</span><span style="font-size:12px;font-weight:600;color:var(--text);">${tokensSaved.toLocaleString('fr-FR')}</span></div>
-          <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);"><span style="font-size:12px;color:var(--text-mid);">Valeur économisée (0,015€/1k tokens)</span><span style="font-size:13px;font-weight:700;color:#10B981;">${tokenEuros.toFixed(3)}€</span></div>
+          <div style="display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);"><span style="font-size:12px;color:var(--text-mid);">Valeur économisée (0,015€/1k tokens)</span><span style="font-size:13px;font-weight:700;color:#34D399;">${tokenEuros.toFixed(3)}€</span></div>
         </div>
         <div style="font-size:11px;color:var(--text-dim);font-style:italic;">* Basé sur le tarif GPT-4 (0,015€/1000 tokens).</div>
       </div>`;
@@ -2744,9 +2744,9 @@ function renderMySpace() {
   if (heroScore) heroScore.textContent = avgScore ?? '—';
   if (heroBar) {
     heroBar.style.width      = avgScore ? (avgScore * 10) + '%' : '0%';
-    heroBar.style.background = !avgScore ? '#6E7178'
-      : avgScore >= 7 ? '#10B981'
-      : avgScore >= 4 ? '#F59E0B' : '#EF4444';
+    heroBar.style.background = !avgScore ? '#5E6584'
+      : avgScore >= 7 ? '#34D399'
+      : avgScore >= 4 ? '#F5A524' : '#F76464';
   }
   if (heroMsg) heroMsg.textContent = !avgScore
     ? 'Commencez à utiliser Knowstell pour voir votre progression.'
@@ -2778,16 +2778,16 @@ function renderMySpace() {
       const SITES = { claude: 'claude.ai', chatgpt: 'ChatGPT', gemini: 'Gemini' };
       listEl.innerHTML = [...coached].sort((a, b) => b.ts - a.ts).slice(0, 5).map(ev => {
         const time = new Date(ev.ts).toLocaleString('fr-FR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
-        const scoreColor = ev.score_before >= 7 ? '#10B981' : ev.score_before >= 4 ? '#F59E0B' : '#EF4444';
+        const scoreColor = ev.score_before >= 7 ? '#34D399' : ev.score_before >= 4 ? '#F5A524' : '#F76464';
         return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
-          <span style="color:#8B5CF6;font-size:14px;">◉</span>
+          <span style="color:#6D5EFC;font-size:14px;">◉</span>
           <div style="flex:1;">
             <div style="font-size:12px;font-weight:600;color:var(--text);">Coaching accepté</div>
             <div style="font-size:12px;color:var(--text-dim);">${SITES[ev.site] || ev.site || '—'} · ${time}</div>
           </div>
           <div style="font-size:12px;color:var(--text-dim);">
             <span style="color:${scoreColor};">${ev.score_before ?? '—'}/10</span>
-            ${ev.score_after ? ` → <span style="color:#10B981;">${ev.score_after}/10</span>` : ''}
+            ${ev.score_after ? ` → <span style="color:#34D399;">${ev.score_after}/10</span>` : ''}
           </div>
         </div>`;
       }).join('');
@@ -2823,7 +2823,7 @@ function renderMyPatterns() {
     return;
   }
   const maxCount = topIssues[0][1];
-  const colors   = ['#EF4444','#F59E0B','#8B5CF6','#3B82F6'];
+  const colors   = ['#F76464','#F5A524','#6D5EFC','#3B82F6'];
   el.innerHTML = topIssues.map(([issue, count], i) => {
     const pct = Math.round(count / maxCount * 100);
     return `<div style="margin-bottom:14px;">
@@ -2901,7 +2901,7 @@ Génère un coaching personnalisé bienveillant en JSON :
     displayMyCoaching(coaching);
   } catch(e) {
     const el = document.getElementById('my-coaching-content');
-    if (el) el.innerHTML = '<div style="color:#EF4444;font-size:12px;padding:16px;text-align:center;">Erreur. Réessayez.</div>';
+    if (el) el.innerHTML = '<div style="color:#F76464;font-size:12px;padding:16px;text-align:center;">Erreur. Réessayez.</div>';
   } finally {
     if (btn) { btn.textContent = 'Analyser ma progression'; btn.disabled = false; }
   }
@@ -2911,15 +2911,15 @@ function displayMyCoaching(coaching) {
   const el = document.getElementById('my-coaching-content');
   if (!el) return;
   el.innerHTML = `
-    <div style="padding:14px;margin-bottom:16px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:10px;">
+    <div style="padding:14px;margin-bottom:16px;background:rgba(109,94,252,0.06);border:1px solid rgba(109,94,252,0.15);border-radius:10px;">
       <div style="font-size:13px;color:var(--text);line-height:1.7;margin-bottom:12px;">${coaching.message_personnalise || '—'}</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div style="padding:10px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:8px;">
-          <div style="font-size:10px;color:#10B981;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">✓ Point fort</div>
+        <div style="padding:10px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:8px;">
+          <div style="font-size:10px;color:#34D399;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">✓ Point fort</div>
           <div style="font-size:12px;color:var(--text-mid);">${coaching.point_fort || '—'}</div>
         </div>
-        <div style="padding:10px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:8px;">
-          <div style="font-size:10px;color:#F59E0B;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">⚡ Défi principal</div>
+        <div style="padding:10px;background:rgba(245,165,36,0.06);border:1px solid rgba(245,165,36,0.15);border-radius:8px;">
+          <div style="font-size:10px;color:#F5A524;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">⚡ Défi principal</div>
           <div style="font-size:12px;color:var(--text-mid);">${coaching.defi_principal || '—'}</div>
         </div>
       </div>
@@ -2927,17 +2927,17 @@ function displayMyCoaching(coaching) {
     ${(coaching.exercices || []).map((ex, i) => `
       <div style="padding:12px;margin-bottom:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:10px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-          <span style="width:20px;height:20px;border-radius:50%;background:rgba(139,92,246,0.15);color:#8B5CF6;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">${i+1}</span>
+          <span style="width:20px;height:20px;border-radius:50%;background:rgba(109,94,252,0.15);color:#6D5EFC;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">${i+1}</span>
           <div style="font-size:12px;font-weight:600;color:var(--text);">${ex.titre}</div>
         </div>
         <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;padding-left:28px;">${ex.description}</div>
-        <div style="font-size:12px;color:#8B5CF6;padding:8px 10px;background:rgba(139,92,246,0.06);border-radius:6px;margin-left:28px;font-style:italic;">💡 "${ex.exemple}"</div>
+        <div style="font-size:12px;color:#6D5EFC;padding:8px 10px;background:rgba(109,94,252,0.06);border-radius:6px;margin-left:28px;font-style:italic;">💡 "${ex.exemple}"</div>
       </div>
     `).join('')}
-    <div style="padding:12px 14px;background:rgba(201,205,211,0.04);border:1px solid rgba(201,205,211,0.1);border-radius:10px;display:flex;align-items:center;gap:10px;">
+    <div style="padding:12px 14px;background:rgba(109,94,252,0.04);border:1px solid rgba(109,94,252,0.1);border-radius:10px;display:flex;align-items:center;gap:10px;">
       <span style="font-size:20px;">🎯</span>
       <div>
-        <div style="font-size:10px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;">Objectif de la semaine</div>
+        <div style="font-size:10px;color:#5E6584;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;">Objectif de la semaine</div>
         <div style="font-size:12px;color:var(--text);line-height:1.5;">${coaching.objectif_semaine || '—'}</div>
       </div>
     </div>
@@ -2947,30 +2947,30 @@ function displayMyCoaching(coaching) {
 // ── Tooltips KPI ───────────────────────────────────────────────────────────────
 
 const KPI_EXPLANATIONS = {
-  compliance: { title:'Taux de conformité données sensibles', color:'#10B981',
+  compliance: { title:'Taux de conformité données sensibles', color:'#34D399',
     formula:'Taux = Alertes annulées / (Annulées + Confirmées) × 100',
     details:['Quand Knowstell détecte une donnée sensible, l\'employé peut annuler (renoncer à envoyer) ou confirmer (envoyer malgré l\'alerte)','Annulée = comportement vertueux : l\'employé a protégé la donnée','Confirmée = l\'employé a envoyé la donnée sensible malgré l\'avertissement','Un taux élevé (>80%) indique une bonne culture de protection des données dans l\'organisation'] },
-  roi: { title:'ROI estimé ce mois', color:'#8B5CF6',
+  roi: { title:'ROI estimé ce mois', color:'#6D5EFC',
     formula:'ROI = (Blocages × 8min + Coachings × 12min) × Salaire horaire',
     details:['Chaque requête bloquée = 8 minutes économisées (temps non gaspillé)','Chaque coaching accepté = 12 minutes économisées (moins d\'allers-retours)','Multiplié par le salaire horaire moyen configuré (défaut: 35€/h)'],
     source:'Paramètres configurables dans ROI & Économies' },
-  score: { title:'Score qualité moyen', color:'#F59E0B',
+  score: { title:'Score qualité moyen', color:'#F5A524',
     formula:'Moyenne des scores attribués par Claude Haiku à chaque prompt',
     details:['0-3 : Prompt vague, incomplet, trop court','4-6 : Prompt acceptable mais améliorable','7-10 : Prompt complet avec contexte, objectif et format'],
     source:'Évalué par Claude Haiku à chaque analyse de prompt' },
-  co2: { title:'CO₂ consommé', color:'#10B981',
+  co2: { title:'CO₂ consommé', color:'#34D399',
     formula:'Requêtes envoyées × 4,32g de CO₂ par requête',
     details:['Basé sur les estimations EcoLogits 2026','Requête bloquée = 0g (évitée)','Coaching accepté = -30% de tokens = -30% de CO₂','Source : CarbonCredits, GPT-4 ≈ 4,32g CO₂/requête'],
     source:'Méthodologie EcoLogits / GenAI Impact' },
-  coached: { title:'Prompts coachés acceptés', color:'#8B5CF6',
+  coached: { title:'Prompts coachés acceptés', color:'#6D5EFC',
     formula:'(Coachings acceptés / Coachings proposés) × 100',
     details:['Un coaching est proposé quand le score < 7/10','Accepté = l\'utilisateur a envoyé le prompt amélioré','Ignoré = l\'utilisateur a envoyé quand même son prompt original'],
     source:'Calculé depuis les événements coaching_accepted et coaching_shown' },
-  time: { title:'Temps économisé', color:'#10B981',
+  time: { title:'Temps économisé', color:'#34D399',
     formula:'(Blocages × 8min) + (Coachings acceptés × 12min)',
     details:['8 min/blocage : temps évité sur une requête hors périmètre','12 min/coaching : moins d\'allers-retours avec l\'IA grâce au meilleur prompt','Ces valeurs sont configurables dans ROI & Économies'],
     source:'Estimations basées sur l\'usage moyen des outils IA en entreprise' },
-  out: { title:'Hors périmètre', color:'#EF4444',
+  out: { title:'Hors périmètre', color:'#F76464',
     formula:'(Requêtes bloquées / Total requêtes) × 100',
     details:['Une requête est bloquée si son sujet est clairement personnel','Classification effectuée par Claude Haiku','Catégories : vie personnelle, divertissement, données sensibles...'],
     source:'Basé sur les règles configurées dans la page Règles' }
@@ -2986,17 +2986,17 @@ function openKpiInfo(key) {
   modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:9999;display:flex;align-items:center;justify-content:center;font-family:Inter,sans-serif;';
   modal.onclick = e => { if (e.target === modal) modal.remove(); };
   modal.innerHTML = `
-    <div style="width:460px;max-width:90vw;background:linear-gradient(145deg,#111113,#0D0D0F);border:1px solid rgba(255,255,255,0.1);border-top:3px solid ${info.color};border-radius:16px;padding:24px;box-shadow:0 24px 80px rgba(0,0,0,0.7);">
+    <div style="width:460px;max-width:90vw;background:linear-gradient(145deg,#141829,#141829);border:1px solid rgba(255,255,255,0.1);border-top:3px solid ${info.color};border-radius:16px;padding:24px;box-shadow:0 24px 80px rgba(0,0,0,0.7);">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-        <div style="font-size:14px;font-weight:700;color:#E8E9EB;">${info.title}</div>
-        <button onclick="document.getElementById('kpi-info-modal').remove()" style="background:none;border:none;color:#6E7178;font-size:18px;cursor:pointer;">✕</button>
+        <div style="font-size:14px;font-weight:700;color:#F2F3F9;">${info.title}</div>
+        <button onclick="document.getElementById('kpi-info-modal').remove()" style="background:none;border:none;color:#5E6584;font-size:18px;cursor:pointer;">✕</button>
       </div>
       <div style="padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;margin-bottom:16px;font-family:'Courier New',monospace;font-size:12px;color:${info.color};line-height:1.5;">${info.formula}</div>
       <div style="margin-bottom:16px;">
-        <div style="font-size:10px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Détail du calcul</div>
-        ${info.details.map(d => `<div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;color:#9CA0A8;"><span style="color:${info.color};flex-shrink:0;">•</span>${d}</div>`).join('')}
+        <div style="font-size:10px;color:#5E6584;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Détail du calcul</div>
+        ${info.details.map(d => `<div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;color:#9AA0B8;"><span style="color:${info.color};flex-shrink:0;">•</span>${d}</div>`).join('')}
       </div>
-      ${info.source ? `<div style="padding:10px 12px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:12px;color:#6E7178;font-style:italic;">📎 ${info.source}</div>` : ''}
+      ${info.source ? `<div style="padding:10px 12px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:12px;color:#5E6584;font-style:italic;">📎 ${info.source}</div>` : ''}
     </div>`;
   document.body.appendChild(modal);
 }
@@ -3090,30 +3090,30 @@ function renderCarbonPage() {
   if (detailEl) {
     detailEl.innerHTML = `
       <div style="display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:8px;">
           <div>
             <div style="font-size:12px;font-weight:600;color:var(--text);">Requêtes envoyées</div>
             <div style="font-size:12px;color:var(--text-dim);">${carbon.sentCount} × ${CO2_PER_REQUEST}g</div>
           </div>
-          <div style="font-size:14px;font-weight:700;color:#10B981;">${fmt(carbon.sentCount * CO2_PER_REQUEST)}CO₂</div>
+          <div style="font-size:14px;font-weight:700;color:#34D399;">${fmt(carbon.sentCount * CO2_PER_REQUEST)}CO₂</div>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(109,94,252,0.06);border:1px solid rgba(109,94,252,0.15);border-radius:8px;">
           <div>
             <div style="font-size:12px;font-weight:600;color:var(--text);">Coachings acceptés</div>
             <div style="font-size:12px;color:var(--text-dim);">${carbon.coachedCount} × ${(CO2_PER_REQUEST*(1-CO2_COACHING_REDUCTION)).toFixed(2)}g (-30%)</div>
           </div>
-          <div style="font-size:14px;font-weight:700;color:#8B5CF6;">${fmt(carbon.coachedCount * CO2_PER_REQUEST * (1-CO2_COACHING_REDUCTION))}CO₂</div>
+          <div style="font-size:14px;font-weight:700;color:#6D5EFC;">${fmt(carbon.coachedCount * CO2_PER_REQUEST * (1-CO2_COACHING_REDUCTION))}CO₂</div>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(247,100,100,0.06);border:1px solid rgba(247,100,100,0.15);border-radius:8px;">
           <div>
             <div style="font-size:12px;font-weight:600;color:var(--text);">Requêtes bloquées</div>
             <div style="font-size:12px;color:var(--text-dim);">${carbon.blockedCount} × 0g (évitées)</div>
           </div>
-          <div style="font-size:14px;font-weight:700;color:#EF4444;">−${fmt(carbon.saved)}CO₂ évités</div>
+          <div style="font-size:14px;font-weight:700;color:#F76464;">−${fmt(carbon.saved)}CO₂ évités</div>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(201,205,211,0.05);border:1px solid rgba(201,205,211,0.15);border-radius:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(109,94,252,0.05);border:1px solid rgba(109,94,252,0.15);border-radius:8px;">
           <div style="font-size:13px;font-weight:700;color:var(--text);">Total consommé</div>
-          <div style="font-size:16px;font-weight:700;color:#10B981;">${fmt(carbon.consumed)}CO₂</div>
+          <div style="font-size:16px;font-weight:700;color:#34D399;">${fmt(carbon.consumed)}CO₂</div>
         </div>
       </div>`;
   }
@@ -3126,7 +3126,7 @@ function renderCarbonPage() {
     const emailsSaved         = Math.round(carbon.saved / 4);
     contextEl.innerHTML = `
       <div style="display:flex;flex-direction:column;gap:10px;">
-        <div style="font-size:11px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">CO₂ consommé équivaut à...</div>
+        <div style="font-size:11px;color:#5E6584;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">CO₂ consommé équivaut à...</div>
         <div style="display:flex;align-items:center;gap:12px;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;">
           <span style="font-size:24px;">📺</span>
           <div>
@@ -3141,18 +3141,18 @@ function renderCarbonPage() {
             <div style="font-size:12px;color:var(--text-dim);">Aller simple (~1 000 kg de CO₂/personne)</div>
           </div>
         </div>
-        <div style="font-size:11px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin:8px 0 4px;">Knowstell a évité l'équivalent de...</div>
-        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:8px;">
+        <div style="font-size:11px;color:#5E6584;text-transform:uppercase;letter-spacing:.05em;margin:8px 0 4px;">Knowstell a évité l'équivalent de...</div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:8px;">
           <span style="font-size:24px;">📧</span>
           <div>
-            <div style="font-size:13px;font-weight:600;color:#10B981;">${emailsSaved} emails évités</div>
+            <div style="font-size:13px;font-weight:600;color:#34D399;">${emailsSaved} emails évités</div>
             <div style="font-size:12px;color:var(--text-dim);">(~4 g de CO₂ par email avec pièce jointe)</div>
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:8px;">
+        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:8px;">
           <span style="font-size:24px;">📺</span>
           <div>
-            <div style="font-size:13px;font-weight:600;color:#10B981;">${netflixMinutesSaved} min de streaming évitées</div>
+            <div style="font-size:13px;font-weight:600;color:#34D399;">${netflixMinutesSaved} min de streaming évitées</div>
             <div style="font-size:12px;color:var(--text-dim);">Équivalent Netflix HD</div>
           </div>
         </div>
@@ -3185,16 +3185,16 @@ function buildCarbonChart(evs) {
     data: {
       labels,
       datasets: [
-        { label:'CO₂ consommé (g de CO₂)', data:consumed, backgroundColor:'rgba(239,68,68,0.3)', borderColor:'#EF4444', borderWidth:1, borderRadius:3 },
-        { label:'CO₂ évité (g de CO₂)',    data:saved,    backgroundColor:'rgba(16,185,129,0.3)', borderColor:'#10B981', borderWidth:1, borderRadius:3 }
+        { label:'CO₂ consommé (g de CO₂)', data:consumed, backgroundColor:'rgba(247,100,100,0.3)', borderColor:'#F76464', borderWidth:1, borderRadius:3 },
+        { label:'CO₂ évité (g de CO₂)',    data:saved,    backgroundColor:'rgba(52,211,153,0.3)', borderColor:'#34D399', borderWidth:1, borderRadius:3 }
       ]
     },
     options: {
       responsive:true, maintainAspectRatio:false,
       plugins:{
-        legend:{ display:true, labels:{ color:'#6E7178', font:{ size:10 } } },
+        legend:{ display:true, labels:{ color:'#5E6584', font:{ size:10 } } },
         tooltip:{ backgroundColor:'rgba(17,17,19,0.95)', borderColor:'rgba(255,255,255,0.1)', borderWidth:1,
-          titleColor:'#E8E9EB', bodyColor:'#9CA0A8', padding:10, cornerRadius:8,
+          titleColor:'#F2F3F9', bodyColor:'#9AA0B8', padding:10, cornerRadius:8,
           callbacks:{ label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + ' g de CO₂' } }
       },
       scales:{
@@ -3298,11 +3298,11 @@ async function renderUsersPage() {
         ? new Date(u.last_login * 1000).toLocaleDateString('fr-FR', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})
         : 'Jamais';
       const roleBadge = u.role === 'admin'
-        ? `<span style="font-size:11px;padding:2px 7px;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);color:#8B5CF6;border-radius:10px;">Admin</span>`
-        : `<span style="font-size:11px;padding:2px 7px;background:rgba(201,205,211,0.08);border:1px solid rgba(201,205,211,0.15);color:var(--text-dim);border-radius:10px;">User</span>`;
+        ? `<span style="font-size:11px;padding:2px 7px;background:rgba(109,94,252,0.15);border:1px solid rgba(109,94,252,0.3);color:#6D5EFC;border-radius:10px;">Admin</span>`
+        : `<span style="font-size:11px;padding:2px 7px;background:rgba(109,94,252,0.08);border:1px solid rgba(109,94,252,0.15);color:var(--text-dim);border-radius:10px;">User</span>`;
       const statusBadge = u.active
-        ? `<span style="font-size:11px;padding:2px 7px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);color:#10B981;border-radius:10px;">Actif</span>`
-        : `<span style="font-size:11px;padding:2px 7px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);color:#EF4444;border-radius:10px;">Inactif</span>`;
+        ? `<span style="font-size:11px;padding:2px 7px;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.25);color:#34D399;border-radius:10px;">Actif</span>`
+        : `<span style="font-size:11px;padding:2px 7px;background:rgba(247,100,100,0.1);border:1px solid rgba(247,100,100,0.25);color:#F76464;border-radius:10px;">Inactif</span>`;
       return `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
         <td style="padding:10px 10px;font-size:13px;font-weight:500;">${u.name}</td>
         <td style="padding:10px 10px;font-size:12px;color:var(--text-mid);">${u.email}</td>
@@ -3312,7 +3312,7 @@ async function renderUsersPage() {
         <td style="padding:10px 10px;font-size:12px;color:var(--text-dim);">${lastLogin}</td>
         <td style="padding:10px 10px;text-align:right;white-space:nowrap;">
           <button onclick="editUser(${u.id})" style="padding:4px 10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--text-mid);border-radius:5px;font-size:12px;cursor:pointer;font-family:var(--font-body);margin-right:4px;">Éditer</button>
-          <button onclick="toggleUser(${u.id},${u.active})" style="padding:4px 10px;background:${u.active ? 'rgba(239,68,68,0.08)' : 'rgba(16,185,129,0.08)'};border:1px solid ${u.active ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.2)'};color:${u.active ? '#EF4444' : '#10B981'};border-radius:5px;font-size:12px;cursor:pointer;font-family:var(--font-body);">${u.active ? 'Désactiver' : 'Activer'}</button>
+          <button onclick="toggleUser(${u.id},${u.active})" style="padding:4px 10px;background:${u.active ? 'rgba(247,100,100,0.08)' : 'rgba(52,211,153,0.08)'};border:1px solid ${u.active ? 'rgba(247,100,100,0.2)' : 'rgba(52,211,153,0.2)'};color:${u.active ? '#F76464' : '#34D399'};border-radius:5px;font-size:12px;cursor:pointer;font-family:var(--font-body);">${u.active ? 'Désactiver' : 'Activer'}</button>
         </td>
       </tr>`;
     }).join('');
@@ -3328,14 +3328,14 @@ async function renderUsersPage() {
           const created = new Date(inv.created_at * 1000).toLocaleDateString('fr-FR', {day:'numeric',month:'short'});
           const status = inv.used_at
             ? `<span style="font-size:11px;padding:2px 7px;background:rgba(107,113,120,0.15);border:1px solid rgba(107,113,120,0.3);color:var(--text-dim);border-radius:10px;">Utilisé</span>`
-            : `<span style="font-size:11px;padding:2px 7px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);color:#10B981;border-radius:10px;">Disponible</span>`;
+            : `<span style="font-size:11px;padding:2px 7px;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.25);color:#34D399;border-radius:10px;">Disponible</span>`;
           return `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
             <td style="padding:10px 10px;font-size:13px;font-weight:600;letter-spacing:2px;font-family:'Courier New',monospace;">${inv.code}</td>
             <td style="padding:10px 10px;font-size:12px;color:var(--text-mid);">${inv.email || '—'}</td>
             <td style="padding:10px 10px;">${status}</td>
             <td style="padding:10px 10px;font-size:12px;color:var(--text-dim);">${created}</td>
             <td style="padding:10px 10px;text-align:right;">
-              ${!inv.used_at ? `<button onclick="deleteInvitation(${inv.id})" style="padding:4px 10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#EF4444;border-radius:5px;font-size:12px;cursor:pointer;font-family:var(--font-body);">Supprimer</button>` : ''}
+              ${!inv.used_at ? `<button onclick="deleteInvitation(${inv.id})" style="padding:4px 10px;background:rgba(247,100,100,0.08);border:1px solid rgba(247,100,100,0.2);color:#F76464;border-radius:5px;font-size:12px;cursor:pointer;font-family:var(--font-body);">Supprimer</button>` : ''}
             </td>
           </tr>`;
         }).join('');
@@ -3566,7 +3566,7 @@ async function renderCoachingPage() {
       issuesEl.innerHTML = '<div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Pas encore assez de données.</div>';
     } else {
       const maxCount = topIssues[0][1];
-      const colors   = ['#EF4444','#F59E0B','#8B5CF6','#3B82F6','#6E7178'];
+      const colors   = ['#F76464','#F5A524','#6D5EFC','#3B82F6','#5E6584'];
       issuesEl.innerHTML = topIssues.map(([issue, count], i) => {
         const pct = Math.round(count / maxCount * 100);
         return `<div style="margin-bottom:12px;">
@@ -3615,13 +3615,13 @@ function buildCoachingProgressChart(evs) {
     data: {
       labels: weeks,
       datasets: [
-        { label: 'Score moyen', data: scores, borderColor: '#8B5CF6', backgroundColor: 'rgba(139,92,246,0.1)', borderWidth: 2, pointBackgroundColor: '#8B5CF6', pointRadius: 4, tension: 0.3, spanGaps: true },
-        { label: 'Objectif', data: new Array(8).fill(7), borderColor: 'rgba(16,185,129,0.4)', borderWidth: 1, borderDash: [4,4], pointRadius: 0, fill: false }
+        { label: 'Score moyen', data: scores, borderColor: '#6D5EFC', backgroundColor: 'rgba(109,94,252,0.1)', borderWidth: 2, pointBackgroundColor: '#6D5EFC', pointRadius: 4, tension: 0.3, spanGaps: true },
+        { label: 'Objectif', data: new Array(8).fill(7), borderColor: 'rgba(52,211,153,0.4)', borderWidth: 1, borderDash: [4,4], pointRadius: 0, fill: false }
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(17,17,19,0.95)', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1, titleColor: '#E8E9EB', bodyColor: '#9CA0A8', padding: 10, cornerRadius: 8 } },
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(17,17,19,0.95)', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1, titleColor: '#F2F3F9', bodyColor: '#9AA0B8', padding: 10, cornerRadius: 8 } },
       scales: {
         x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#4A5568', font: { size: 10 } } },
         y: { min: 0, max: 10, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#4A5568', font: { size: 10 } } }
@@ -3714,7 +3714,7 @@ Génère une analyse de coaching professionnelle et actionnable en JSON :
   } catch(e) {
     console.error('Coaching analysis error:', e);
     const el = document.getElementById('coaching-ai-analysis');
-    if (el) el.innerHTML = '<div style="color:#EF4444;font-size:12px;padding:16px;text-align:center;">Erreur lors de la génération. Réessayez dans quelques instants.</div>';
+    if (el) el.innerHTML = '<div style="color:#F76464;font-size:12px;padding:16px;text-align:center;">Erreur lors de la génération. Réessayez dans quelques instants.</div>';
   } finally {
     if (btn) {
       btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Analyser avec IA';
@@ -3729,37 +3729,37 @@ function displayCoachingAnalysis(analysis) {
   const el = document.getElementById('coaching-ai-analysis');
   if (!el) return;
   el.innerHTML = `
-    <div style="margin-bottom:20px;padding:16px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:10px;">
-      <div style="font-size:10px;color:#8B5CF6;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Diagnostic global</div>
+    <div style="margin-bottom:20px;padding:16px;background:rgba(109,94,252,0.06);border:1px solid rgba(109,94,252,0.15);border-radius:10px;">
+      <div style="font-size:10px;color:#6D5EFC;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Diagnostic global</div>
       <div style="font-size:13px;color:var(--text);line-height:1.7;">${analysis.diagnostic || '—'}</div>
     </div>
     <div class="grid-2" style="margin-bottom:20px;">
-      <div style="padding:14px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:10px;">
-        <div style="font-size:10px;color:#10B981;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">✓ Points forts</div>
-        ${(analysis.points_forts || []).map(p => `<div style="display:flex;gap:8px;font-size:12px;color:var(--text-mid);padding:4px 0;"><span style="color:#10B981;flex-shrink:0;">✓</span>${p}</div>`).join('')}
+      <div style="padding:14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:10px;">
+        <div style="font-size:10px;color:#34D399;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">✓ Points forts</div>
+        ${(analysis.points_forts || []).map(p => `<div style="display:flex;gap:8px;font-size:12px;color:var(--text-mid);padding:4px 0;"><span style="color:#34D399;flex-shrink:0;">✓</span>${p}</div>`).join('')}
       </div>
-      <div style="padding:14px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:10px;">
-        <div style="font-size:10px;color:#F59E0B;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">💡 Conseil de la semaine</div>
+      <div style="padding:14px;background:rgba(245,165,36,0.06);border:1px solid rgba(245,165,36,0.15);border-radius:10px;">
+        <div style="font-size:10px;color:#F5A524;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">💡 Conseil de la semaine</div>
         <div style="font-size:13px;color:var(--text);line-height:1.6;">${analysis.conseil_semaine || '—'}</div>
       </div>
     </div>
     <div style="margin-bottom:20px;">
-      <div style="font-size:10px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Axes d'amélioration prioritaires</div>
+      <div style="font-size:10px;color:#5E6584;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Axes d'amélioration prioritaires</div>
       ${(analysis.axes_amelioration || []).map((axe, i) => `
         <div style="padding:14px;margin-bottom:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:10px;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-            <span style="width:22px;height:22px;border-radius:50%;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#EF4444;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${i+1}</span>
+            <span style="width:22px;height:22px;border-radius:50%;background:rgba(247,100,100,0.1);border:1px solid rgba(247,100,100,0.2);color:#F76464;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${i+1}</span>
             <div style="font-size:13px;font-weight:600;color:var(--text);">${axe.probleme}</div>
           </div>
           <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;padding-left:32px;">Impact : ${axe.impact}</div>
-          <div style="font-size:12px;color:#8B5CF6;padding:8px 10px;background:rgba(139,92,246,0.06);border-radius:6px;margin-left:32px;">→ ${axe.action}</div>
+          <div style="font-size:12px;color:#6D5EFC;padding:8px 10px;background:rgba(109,94,252,0.06);border-radius:6px;margin-left:32px;">→ ${axe.action}</div>
         </div>
       `).join('')}
     </div>
-    <div style="padding:14px;background:rgba(201,205,211,0.04);border:1px solid rgba(201,205,211,0.1);border-radius:10px;display:flex;align-items:center;gap:12px;">
+    <div style="padding:14px;background:rgba(109,94,252,0.04);border:1px solid rgba(109,94,252,0.1);border-radius:10px;display:flex;align-items:center;gap:12px;">
       <span style="font-size:24px;">🎯</span>
       <div>
-        <div style="font-size:10px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Objectif du mois</div>
+        <div style="font-size:10px;color:#5E6584;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Objectif du mois</div>
         <div style="font-size:13px;color:var(--text);line-height:1.5;">${analysis.objectif_mois || 'Non défini'}</div>
       </div>
     </div>
@@ -3786,9 +3786,9 @@ async function loadRecommendedPrompts(issuesMap) {
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
           <div>
             <div style="font-size:13px;font-weight:600;color:var(--text);">${p.title}</div>
-            <div style="font-size:12px;color:#6E7178;margin-top:2px;">${p.dept || ''}</div>
+            <div style="font-size:12px;color:#5E6584;margin-top:2px;">${p.dept || ''}</div>
           </div>
-          <button onclick="copyToClipboard('${p.text.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}', this)" style="background:rgba(201,205,211,0.08);border:1px solid rgba(201,205,211,0.15);color:var(--text-mid);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:var(--font-body);flex-shrink:0;margin-left:10px;">Copier</button>
+          <button onclick="copyToClipboard('${p.text.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}', this)" style="background:rgba(109,94,252,0.08);border:1px solid rgba(109,94,252,0.15);color:var(--text-mid);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:var(--font-body);flex-shrink:0;margin-left:10px;">Copier</button>
         </div>
         <div style="font-size:12px;color:var(--text-dim);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${p.text}</div>
       </div>
@@ -3802,7 +3802,7 @@ function copyToClipboard(text, btn) {
   navigator.clipboard.writeText(text).then(() => {
     const original = btn.textContent;
     btn.textContent = '✓ Copié';
-    btn.style.color = '#10B981';
+    btn.style.color = '#34D399';
     setTimeout(() => { btn.textContent = original; btn.style.color = ''; }, 2000);
   });
 }
