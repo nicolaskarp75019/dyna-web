@@ -1190,8 +1190,12 @@ const CAT_LABELS = {
   divertissement:      'Divertissement',
   recherche_emploi:    "Recherche d'emploi",
   finance_personnelle: 'Finance personnelle',
+  donnees_sensibles:   'Données sensibles',
+  factuel:             'Question factuelle',
+  factual:             'Question factuelle',
   badge:               'Badge débloqué',
   challenge:           'Défi complété',
+  unknown:             'Non classifié',
 };
 const CAT_COLORS = {
   professionnel:       '#34D399',
@@ -1199,6 +1203,12 @@ const CAT_COLORS = {
   divertissement:      '#F5A524',
   recherche_emploi:    '#F5A524',
   finance_personnelle: '#6D5EFC',
+  donnees_sensibles:   '#F76464',
+  factuel:             '#6D5EFC',
+  factual:             '#6D5EFC',
+  badge:               '#6D5EFC',
+  challenge:           '#6D5EFC',
+  unknown:             '#9AA0B8',
 };
 const ACTION_STATUS = {
   prompt_sent:       'ok',
@@ -1207,11 +1217,24 @@ const ACTION_STATUS = {
   coaching_ignored:  'coached_ignored',
   warning_shown:     'blocked',
 };
+const ACTION_LABELS = {
+  prompt_sent:        'Requête envoyée',
+  coaching_shown:     'Coaching proposé',
+  coaching_accepted:  'Coaching accepté',
+  coaching_ignored:   'Coaching ignoré',
+  warning_shown:      'Alerte affichée',
+  sensitive_confirmed:'Envoyé malgré alerte',
+  sensitive_cancelled:'Alerte respectée',
+  badge_unlocked:     'Badge débloqué',
+  challenge_completed:'Défi complété',
+};
 const SITE_LABELS = {
-  claude:  'claude.ai',
-  chatgpt: 'ChatGPT',
-  gemini:  'Gemini',
-  unknown: '—',
+  claude:    'claude.ai',
+  chatgpt:   'ChatGPT',
+  gemini:    'Gemini',
+  mistral:   'Mistral',
+  dashboard: 'Tableau de bord',
+  unknown:   '—',
 };
 
 // ── STATE ─────────────────────────────────────────────────────
@@ -1478,7 +1501,7 @@ function renderSensitiveAlerts(evs) {
           <span style="font-size:12px;font-weight:600;color:#F76464;">${dataType}</span>
           ${statusBadge}
         </div>
-        <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">${ev.team || '—'} · ${ev.site || '—'} · ${time}</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">${ev.team || '—'} · ${SITE_LABELS[ev.site] || ev.site || '—'} · ${time}</div>
       </div>
     </div>`;
   }).join('');
@@ -1524,7 +1547,7 @@ function renderCompliance(evs) {
             <span style="color:#F5A524;font-size:16px;flex-shrink:0;">⚠</span>
             <div style="flex:1;">
               <div style="font-size:12px;font-weight:600;color:#F5A524;">${dataType}</div>
-              <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">${ev.team || '—'} · ${ev.site || '—'} · ${time}</div>
+              <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">${ev.team || '—'} · ${SITE_LABELS[ev.site] || ev.site || '—'} · ${time}</div>
             </div>
           </div>`;
       }).join('');
@@ -2705,7 +2728,7 @@ function exportCSV() {
     ev.id,
     CAT_LABELS[ev.category] || ev.category,
     SITE_LABELS[ev.site]    || ev.site,
-    ev.action,
+    ACTION_LABELS[ev.action] || ev.action,
     ev.team || '—',
     new Date(ev.ts).toLocaleString('fr-FR'),
     ev.score_before != null ? ev.score_before : '—',

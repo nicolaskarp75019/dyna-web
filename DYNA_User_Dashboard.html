@@ -505,10 +505,11 @@ let _knownBadges = new Set();
 let _achievementsReady = false;
 let _scoreChart = null;
 
-const SITE_ICONS  = { claude: '◉', chatgpt: '⬡', gemini: '◈', unknown: '·' };
-const SITE_NAMES  = { claude: 'claude.ai', chatgpt: 'ChatGPT', gemini: 'Gemini', unknown: '—' };
-const SITE_LABELS = { claude: 'claude.ai', chatgpt: 'ChatGPT', gemini: 'Gemini', unknown: 'Inconnu' };
-const CAT_LABELS  = { professionnel: 'Professionnel', vie_personnelle: 'Vie personnelle', divertissement: 'Divertissement', politique: 'Politique', medical: 'Médical', financier: 'Financier', badge: 'Badge débloqué', challenge: 'Défi complété', unknown: 'Non classifié' };
+const SITE_ICONS  = { claude: '◉', chatgpt: '⬡', gemini: '◈', mistral: '◆', dashboard: '▦', unknown: '·' };
+const SITE_NAMES  = { claude: 'claude.ai', chatgpt: 'ChatGPT', gemini: 'Gemini', mistral: 'Mistral', dashboard: 'Tableau de bord', unknown: '—' };
+const SITE_LABELS = { claude: 'claude.ai', chatgpt: 'ChatGPT', gemini: 'Gemini', mistral: 'Mistral', dashboard: 'Tableau de bord', unknown: 'Inconnu' };
+const CAT_LABELS  = { professionnel: 'Professionnel', vie_personnelle: 'Vie personnelle', divertissement: 'Divertissement', politique: 'Politique', medical: 'Médical', financier: 'Financier', donnees_sensibles: 'Données sensibles', recherche_emploi: "Recherche d'emploi", finance_personnelle: 'Finance personnelle', factuel: 'Question factuelle', factual: 'Question factuelle', badge: 'Badge débloqué', challenge: 'Défi complété', unknown: 'Non classifié' };
+const ACTION_LABELS = { prompt_sent: 'Requête envoyée', coaching_shown: 'Coaching proposé', coaching_accepted: 'Coaching accepté', coaching_ignored: 'Coaching ignoré', warning_shown: 'Alerte affichée', sensitive_confirmed: 'Envoyé malgré alerte', sensitive_cancelled: 'Alerte respectée', badge_unlocked: 'Badge débloqué', challenge_completed: 'Défi complété' };
 let _coachingCache = [];
 let _reqCache = [];
 
@@ -1110,7 +1111,7 @@ function renderRequests(events) {
     const icon  = SITE_ICONS[e.site] || '·';
     const cat   = CAT_LABELS[e.category] || e.category || '—';
     const score = e.score_before != null ? `${e.score_before}/10` : '—';
-    const label = e.action === 'coaching_accepted' ? '✓ Coaching' : e.action === 'warning_shown' ? '⊘ Blocage' : e.action === 'prompt_sent' ? '→ Envoyé' : e.action || '—';
+    const label = e.action === 'coaching_accepted' ? '✓ Coaching' : e.action === 'warning_shown' ? '⊘ Blocage' : e.action === 'prompt_sent' ? '→ Envoyé' : (ACTION_LABELS[e.action] || e.action || '—');
     const idx   = _reqCache.indexOf(e);
     return `<div class="coaching-item" style="cursor:pointer;" onclick="openRequestModal(${idx})" onmouseenter="this.style.background='rgba(255,255,255,0.02)'" onmouseleave="this.style.background=''">
       <div style="display:flex;align-items:center;gap:10px;width:100%;">
@@ -1136,7 +1137,7 @@ function openRequestModal(i) {
     ['Date',        date],
     ['Site',        SITE_NAMES[e.site]  || e.site      || '—'],
     ['Catégorie',   CAT_LABELS[e.category] || e.category || '—'],
-    ['Action',      e.action            || '—'],
+    ['Action',      ACTION_LABELS[e.action] || e.action || '—'],
     ['Score avant', e.score_before != null ? `${e.score_before}/10` : '—'],
     ['Score après', e.score_after  != null ? `${e.score_after}/10`  : '—'],
     ['Pertinence',  e.relevance_score != null ? `${e.relevance_score}/10` : '—'],
