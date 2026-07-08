@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Knowstell  Espace Administration</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230A0A0C'/><text x='64' y='74' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='84' fill='%23C9CDD3' text-anchor='middle'>D</text></svg>" type="image/svg+xml">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><defs><linearGradient id='k' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23FFFFFF'/><stop offset='0.3' stop-color='%23E2E5E9'/><stop offset='0.5' stop-color='%239398A0'/><stop offset='0.7' stop-color='%23F4F6F8'/><stop offset='1' stop-color='%23D8DCE1'/></linearGradient></defs><rect width='128' height='128' rx='26' fill='%230A0A0C'/><text x='64' y='74' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='84' fill='url(%23k)' text-anchor='middle'>K</text></svg>" type="image/svg+xml">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap');
@@ -345,7 +345,7 @@ body{
 <div id="app-shell">
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
 <aside class="sidebar" id="sidebar">
-  <div class="logo" style="cursor:pointer;" onclick="document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));document.querySelector('[data-page=\'dashboard\']').classList.add('active');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-dashboard').classList.add('active');document.getElementById('page-title').textContent='Dashboard';"><div class="logo-text">Knowstell</div><div class="logo-sub">Do You Need AI?</div></div>
+  <div class="logo" style="cursor:pointer;" onclick="document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));document.querySelector('[data-page=\'dashboard\']').classList.add('active');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-dashboard').classList.add('active');document.getElementById('page-title').textContent='Dashboard';"><div class="logo-text">Knowstell</div></div>
   <nav class="nav">
     <div class="nav-section">Vue d'ensemble</div>
     <div class="nav-item active" data-page="dashboard"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span> Dashboard</div>
@@ -461,7 +461,7 @@ body{
     <!-- Carte Pertinence IA -->
     <div class="card" id="card-ai-relevance" style="margin-bottom:14px;">
       <div class="card-header">
-        <div class="card-title">Pertinence IA — Do You Need AI?</div>
+        <div class="card-title">Pertinence IA</div>
         <div class="card-tag" id="ai-rel-tag">—</div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:12px;">
