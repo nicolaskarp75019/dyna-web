@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DYNA  Espace Administration</title>
+<title>Knowstell  Espace Administration</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230A0A0C'/><text x='64' y='74' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='84' fill='%23C9CDD3' text-anchor='middle'>D</text></svg>" type="image/svg+xml">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -345,7 +345,7 @@ body{
 <div id="app-shell">
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
 <aside class="sidebar" id="sidebar">
-  <div class="logo" style="cursor:pointer;" onclick="document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));document.querySelector('[data-page=\'dashboard\']').classList.add('active');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-dashboard').classList.add('active');document.getElementById('page-title').textContent='Dashboard';"><div class="logo-text">DYNA</div><div class="logo-sub">Do You Need AI?</div></div>
+  <div class="logo" style="cursor:pointer;" onclick="document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));document.querySelector('[data-page=\'dashboard\']').classList.add('active');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-dashboard').classList.add('active');document.getElementById('page-title').textContent='Dashboard';"><div class="logo-text">Knowstell</div><div class="logo-sub">Do You Need AI?</div></div>
   <nav class="nav">
     <div class="nav-section">Vue d'ensemble</div>
     <div class="nav-item active" data-page="dashboard"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span> Dashboard</div>
@@ -367,7 +367,7 @@ body{
   <div class="sidebar-footer">
     <div class="company-badge" id="logout-trigger">
       <div class="company-avatar" id="company-avatar">D</div>
-      <div><div class="company-name" id="company-name">DYNA Pilote</div><div class="company-plan" id="company-plan">Phase de test</div></div>
+      <div><div class="company-name" id="company-name">Knowstell Pilote</div><div class="company-plan" id="company-plan">Phase de test</div></div>
     </div>
     <button onclick="doLogout()" style="margin-top:10px;width:100%;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#EF4444;border-radius:6px;padding:7px;font-size:12px;cursor:pointer;font-family:var(--font-body);transition:all 0.15s;" onmouseover="this.style.background='rgba(239,68,68,0.12)'" onmouseout="this.style.background='rgba(239,68,68,0.08)'">Se déconnecter</button>
   </div>
@@ -376,7 +376,7 @@ body{
 <main class="main">
   <div class="topbar">
     <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Ouvrir le menu">☰</button>
-    <div class="topbar-title">DYNA — <span id="page-title">Dashboard</span></div>
+    <div class="topbar-title">Knowstell — <span id="page-title">Dashboard</span></div>
     <div class="topbar-right">
       <div style="display:flex;align-items:center;gap:8px;">
         <select class="filter-select" id="team-filter">
@@ -416,7 +416,7 @@ body{
         <div>
           <div class="kpi-label">🌱 CO₂ consommé ce mois<span class="kpi-info" onclick="openKpiInfo('co2')">?</span></div>
           <div class="kpi-value" id="kpi-co2" style="color:#10B981;">—</div>
-          <div class="kpi-delta" id="kpi-co2-delta">vs utilisation sans DYNA</div>
+          <div class="kpi-delta" id="kpi-co2-delta">vs utilisation sans Knowstell</div>
         </div>
         <div style="text-align:right;">
           <div id="kpi-co2-trend" style="font-size:24px;">—</div>
@@ -508,7 +508,7 @@ body{
         <div id="sensitive-count" style="font-size:12px;color:var(--text-dim);">0 alerte ce mois</div>
       </div>
       <div id="sensitive-list">
-        <div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Aucune alerte pour le moment. DYNA surveille activement les données sensibles.</div>
+        <div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Aucune alerte pour le moment. Knowstell surveille activement les données sensibles.</div>
       </div>
     </div>
     <div class="card" style="margin-top:16px;border-color:rgba(239,68,68,0.2);">
@@ -659,7 +659,7 @@ body{
         </div>
       </div>
       <div style="font-size:12px;color:var(--text-mid);padding:10px 12px;background:rgba(201,205,211,0.05);border-radius:6px;" id="maturity-ai-insight">
-        Données insuffisantes — utilisez DYNA sur quelques jours pour voir l'analyse.
+        Données insuffisantes — utilisez Knowstell sur quelques jours pour voir l'analyse.
       </div>
     </div>
   </div>
@@ -670,7 +670,7 @@ body{
       <div class="kpi-card green"><div class="kpi-label">ROI total estimé</div><div class="kpi-value" id="roi-total">—</div><div class="kpi-delta" id="roi-total-delta">ce mois</div></div>
       <div class="kpi-card cyan"><div class="kpi-label">Heures économisées</div><div class="kpi-value" id="roi-hours">—</div><div class="kpi-delta" id="roi-hours-delta">ce mois</div></div>
       <div class="kpi-card purple"><div class="kpi-label">Tokens économisés</div><div class="kpi-value" id="roi-tokens">—</div><div class="kpi-delta" id="roi-tokens-delta">valeur estimée</div></div>
-      <div class="kpi-card orange"><div class="kpi-label">Coût DYNA ce mois</div><div class="kpi-value" id="roi-cost">—</div><div class="kpi-delta" id="roi-cost-delta">abonnement + API</div></div>
+      <div class="kpi-card orange"><div class="kpi-label">Coût Knowstell ce mois</div><div class="kpi-value" id="roi-cost">—</div><div class="kpi-delta" id="roi-cost-delta">abonnement + API</div></div>
     </div>
 
     <div class="card" style="margin-bottom:16px;">
@@ -694,11 +694,11 @@ body{
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;">
         <div>
-          <div class="kpi-label" style="margin-bottom:6px;">Nombre d'utilisateurs DYNA</div>
+          <div class="kpi-label" style="margin-bottom:6px;">Nombre d'utilisateurs Knowstell</div>
           <input type="number" id="roi-users" value="1" style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;font-family:var(--font-body);">
         </div>
         <div>
-          <div class="kpi-label" style="margin-bottom:6px;">Prix abonnement DYNA (€/user/mois)</div>
+          <div class="kpi-label" style="margin-bottom:6px;">Prix abonnement Knowstell (€/user/mois)</div>
           <input type="number" id="roi-price" value="9.99" step="0.01" style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px;font-family:var(--font-body);">
         </div>
       </div>
@@ -728,7 +728,7 @@ body{
         </div>
         <div style="text-align:center;padding:16px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:10px;">
           <div id="roi-proj-cost" style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#EF4444;">—</div>
-          <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Coût DYNA annuel</div>
+          <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">Coût Knowstell annuel</div>
         </div>
         <div style="text-align:center;padding:16px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:10px;">
           <div id="roi-proj-ratio" style="font-size:28px;font-weight:700;font-family:var(--font-display);color:#8B5CF6;">—</div>
@@ -1072,7 +1072,7 @@ body{
       <div class="kpi-card cyan">
         <div class="kpi-label">CO₂ évité (blocages)</div>
         <div class="kpi-value" id="carbon-saved">—</div>
-        <div class="kpi-delta">grâce aux blocages DYNA</div>
+        <div class="kpi-delta">grâce aux blocages Knowstell</div>
       </div>
       <div class="kpi-card orange">
         <div class="kpi-label">Tendance mensuelle</div>
@@ -1256,7 +1256,7 @@ function openModal(ev) {
     if (ev.category === 'donnees_sensibles') {
       issues = `<div style="padding:10px 12px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:8px;font-size:12px;color:#EF4444;line-height:1.6;">
         🔒 Le détail des données détectées n'est pas affiché ici conformément au RGPD et au droit du travail français.<br>
-        <span style="color:var(--text-dim);font-size:12px;">DYNA a détecté des données potentiellement sensibles dans ce prompt et a alerté l'utilisateur. Le contenu exact n'est jamais stocké.</span>
+        <span style="color:var(--text-dim);font-size:12px;">Knowstell a détecté des données potentiellement sensibles dans ce prompt et a alerté l'utilisateur. Le contenu exact n'est jamais stocké.</span>
       </div>`;
     } else if (ev.coaching_issues) {
       issues = ev.coaching_issues.split('|').map(i =>
@@ -1450,7 +1450,7 @@ function renderSensitiveAlerts(evs) {
   if (!listEl) return;
 
   if (!sensitiveEvs.length) {
-    listEl.innerHTML = '<div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">✓ Aucune donnée sensible détectée. DYNA surveille activement.</div>';
+    listEl.innerHTML = '<div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">✓ Aucune donnée sensible détectée. Knowstell surveille activement.</div>';
     return;
   }
 
@@ -1638,7 +1638,7 @@ function renderScoreRings(containerId, evs) {
     .sort((a, b) => b.avg - a.avg);
 
   if (!teams.length) {
-    container.innerHTML = '<div style="color:var(--text-dim);font-size:12px;padding:8px 0;">Données insuffisantes — continuez à utiliser DYNA.</div>';
+    container.innerHTML = '<div style="color:var(--text-dim);font-size:12px;padding:8px 0;">Données insuffisantes — continuez à utiliser Knowstell.</div>';
     return;
   }
 
@@ -2110,7 +2110,7 @@ function applyLiveData({stats, recent}) {
   const kpiCo2Delta  = document.getElementById('kpi-co2-delta');
   const kpiCo2Trend  = document.getElementById('kpi-co2-trend');
   if (kpiCo2El)    kpiCo2El.textContent    = _fmtCo2(_carbonData.consumed);
-  if (kpiCo2Delta) kpiCo2Delta.textContent = _carbonData.reductionPct + '% de réduction vs sans DYNA';
+  if (kpiCo2Delta) kpiCo2Delta.textContent = _carbonData.reductionPct + '% de réduction vs sans Knowstell';
   if (kpiCo2Trend) kpiCo2Trend.textContent = _carbonData.reductionPct >= 10 ? '🌿' : _carbonData.reductionPct > 0 ? '🌱' : '⚠️';
 
   const activePage = document.querySelector('.nav-item.active');
@@ -2746,10 +2746,10 @@ function renderMySpace() {
       : avgScore >= 4 ? '#F59E0B' : '#EF4444';
   }
   if (heroMsg) heroMsg.textContent = !avgScore
-    ? 'Commencez à utiliser DYNA pour voir votre progression.'
+    ? 'Commencez à utiliser Knowstell pour voir votre progression.'
     : avgScore >= 7 ? 'Excellent ! Vous maîtrisez l\'art du prompt.'
     : avgScore >= 5 ? 'Bonne progression ! Continuez le coaching.'
-    : avgScore >= 3 ? 'En progression. Acceptez les suggestions DYNA.'
+    : avgScore >= 3 ? 'En progression. Acceptez les suggestions Knowstell.'
     : 'Démarrez votre progression.';
 
   // KPIs
@@ -2946,7 +2946,7 @@ function displayMyCoaching(coaching) {
 const KPI_EXPLANATIONS = {
   compliance: { title:'Taux de conformité données sensibles', color:'#10B981',
     formula:'Taux = Alertes annulées / (Annulées + Confirmées) × 100',
-    details:['Quand DYNA détecte une donnée sensible, l\'employé peut annuler (renoncer à envoyer) ou confirmer (envoyer malgré l\'alerte)','Annulée = comportement vertueux : l\'employé a protégé la donnée','Confirmée = l\'employé a envoyé la donnée sensible malgré l\'avertissement','Un taux élevé (>80%) indique une bonne culture de protection des données dans l\'organisation'] },
+    details:['Quand Knowstell détecte une donnée sensible, l\'employé peut annuler (renoncer à envoyer) ou confirmer (envoyer malgré l\'alerte)','Annulée = comportement vertueux : l\'employé a protégé la donnée','Confirmée = l\'employé a envoyé la donnée sensible malgré l\'avertissement','Un taux élevé (>80%) indique une bonne culture de protection des données dans l\'organisation'] },
   roi: { title:'ROI estimé ce mois', color:'#8B5CF6',
     formula:'ROI = (Blocages × 8min + Coachings × 12min) × Salaire horaire',
     details:['Chaque requête bloquée = 8 minutes économisées (temps non gaspillé)','Chaque coaching accepté = 12 minutes économisées (moins d\'allers-retours)','Multiplié par le salaire horaire moyen configuré (défaut: 35€/h)'],
@@ -3138,7 +3138,7 @@ function renderCarbonPage() {
             <div style="font-size:12px;color:var(--text-dim);">Aller simple (~1 000 kg de CO₂/personne)</div>
           </div>
         </div>
-        <div style="font-size:11px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin:8px 0 4px;">DYNA a évité l'équivalent de...</div>
+        <div style="font-size:11px;color:#6E7178;text-transform:uppercase;letter-spacing:.05em;margin:8px 0 4px;">Knowstell a évité l'équivalent de...</div>
         <div style="display:flex;align-items:center;gap:12px;padding:10px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:8px;">
           <span style="font-size:24px;">📧</span>
           <div>
@@ -3664,7 +3664,7 @@ async function generateCoachingInsights() {
 
   const prompt = `Tu es un expert en formation et coaching IA en entreprise B2B.
 
-Voici les données d'utilisation de DYNA sur le dernier mois :
+Voici les données d'utilisation de Knowstell sur le dernier mois :
 
 Statistiques globales :
 - Total requêtes analysées : ${evs.length}

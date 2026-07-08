@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DYNA  Mon Espace</title>
+<title>Knowstell  Mon Espace</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><rect width='128' height='128' rx='26' fill='%230A0A0C'/><text x='64' y='74' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='84' fill='%23C9CDD3' text-anchor='middle'>D</text></svg>" type="image/svg+xml">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -162,7 +162,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
   <!-- SIDEBAR -->
   <aside style="width:200px;flex-shrink:0;background:rgba(12,12,14,0.95);backdrop-filter:blur(20px);border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;overflow-y:auto;">
     <div style="padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,0.06);">
-      <div class="logo-text">DYNA</div>
+      <div class="logo-text">Knowstell</div>
       <div class="logo-sub">DO YOU NEED AI?</div>
     </div>
     <nav style="padding:12px 8px;flex:1;">
@@ -202,7 +202,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
   <!-- MAIN -->
   <main style="margin-left:200px;flex:1;min-height:100vh;display:flex;flex-direction:column;">
     <div style="height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(8,8,9,0.8);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.06);position:sticky;top:0;z-index:99;">
-      <div style="font-size:13px;color:var(--text-dim);">DYNA — <span id="u-page-title" style="background:linear-gradient(135deg,#F4F6F8 0%,#C9CDD3 50%,#9398A0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;">Progression</span></div>
+      <div style="font-size:13px;color:var(--text-dim);">Knowstell — <span id="u-page-title" style="background:linear-gradient(135deg,#F4F6F8 0%,#C9CDD3 50%,#9398A0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;">Progression</span></div>
       <div id="u-greeting" style="font-size:13px;font-weight:600;color:var(--text);">Bonjour 👋</div>
       <div id="backend-status" style="display:flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:12px;background:rgba(110,113,120,0.15);border:1px solid rgba(110,113,120,0.3);color:#6E7178;">
         <span id="status-dot" style="width:6px;height:6px;border-radius:50%;background:#6E7178;display:inline-block;flex-shrink:0;"></span>
@@ -330,7 +330,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
         <div class="card-tag">Score qualité</div>
       </div>
       <div class="chart-wrap"><canvas id="scoreChart"></canvas></div>
-      <div id="chart-empty" style="display:none;text-align:center;padding:32px 0;font-size:12px;color:var(--text-dim);">Commencez à utiliser DYNA sur claude.ai ou ChatGPT pour voir votre progression ici.</div>
+      <div id="chart-empty" style="display:none;text-align:center;padding:32px 0;font-size:12px;color:var(--text-dim);">Commencez à utiliser Knowstell sur claude.ai ou ChatGPT pour voir votre progression ici.</div>
     </div>
 
     <!-- DERNIERS COACHINGS -->
@@ -642,15 +642,15 @@ function updateHero(avg) {
 
   if (avg == null) {
     heroScore.textContent = '—';
-    if (heroMsg) heroMsg.textContent = 'Démarrez votre progression en acceptant le coaching DYNA.';
+    if (heroMsg) heroMsg.textContent = 'Démarrez votre progression en acceptant le coaching Knowstell.';
     return;
   }
 
   const n = parseFloat(avg);
   const message = n >= 7 ? 'Excellent ! Vous maîtrisez l\'art du prompt.'
     : n >= 5 ? 'Bonne progression ! Continuez à utiliser le coaching.'
-    : n >= 3 ? 'En progression. Acceptez les suggestions DYNA pour monter.'
-    : 'Démarrez votre progression en acceptant le coaching DYNA.';
+    : n >= 3 ? 'En progression. Acceptez les suggestions Knowstell pour monter.'
+    : 'Démarrez votre progression en acceptant le coaching Knowstell.';
 
   console.log('DYNA updateHero — avgWeek:', n, '→ message:', message);
 
@@ -1176,7 +1176,7 @@ function renderBadges({ coached, allScores, scoresWeek, timeSaved, dailyUsage })
   const BADGES = [
     {
       icon: '🌟', name: 'Premier pas',
-      desc: 'Vous avez accepté votre premier coaching DYNA',
+      desc: 'Vous avez accepté votre premier coaching Knowstell',
       unlocked: coached.length >= 1,
       progress: coached.length + '/1 coaching accepté',
     },
@@ -1200,7 +1200,7 @@ function renderBadges({ coached, allScores, scoresWeek, timeSaved, dailyUsage })
     },
     {
       icon: '⏱', name: 'Économe',
-      desc: '60 minutes de productivité récupérées grâce à DYNA',
+      desc: '60 minutes de productivité récupérées grâce à Knowstell',
       unlocked: timeSaved >= 60 || timeSavedMonth >= 60,
       progress: Math.max(timeSaved, timeSavedMonth) + '/60 minutes économisées',
     },
@@ -1212,7 +1212,7 @@ function renderBadges({ coached, allScores, scoresWeek, timeSaved, dailyUsage })
     },
     {
       icon: '🌐', name: 'Explorateur',
-      desc: 'Vous avez utilisé DYNA sur plusieurs outils IA',
+      desc: 'Vous avez utilisé Knowstell sur plusieurs outils IA',
       unlocked: (() => { const sites = new Set(coached.map(e => e.site).filter(Boolean)); return sites.size >= 2; })(),
       progress: (() => { const sites = new Set(coached.map(e => e.site).filter(Boolean)); return sites.size + '/2 outils utilisés'; })(),
     },
@@ -1246,12 +1246,12 @@ function renderBadges({ coached, allScores, scoresWeek, timeSaved, dailyUsage })
     },
     {
       icon: '📆', name: 'Fidèle',
-      desc: '10 jours d\'utilisation de DYNA !',
+      desc: '10 jours d\'utilisation de Knowstell !',
       unlocked: Object.keys(dailyUsage).length >= 10,
       progress: Object.keys(dailyUsage).length + '/10 jours',
     },
     {
-      icon: '🎓', name: 'Diplômé DYNA',
+      icon: '🎓', name: 'Diplômé Knowstell',
       desc: 'Vous avez complété tout le parcours de formation',
       unlocked: _learningData.completed.length >= 12,
       progress: _learningData.completed.length + '/12 modules complétés',
@@ -1279,7 +1279,7 @@ function renderBadges({ coached, allScores, scoresWeek, timeSaved, dailyUsage })
   if (streakEl) {
     streakEl.textContent = streak >= 2
       ? streak + ' jours consécutifs d\'utilisation'
-      : 'Utilisez DYNA demain pour démarrer une série !';
+      : 'Utilisez Knowstell demain pour démarrer une série !';
     streakEl.parentElement.style.color = streak >= 3 ? '#F59E0B' : 'var(--text-dim)';
   }
 
@@ -1455,7 +1455,7 @@ function renderUserPatterns() {
   const el = document.getElementById('user-patterns-content');
   if (!el) return;
   if (!topIssues.length) {
-    el.innerHTML = '<div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Pas encore assez de données. Continuez à utiliser DYNA pour voir vos patterns apparaître.</div>';
+    el.innerHTML = '<div style="color:var(--text-dim);font-size:12px;padding:16px 0;text-align:center;">Pas encore assez de données. Continuez à utiliser Knowstell pour voir vos patterns apparaître.</div>';
     return;
   }
   const maxCount = topIssues[0][1];
