@@ -1190,6 +1190,8 @@ const CAT_LABELS = {
   divertissement:      'Divertissement',
   recherche_emploi:    "Recherche d'emploi",
   finance_personnelle: 'Finance personnelle',
+  badge:               'Badge débloqué',
+  challenge:           'Défi complété',
 };
 const CAT_COLORS = {
   professionnel:       '#34D399',
@@ -1747,7 +1749,7 @@ function buildMaturityChart(evs) {
 
 // ── REALTIME FEED ─────────────────────────────────────────────
 function renderFeed(evs) {
-  evs = evs || recentEvents;
+  evs = (evs || recentEvents).filter(ev => ev.action !== 'badge_unlocked' && ev.action !== 'challenge_completed' && ev.category !== 'badge' && ev.category !== 'challenge');
   const today = new Date().toDateString();
   const todayEvs = evs.filter(ev => new Date(ev.ts).toDateString() === today);
   const rtOk      = todayEvs.filter(ev=>ev.action==='prompt_sent').length;
@@ -1784,7 +1786,7 @@ function rowHtml(ev) {
 }
 const TABLE_HEAD = '<thead><tr><th>Requête</th><th>Équipe / Site</th><th>Statut</th><th>Coût</th><th>Heure</th><th style="width:20px"></th></tr></thead>';
 function renderTables(evs) {
-  evs = evs || recentEvents;
+  evs = (evs || recentEvents).filter(ev => ev.action !== 'badge_unlocked' && ev.action !== 'challenge_completed' && ev.category !== 'badge' && ev.category !== 'challenge');
   const EMPTY = TABLE_HEAD+'<tbody>'+emptyTr('Aucune requête analysée pour le moment.',6)+'</tbody>';
   if (!evs.length) {
     document.getElementById('req-table-dash').innerHTML = EMPTY;

@@ -129,7 +129,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .mlbl-u{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
 
 /* ── LOGO SIDEBAR ── */
-.logo-text{position:relative;font-family:var(--font-display);font-size:30px;font-weight:700;letter-spacing:4px;line-height:1;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,0.9) 45%,rgba(255,255,255,0.95) 50%,transparent 65%),linear-gradient(160deg,#FFFFFF 0%,#E2E5E9 8%,#9AA0B8 20%,#5E6584 32%,#F4F6F8 44%,#B5B9C0 56%,#7D828A 68%,#EEF0F2 80%,#8A9099 92%,#D8DCE1 100%);background-size:220% 100%,100% 100%;background-position:-150% 0,0 0;background-repeat:no-repeat;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 1px 0 rgba(255,255,255,0.5)) drop-shadow(0 2px 2px rgba(0,0,0,0.55)) drop-shadow(0 4px 10px rgba(0,0,0,0.4)) drop-shadow(0 0 22px rgba(109,94,252,0.25));animation:chromeShine 5s ease-in-out infinite;animation-delay:1s;}
+.logo-text{position:relative;font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:2px;line-height:1;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,0.9) 45%,rgba(255,255,255,0.95) 50%,transparent 65%),linear-gradient(160deg,#FFFFFF 0%,#E2E5E9 8%,#9AA0B8 20%,#5E6584 32%,#F4F6F8 44%,#B5B9C0 56%,#7D828A 68%,#EEF0F2 80%,#8A9099 92%,#D8DCE1 100%);background-size:220% 100%,100% 100%;background-position:-150% 0,0 0;background-repeat:no-repeat;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 1px 0 rgba(255,255,255,0.5)) drop-shadow(0 2px 2px rgba(0,0,0,0.55)) drop-shadow(0 4px 10px rgba(0,0,0,0.4)) drop-shadow(0 0 22px rgba(109,94,252,0.25));animation:chromeShine 5s ease-in-out infinite;animation-delay:1s;}
 @keyframes chromeShine{0%{background-position:-150% 0,0 0;}55%{background-position:250% 0,0 0;}100%{background-position:250% 0,0 0;}}
 .logo-sub{font-size:9px;color:#A8AEB8;letter-spacing:2px;margin-top:3px;text-transform:uppercase;font-family:'Courier New',monospace;}
 
@@ -508,7 +508,7 @@ let _scoreChart = null;
 const SITE_ICONS  = { claude: '◉', chatgpt: '⬡', gemini: '◈', unknown: '·' };
 const SITE_NAMES  = { claude: 'claude.ai', chatgpt: 'ChatGPT', gemini: 'Gemini', unknown: '—' };
 const SITE_LABELS = { claude: 'claude.ai', chatgpt: 'ChatGPT', gemini: 'Gemini', unknown: 'Inconnu' };
-const CAT_LABELS  = { professionnel: 'Professionnel', vie_personnelle: 'Vie personnelle', divertissement: 'Divertissement', politique: 'Politique', medical: 'Médical', financier: 'Financier', unknown: 'Non classifié' };
+const CAT_LABELS  = { professionnel: 'Professionnel', vie_personnelle: 'Vie personnelle', divertissement: 'Divertissement', politique: 'Politique', medical: 'Médical', financier: 'Financier', badge: 'Badge débloqué', challenge: 'Défi complété', unknown: 'Non classifié' };
 let _coachingCache = [];
 let _reqCache = [];
 
@@ -1092,7 +1092,7 @@ function maxConsecutiveDays(days) {
 
 // ── REQUÊTES ──────────────────────────────────────────────────
 function renderRequests(events) {
-  _reqCache = [...events].sort((a, b) => b.ts - a.ts);
+  _reqCache = [...events].filter(e => e.action !== 'badge_unlocked' && e.action !== 'challenge_completed' && e.category !== 'badge' && e.category !== 'challenge').sort((a, b) => b.ts - a.ts);
   const filter = document.getElementById('req-filter')?.value || 'all';
   let filtered = _reqCache;
   if (filter === 'professionnel') filtered = _reqCache.filter(e => e.category === 'professionnel');
