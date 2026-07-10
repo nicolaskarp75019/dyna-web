@@ -1110,7 +1110,12 @@ function renderRequests(events) {
     const date  = new Date(e.ts).toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
     const icon  = SITE_ICONS[e.site] || '·';
     const cat   = CAT_LABELS[e.category] || e.category || '—';
-    const score = e.score_before != null ? `${e.score_before}/10` : '—';
+    const hasProgress = e.score_before != null && e.score_after != null && e.score_after !== e.score_before;
+    const gain        = hasProgress ? (e.score_after - e.score_before) : null;
+    const arrowColor  = (gain != null && gain > 0) ? '#34D399' : '#6D5EFC';
+    const scoreHtml   = hasProgress
+      ? `<span style="color:var(--text-dim);">${e.score_before}/10</span> <span style="color:${arrowColor};">→</span> <span style="color:${arrowColor};font-weight:600;">${e.score_after}/10</span>`
+      : (e.score_before != null ? `${e.score_before}/10` : '—');
     const label = e.action === 'coaching_accepted' ? '✓ Coaching' : e.action === 'warning_shown' ? '⊘ Blocage' : e.action === 'prompt_sent' ? '→ Envoyé' : (ACTION_LABELS[e.action] || e.action || '—');
     const idx   = _reqCache.indexOf(e);
     return `<div class="coaching-item" style="cursor:pointer;" onclick="openRequestModal(${idx})" onmouseenter="this.style.background='rgba(255,255,255,0.02)'" onmouseleave="this.style.background=''">
@@ -1123,7 +1128,7 @@ function renderRequests(events) {
             <span style="font-size:11px;color:var(--text-dim);">${label}</span>
           </div>
         </div>
-        <span style="font-size:12px;font-family:var(--font-display);color:var(--text-mid);flex-shrink:0;">${score}</span>
+        <span style="font-size:12px;font-family:var(--font-display);color:var(--text-mid);flex-shrink:0;">${scoreHtml}</span>
       </div>
     </div>`;
   }).join('');
@@ -1133,6 +1138,11 @@ function openRequestModal(i) {
   const e = _reqCache[i];
   if (!e) return;
   const date = new Date(e.ts).toLocaleString('fr-FR', { dateStyle: 'medium', timeStyle: 'short' });
+  const mGain      = (e.score_before != null && e.score_after != null && e.score_after !== e.score_before) ? (e.score_after - e.score_before) : null;
+  const mGainColor = (mGain != null && mGain > 0) ? '#34D399' : '#6D5EFC';
+  const progressionVal = mGain != null
+    ? `<span style="color:var(--text-mid);">${e.score_before}/10</span> <span style="color:${mGainColor};">→</span> <span style="color:${mGainColor};font-weight:600;">${e.score_after}/10</span> <span style="color:${mGainColor};margin-left:6px;">(${mGain > 0 ? '+' : ''}${mGain} pt${Math.abs(mGain) > 1 ? 's' : ''})</span>`
+    : null;
   const fields = [
     ['Date',        date],
     ['Site',        SITE_NAMES[e.site]  || e.site      || '—'],
@@ -1140,6 +1150,7 @@ function openRequestModal(i) {
     ['Action',      ACTION_LABELS[e.action] || e.action || '—'],
     ['Score avant', e.score_before != null ? `${e.score_before}/10` : '—'],
     ['Score après', e.score_after  != null ? `${e.score_after}/10`  : '—'],
+    ...(progressionVal ? [['Progression', progressionVal]] : []),
     ['Pertinence',  e.relevance_score != null ? `${e.relevance_score}/10` : '—'],
     ['Coaching',    e.coaching_issues  || '—'],
     ['Équipe',      e.team             || '—'],
