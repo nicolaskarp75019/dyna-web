@@ -1810,12 +1810,12 @@ function rowHtml(ev) {
   const quality = hasProg
     ? `<span style="color:var(--text-dim);">${ev.score_before}/10</span> <span style="color:${qColor};">→</span> <span style="color:${qColor};font-weight:600;">${ev.score_after}/10</span>`
     : (ev.score_before != null ? `<span style="color:var(--text-mid);">${ev.score_before}/10</span>` : '<span style="color:var(--text-dim);">—</span>');
-  return `<tr class="req-row" onclick="openModalById(${ev.id})"><td><div class="req-text">${label}</div></td><td><div class="req-dept">${ev.team||SITE_LABELS[ev.site]||ev.site}</div></td><td>${badge(status)}</td><td><div style="font-size:12px;white-space:nowrap;">${quality}</div></td><td><div class="req-cost">—</div></td><td><div class="req-dept">${time}</div></td><td style="color:var(--text-dim);font-size:12px">›</td></tr>`;
+  return `<tr class="req-row" onclick="openModalById(${ev.id})"><td><div class="req-text">${label}</div></td><td><div class="req-dept">${ev.team||SITE_LABELS[ev.site]||ev.site}</div></td><td>${badge(status)}</td><td><div style="font-size:12px;white-space:nowrap;">${quality}</div></td><td><div class="req-dept">${time}</div></td><td style="color:var(--text-dim);font-size:12px">›</td></tr>`;
 }
-const TABLE_HEAD = '<thead><tr><th>Requête</th><th>Équipe / Site</th><th>Statut</th><th>Qualité</th><th>Coût</th><th>Heure</th><th style="width:20px"></th></tr></thead>';
+const TABLE_HEAD = '<thead><tr><th>Requête</th><th>Équipe / Site</th><th>Statut</th><th>Qualité</th><th>Heure</th><th style="width:20px"></th></tr></thead>';
 function renderTables(evs) {
   evs = (evs || recentEvents).filter(ev => ev.action !== 'badge_unlocked' && ev.action !== 'challenge_completed' && ev.category !== 'badge' && ev.category !== 'challenge');
-  const EMPTY = TABLE_HEAD+'<tbody>'+emptyTr('Aucune requête analysée pour le moment.',7)+'</tbody>';
+  const EMPTY = TABLE_HEAD+'<tbody>'+emptyTr('Aucune requête analysée pour le moment.',6)+'</tbody>';
   if (!evs.length) {
     document.getElementById('req-table-dash').innerHTML = EMPTY;
     document.getElementById('req-table-full').innerHTML = EMPTY;
@@ -1826,7 +1826,7 @@ function renderTables(evs) {
   const statusFilter = document.getElementById('status-filter').value;
   const actionMap = {ok:'prompt_sent',coached:'coaching_shown',blocked:'warning_shown'};
   const filtered = (statusFilter&&statusFilter!=='all') ? evs.filter(ev=>ev.action===(actionMap[statusFilter]||statusFilter)) : evs;
-  document.getElementById('req-table-full').innerHTML = TABLE_HEAD+'<tbody>'+(filtered.length?filtered.map(rowHtml).join(''):emptyTr('Aucun résultat pour ce filtre.',7))+'</tbody>';
+  document.getElementById('req-table-full').innerHTML = TABLE_HEAD+'<tbody>'+(filtered.length?filtered.map(rowHtml).join(''):emptyTr('Aucun résultat pour ce filtre.',6))+'</tbody>';
 }
 
 // ── CHARTS ────────────────────────────────────────────────────
