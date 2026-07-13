@@ -265,12 +265,12 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
           <div style="font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Score de Maturité IA</div>
           <div style="display:flex;align-items:center;gap:8px;">
             <span id="maturity-emoji" style="font-size:24px;">—</span>
-            <span id="maturity-level" style="font-size:18px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:var(--silver);">—</span>
+            <span id="maturity-level" style="font-size:18px;font-weight:700;font-family:var(--font-display);color:var(--text);">—</span>
           </div>
           <div id="maturity-description" style="font-size:12px;color:var(--text-dim);margin-top:3px;">—</div>
         </div>
         <div style="text-align:right;">
-          <div id="maturity-score" style="font-size:48px;font-weight:700;font-family:'Barlow Condensed',sans-serif;background:linear-gradient(135deg,#FFFFFF,#9AA0B8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">—</div>
+          <div id="maturity-score" style="font-size:48px;font-weight:700;font-family:var(--font-display);background:linear-gradient(135deg,#FFFFFF,#9AA0B8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">—</div>
           <div style="font-size:12px;color:#5E6584;">/100</div>
         </div>
       </div>
@@ -425,10 +425,10 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
       <!-- Mon rang -->
       <div style="background:linear-gradient(135deg,#111315,#0D0F11);border:1px solid rgba(109,94,252,0.1);border-radius:16px;padding:24px;margin-bottom:16px;text-align:center;">
         <div style="font-size:11px;color:#5E6584;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Mon rang dans l'équipe</div>
-        <div id="team-my-rank" style="font-size:56px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:var(--silver);line-height:1;">—</div>
+        <div id="team-my-rank" style="font-size:56px;font-weight:700;font-family:var(--font-display);color:var(--text);line-height:1;">—</div>
         <div id="team-my-rank-label" style="font-size:13px;color:var(--text-dim);margin-top:6px;">Chargement...</div>
         <div id="team-my-score-display" style="margin-top:12px;display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(109,94,252,0.06);border:1px solid rgba(109,94,252,0.12);border-radius:20px;font-size:13px;color:var(--text-mid);">
-          Mon score : <strong id="team-my-score-val" style="color:var(--silver);">—</strong>/10
+          Mon score : <strong id="team-my-score-val" style="color:var(--text);">—</strong>/10
         </div>
       </div>
 
@@ -1752,19 +1752,19 @@ async function renderTeamPage() {
           <div style="font-size:11px;color:#5E6584;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">Statistiques équipe ${myTeam}</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
             <div style="text-align:center;padding:10px;background:rgba(109,94,252,0.04);border-radius:8px;">
-              <div style="font-size:22px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:var(--silver);">${teamAvg || '—'}</div>
+              <div style="font-size:22px;font-weight:700;font-family:var(--font-display);color:var(--text);">${teamAvg || '—'}</div>
               <div style="font-size:11px;color:#5E6584;margin-top:2px;">Score moyen équipe</div>
             </div>
             <div style="text-align:center;padding:10px;background:rgba(109,94,252,0.06);border-radius:8px;">
-              <div style="font-size:22px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#6D5EFC;">${acceptRate}%</div>
+              <div style="font-size:22px;font-weight:700;font-family:var(--font-display);color:#6D5EFC;">${acceptRate}%</div>
               <div style="font-size:11px;color:#5E6584;margin-top:2px;">Taux coaching accepté</div>
             </div>
             <div style="text-align:center;padding:10px;background:rgba(52,211,153,0.06);border-radius:8px;">
-              <div style="font-size:22px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#34D399;">${totalTeam}</div>
+              <div style="font-size:22px;font-weight:700;font-family:var(--font-display);color:#34D399;">${totalTeam}</div>
               <div style="font-size:11px;color:#5E6584;margin-top:2px;">Requêtes analysées</div>
             </div>
             <div style="text-align:center;padding:10px;background:rgba(247,100,100,0.06);border-radius:8px;">
-              <div style="font-size:22px;font-weight:700;font-family:'Barlow Condensed',sans-serif;color:#F76464;">${blockedTeam}</div>
+              <div style="font-size:22px;font-weight:700;font-family:var(--font-display);color:#F76464;">${blockedTeam}</div>
               <div style="font-size:11px;color:#5E6584;margin-top:2px;">Requêtes bloquées</div>
             </div>
           </div>
