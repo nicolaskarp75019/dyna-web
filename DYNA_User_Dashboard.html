@@ -1092,8 +1092,23 @@ function maxConsecutiveDays(days) {
 }
 
 // ── REQUÊTES ──────────────────────────────────────────────────
+function dedupeCoachingEvents(events) {
+  const WINDOW_MS = 180000; // 3 min ; ts en ms
+  return events.filter(ev => {
+    if (ev.action !== 'coaching_shown') return true;
+    const followed = events.some(o =>
+      (o.action === 'coaching_accepted' || o.action === 'coaching_ignored') &&
+      o.team === ev.team && o.category === ev.category &&
+      o.ts >= ev.ts && (o.ts - ev.ts) <= WINDOW_MS
+    );
+    return !followed;
+  });
+}
+
 function renderRequests(events) {
-  _reqCache = [...events].filter(e => e.action !== 'badge_unlocked' && e.action !== 'challenge_completed' && e.category !== 'badge' && e.category !== 'challenge').sort((a, b) => b.ts - a.ts);
+  _reqCache = dedupeCoachingEvents(
+    [...events].filter(e => e.action !== 'badge_unlocked' && e.action !== 'challenge_completed' && e.category !== 'badge' && e.category !== 'challenge')
+  ).sort((a, b) => b.ts - a.ts);
   const filter = document.getElementById('req-filter')?.value || 'all';
   let filtered = _reqCache;
   if (filter === 'professionnel') filtered = _reqCache.filter(e => e.category === 'professionnel');

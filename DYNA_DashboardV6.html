@@ -1770,6 +1770,19 @@ function buildMaturityChart(evs) {
 }
 
 // ── REALTIME FEED ─────────────────────────────────────────────
+function dedupeCoachingEvents(events) {
+  const WINDOW_MS = 180000; // 3 min ; ts en ms
+  return events.filter(ev => {
+    if (ev.action !== 'coaching_shown') return true;
+    const followed = events.some(o =>
+      (o.action === 'coaching_accepted' || o.action === 'coaching_ignored') &&
+      o.team === ev.team && o.category === ev.category &&
+      o.ts >= ev.ts && (o.ts - ev.ts) <= WINDOW_MS
+    );
+    return !followed;
+  });
+}
+
 function renderFeed(evs) {
   evs = (evs || recentEvents).filter(ev => ev.action !== 'badge_unlocked' && ev.action !== 'challenge_completed' && ev.category !== 'badge' && ev.category !== 'challenge');
   const today = new Date().toDateString();
@@ -1784,7 +1797,7 @@ function renderFeed(evs) {
   document.getElementById('rt-blocked').textContent = rtBlocked;
   document.getElementById('feed-counter').textContent = todayEvs.length+' requête'+(todayEvs.length>1?'s':'')+' aujourd\'hui';
 
-  const visible = evs.slice(0, 8);
+  const visible = dedupeCoachingEvents(evs).slice(0, 8);
   document.getElementById('realtime-feed').innerHTML = visible.length
     ? visible.map(ev=>{
         const status = ACTION_STATUS[ev.action]||'ok';
@@ -1813,7 +1826,7 @@ function rowHtml(ev) {
 }
 const TABLE_HEAD = '<thead><tr><th>Requête</th><th>Équipe / Site</th><th>Statut</th><th>Qualité</th><th>Heure</th><th style="width:20px"></th></tr></thead>';
 function renderTables(evs) {
-  evs = (evs || recentEvents).filter(ev => ev.action !== 'badge_unlocked' && ev.action !== 'challenge_completed' && ev.category !== 'badge' && ev.category !== 'challenge');
+  evs = dedupeCoachingEvents((evs || recentEvents).filter(ev => ev.action !== 'badge_unlocked' && ev.action !== 'challenge_completed' && ev.category !== 'badge' && ev.category !== 'challenge'));
   const EMPTY = TABLE_HEAD+'<tbody>'+emptyTr('Aucune requête analysée pour le moment.',6)+'</tbody>';
   if (!evs.length) {
     document.getElementById('req-table-dash').innerHTML = EMPTY;
