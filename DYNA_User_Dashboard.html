@@ -84,6 +84,18 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 .chart-wrap{position:relative;height:180px;}
 
 /* ── COACHING LIST ── */
+.req-table{width:100%;border-collapse:collapse;}
+.req-table th{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.04em;font-weight:500;padding:8px 10px 9px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.03);}
+.req-table td{padding:9px 10px;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:middle;}
+.req-table tr:last-child td{border-bottom:none;}
+.req-row{cursor:pointer;transition:background 0.1s ease;}
+.req-row:hover td{background:rgba(255,255,255,0.025);}
+.req-text{color:var(--text);max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.req-dept{color:var(--text-dim);}
+.status-badge{display:inline-flex;align-items:center;gap:3px;font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;white-space:nowrap;}
+.s-ok{background:rgba(52,211,153,0.1);color:var(--green);border:1px solid rgba(52,211,153,0.25);}
+.s-blocked{background:rgba(247,100,100,0.1);color:var(--red);border:1px solid rgba(247,100,100,0.25);}
+.s-coached{background:rgba(109,94,252,0.1);color:var(--purple);border:1px solid rgba(109,94,252,0.25);}
 .coaching-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
 .coaching-item:last-child{border-bottom:none;}
 .coaching-site{width:20px;height:20px;border-radius:4px;background:rgba(109,94,252,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
@@ -142,6 +154,9 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 @media(max-width:900px){
   .kpi-grid{grid-template-columns:1fr 1fr;}
   .badges-grid{grid-template-columns:1fr 1fr;}
+  .req-table{display:block;width:100%;overflow-x:auto;white-space:nowrap;}
+  .req-table thead,.req-table tbody{display:table;width:100%;min-width:520px;}
+  .req-text{max-width:160px;}
 }
 </style>
 </head>
@@ -383,7 +398,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
           <option value="warning">Blocage</option>
         </select>
       </div>
-      <div id="req-list"><div style="font-size:12px;color:var(--text-dim);padding:8px 0;">Aucune requête enregistrée.</div></div>
+      <table class="req-table" id="req-table-user"></table>
     </div>
 
     </div><!-- /u-requests -->
@@ -510,6 +525,12 @@ const SITE_NAMES  = { claude: 'claude.ai', chatgpt: 'ChatGPT', gemini: 'Gemini',
 const SITE_LABELS = { claude: 'claude.ai', chatgpt: 'ChatGPT', gemini: 'Gemini', mistral: 'Mistral', dashboard: 'Tableau de bord', unknown: 'Inconnu' };
 const CAT_LABELS  = { professionnel: 'Professionnel', vie_personnelle: 'Vie personnelle', divertissement: 'Divertissement', politique: 'Politique', medical: 'Médical', financier: 'Financier', donnees_sensibles: 'Données sensibles', recherche_emploi: "Recherche d'emploi", finance_personnelle: 'Finance personnelle', factuel: 'Question factuelle', factual: 'Question factuelle', badge: 'Badge débloqué', challenge: 'Défi complété', unknown: 'Non classifié' };
 const ACTION_LABELS = { prompt_sent: 'Requête envoyée', coaching_shown: 'Coaching proposé', coaching_accepted: 'Coaching accepté', coaching_ignored: 'Coaching ignoré', warning_shown: 'Alerte affichée', sensitive_confirmed: 'Envoyé malgré alerte', sensitive_cancelled: 'Alerte respectée', badge_unlocked: 'Badge débloqué', challenge_completed: 'Défi complété' };
+const ACTION_STATUS = { prompt_sent: 'ok', coaching_shown: 'coached', coaching_accepted: 'coached_accepted', coaching_ignored: 'coached_ignored', warning_shown: 'blocked' };
+function badge(s) {
+  const m = { ok: ['✓ Autorisée','s-ok'], blocked: ['✕ Bloquée','s-blocked'], coached: ['◈ Coachée','s-coached'], coached_accepted: ['◈ Coachée — acceptée','s-coached'], coached_ignored: ['◈ Coachée — ignorée','s-coached'] };
+  const [lbl, cls] = m[s] || ['?',''];
+  return '<span class="status-badge ' + cls + '">' + lbl + '</span>';
+}
 let _coachingCache = [];
 let _reqCache = [];
 
@@ -1115,38 +1136,30 @@ function renderRequests(events) {
   else if (filter === 'coaching')  filtered = _reqCache.filter(e => e.action === 'coaching_accepted');
   else if (filter === 'warning')   filtered = _reqCache.filter(e => e.action === 'warning_shown');
 
-  const el = document.getElementById('req-list');
+  const el = document.getElementById('req-table-user');
   if (!el) return;
+  const HEAD = '<thead><tr><th>Requête</th><th>Site</th><th>Statut</th><th>Qualité</th><th>Heure</th><th style="width:20px"></th></tr></thead>';
   if (!filtered.length) {
-    el.innerHTML = '<div style="font-size:12px;color:var(--text-dim);padding:8px 0;">Aucune requête pour ce filtre.</div>';
+    el.innerHTML = HEAD + '<tbody><tr><td colspan="6" style="text-align:center;color:var(--text-dim);font-size:12px;padding:16px;">Aucune requête pour ce filtre.</td></tr></tbody>';
     return;
   }
-  el.innerHTML = filtered.slice(0, 20).map(e => {
-    const date  = new Date(e.ts).toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
-    const icon  = SITE_ICONS[e.site] || '·';
-    const cat   = CAT_LABELS[e.category] || e.category || '—';
-    const hasProgress = e.score_before != null && e.score_after != null && e.score_after !== e.score_before;
-    const gain        = hasProgress ? (e.score_after - e.score_before) : null;
-    const arrowColor  = (gain != null && gain > 0) ? '#34D399' : '#6D5EFC';
-    const scoreHtml   = hasProgress
-      ? `<span style="color:var(--text-dim);">${e.score_before}/10</span> <span style="color:${arrowColor};">→</span> <span style="color:${arrowColor};font-weight:600;">${e.score_after}/10</span>`
-      : (e.score_before != null ? `${e.score_before}/10` : '—');
-    const label = e.action === 'coaching_accepted' ? '✓ Coaching' : e.action === 'warning_shown' ? '⊘ Blocage' : e.action === 'prompt_sent' ? '→ Envoyé' : (ACTION_LABELS[e.action] || e.action || '—');
-    const idx   = _reqCache.indexOf(e);
-    return `<div class="coaching-item" style="cursor:pointer;" onclick="openRequestModal(${idx})" onmouseenter="this.style.background='rgba(255,255,255,0.02)'" onmouseleave="this.style.background=''">
-      <div style="display:flex;align-items:center;gap:10px;width:100%;">
-        <span style="font-size:15px;">${icon}</span>
-        <div style="flex:1;min-width:0;">
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-            <span style="font-size:12px;color:var(--text-mid);">${date}</span>
-            <span style="font-size:11px;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.06);color:var(--text-dim);">${cat}</span>
-            <span style="font-size:11px;color:var(--text-dim);">${label}</span>
-          </div>
-        </div>
-        <span style="font-size:12px;font-family:var(--font-display);color:var(--text-mid);flex-shrink:0;">${scoreHtml}</span>
-      </div>
-    </div>`;
-  }).join('');
+  el.innerHTML = HEAD + '<tbody>' + filtered.slice(0, 20).map(reqRowHtml).join('') + '</tbody>';
+}
+
+function reqRowHtml(e) {
+  const status = ACTION_STATUS[e.action] || 'ok';
+  const label  = e.category === 'professionnel'
+    ? 'Requête — ' + (CAT_LABELS[e.category] || e.category)
+    : 'Requête hors périmètre — ' + (CAT_LABELS[e.category] || e.category);
+  const time = new Date(e.ts).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  const hasProg = e.score_before != null && e.score_after != null && e.score_after !== e.score_before;
+  const qColor  = (hasProg && e.score_after > e.score_before) ? '#34D399' : '#6D5EFC';
+  const quality = hasProg
+    ? `<span style="color:var(--text-dim);">${e.score_before}/10</span> <span style="color:${qColor};">→</span> <span style="color:${qColor};font-weight:600;">${e.score_after}/10</span>`
+    : (e.score_before != null ? `<span style="color:var(--text-mid);">${e.score_before}/10</span>` : '<span style="color:var(--text-dim);">—</span>');
+  const site = SITE_LABELS[e.site] || e.site || '—';
+  const idx  = _reqCache.indexOf(e);
+  return `<tr class="req-row" onclick="openRequestModal(${idx})"><td><div class="req-text">${label}</div></td><td><div class="req-dept">${site}</div></td><td>${badge(status)}</td><td><div style="font-size:12px;white-space:nowrap;">${quality}</div></td><td><div class="req-dept">${time}</div></td><td style="color:var(--text-dim);font-size:12px">›</td></tr>`;
 }
 
 function openRequestModal(i) {
