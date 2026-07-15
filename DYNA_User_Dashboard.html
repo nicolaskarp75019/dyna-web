@@ -1152,7 +1152,7 @@ function reqRowHtml(e) {
   const label  = e.category === 'professionnel'
     ? 'Requête — ' + (CAT_LABELS[e.category] || e.category)
     : 'Requête hors périmètre — ' + (CAT_LABELS[e.category] || e.category);
-  const time = new Date(e.ts).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  const time = formatDate(e.ts);
   const hasProg = e.score_before != null && e.score_after != null && e.score_after !== e.score_before;
   const qColor  = (hasProg && e.score_after > e.score_before) ? '#34D399' : '#6D5EFC';
   const quality = hasProg
@@ -1160,7 +1160,7 @@ function reqRowHtml(e) {
     : (e.score_before != null ? `<span style="color:var(--text-mid);">${e.score_before}/10</span>` : '<span style="color:var(--text-dim);">—</span>');
   const site = SITE_LABELS[e.site] || e.site || '—';
   const idx  = _reqCache.indexOf(e);
-  return `<tr class="req-row" onclick="openRequestModal(${idx})"><td><div class="req-text">${label}</div></td><td><div class="req-dept">${site}</div></td><td>${badge(status)}</td><td><div style="font-size:12px;white-space:nowrap;">${quality}</div></td><td><div class="req-dept">${time}</div></td><td style="color:var(--text-dim);font-size:12px">›</td></tr>`;
+  return `<tr class="req-row" onclick="openRequestModal(${idx})"><td><div class="req-text">${label}</div></td><td><div class="req-dept">${site}</div></td><td>${badge(status)}</td><td><div style="font-size:12px;white-space:nowrap;">${quality}</div></td><td><div class="req-dept" style="white-space:nowrap;">${time}</div></td><td style="color:var(--text-dim);font-size:12px">›</td></tr>`;
 }
 
 function openRequestModal(i) {
@@ -1476,9 +1476,12 @@ function formatDate(ts) {
   const now = new Date();
   const diff = now - d;
   if (diff < 3600000) return 'Il y a ' + Math.round(diff / 60000) + ' min';
-  if (diff < 86400000) return 'Aujourd\'hui ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-  if (diff < 172800000) return 'Hier ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) + ' ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  const hm = d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  const startOfDay = x => new Date(x.getFullYear(), x.getMonth(), x.getDate());
+  const dayDiff = Math.round((startOfDay(now) - startOfDay(d)) / 86400000);
+  if (dayDiff === 0) return "Aujourd'hui " + hm;
+  if (dayDiff === 1) return "Hier " + hm;
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) + ' ' + hm;
 }
 
 // ── BOOT ──────────────────────────────────────────────────────
