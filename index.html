@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Knowstell — Gouvernance et coaching de l'usage de l'IA en entreprise</title>
-<meta name="description" content="Vos équipes utilisent déjà l'IA. Knowstell les coache au moment où elles écrivent leur prompt, et vous donne une vision de l'usage réel — sans jamais stocker ce qui est écrit.">
+<meta name="description" content="Knowstell est une solution de gouvernance et de coaching de l'usage de l'IA en entreprise. Elle protège vos données sensibles, fait progresser vos équipes et vous donne une vision de l'usage réel, sans jamais stocker ce qui est écrit.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'><defs><linearGradient id='k' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23B0A7FF'/><stop offset='0.5' stop-color='%23897CFF'/><stop offset='1' stop-color='%236D5EFC'/></linearGradient></defs><rect width='128' height='128' rx='26' fill='%230A0D18'/><text x='64' y='74' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='84' fill='url(%23k)' text-anchor='middle'>K</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,16 +82,12 @@ h1 .accent{
 .compat{margin-top:26px;font-size:13.5px;color:var(--text-dim)}
 .compat b{color:var(--text-mid);font-weight:600}
 
-/* ---------- demo simulation ---------- */
-.demo{
-  margin-top:56px; background:var(--surface); border:1px solid var(--border);
-  border-radius:16px; padding:22px; position:relative;
-  box-shadow:0 24px 60px rgba(0,0,0,.42);
-}
+/* ---------- simulation navigateur ---------- */
+.demo{margin-top:56px}
 .demo-label{
   display:flex;align-items:center;justify-content:space-between;gap:12px;
   font-size:11.5px;letter-spacing:1.1px;text-transform:uppercase;
-  color:var(--text-dim);font-weight:600;margin-bottom:16px;
+  color:var(--text-dim);font-weight:600;margin-bottom:14px;
 }
 .replay{
   background:none;border:1px solid var(--border);color:var(--text-mid);
@@ -100,48 +96,144 @@ h1 .accent{
   transition:border-color .15s ease,color .15s ease;
 }
 .replay:hover{border-color:var(--indigo);color:var(--text)}
-.replay:focus-visible{outline:2px solid var(--indigo);outline-offset:2px}
 
-.field{
-  background:var(--bg);border:1px solid var(--border);border-radius:11px;
-  padding:15px 17px;font-size:15px;min-height:54px;color:var(--text);
-  display:flex;align-items:center;gap:2px;transition:border-color .3s ease;
+.browser{
+  border:1px solid var(--border);border-radius:15px;overflow:hidden;
+  box-shadow:0 28px 70px rgba(0,0,0,.5);
 }
-.field.armed{border-color:var(--indigo)}
-.caret{width:2px;height:19px;background:var(--indigo);display:inline-block;animation:blink 1s steps(2) infinite}
+.bbar{
+  display:flex;align-items:center;gap:12px;padding:11px 14px;
+  background:var(--surface);border-bottom:1px solid var(--border);
+}
+.dots{display:flex;gap:6px;flex:none}
+.dot{width:10px;height:10px;border-radius:50%;background:#2b3150}
+.url{
+  flex:1;background:var(--bg);border:1px solid var(--border);border-radius:7px;
+  padding:5px 12px;font-size:12.5px;color:var(--text-dim);
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+}
+.ext{
+  flex:none;width:26px;height:26px;border-radius:7px;background:var(--bg);
+  border:1px solid var(--border);display:grid;place-items:center;
+  font-family:var(--display);font-weight:700;font-size:13.5px;
+  background-image:linear-gradient(160deg,var(--indigo-glow),var(--indigo));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  position:relative;transition:box-shadow .3s ease;
+}
+.ext.lit{box-shadow:0 0 0 2px rgba(109,94,252,.35)}
+
+.bbody{
+  position:relative;min-height:430px;padding:20px 20px 18px;
+  display:flex;flex-direction:column;
+  background:linear-gradient(180deg,#0d1120,#0a0d18);
+}
+.chat{
+  flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;gap:11px;padding-bottom:16px;overflow:hidden;
+}
+.greeting{
+  position:absolute;inset:0;display:grid;place-items:center;
+  color:var(--text-dim);font-size:15px;transition:opacity .45s ease;
+}
+.greeting.hide{opacity:0}
+.msg{
+  max-width:88%;padding:11px 14px;border-radius:12px;
+  font-size:13.4px;line-height:1.62;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .4s ease,transform .4s ease;
+}
+.msg.show{opacity:1;transform:none}
+.msg.user{
+  align-self:flex-end;color:var(--text);
+  background:rgba(109,94,252,.13);border:1px solid rgba(109,94,252,.3);
+}
+.msg.bot{
+  align-self:flex-start;color:var(--text-mid);
+  background:var(--surface);border:1px solid var(--border);
+}
+.msg.bot b{color:var(--text);font-weight:600}
+.typing{
+  align-self:flex-start;display:flex;gap:5px;padding:12px 15px;
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  opacity:0;transition:opacity .3s ease;
+}
+.typing.show{opacity:1}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--text-dim);animation:bounce 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}
+.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{opacity:.35;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+
+.prompt{
+  display:flex;align-items:center;gap:12px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:13px;padding:14px 15px;position:relative;z-index:2;
+  transition:border-color .3s ease;
+}
+.prompt.armed{border-color:var(--indigo)}
+.ptext{flex:1;font-size:15px;color:var(--text);min-height:20px}
+.ptext:empty::before{content:'Envoyer un message…';color:var(--text-dim)}
+.caret{width:2px;height:19px;background:var(--indigo);display:inline-block;vertical-align:-3px;animation:blink 1s steps(2) infinite}
 @keyframes blink{50%{opacity:0}}
-
-.panel{
-  margin-top:14px;border:1px solid var(--border);border-radius:12px;
-  background:linear-gradient(160deg,var(--surface-2),var(--surface));
-  padding:16px 17px;opacity:0;transform:translateY(10px);
-  transition:opacity .42s ease,transform .42s ease;
+.send{
+  flex:none;width:30px;height:30px;border-radius:8px;background:var(--surface-2);
+  display:grid;place-items:center;color:var(--text-dim);font-size:15px;
+  transition:background .25s ease,color .25s ease,transform .15s ease;
 }
-.panel.show{opacity:1;transform:none}
-.panel-head{display:flex;align-items:center;gap:11px;margin-bottom:13px;flex-wrap:wrap}
-.panel-title{font-family:var(--display);font-weight:600;font-size:14.5px;letter-spacing:.3px}
+.send.hot{background:var(--indigo);color:#fff}
+.send.press{transform:scale(.88)}
+
+.toast{
+  position:absolute;right:18px;bottom:88px;width:340px;max-width:calc(100% - 36px);
+  background:linear-gradient(160deg,var(--surface-2),var(--surface));
+  border:1px solid var(--border);border-radius:13px;padding:15px 16px;
+  box-shadow:0 18px 44px rgba(0,0,0,.55);z-index:4;
+  opacity:0;transform:translateY(14px);pointer-events:none;
+  transition:opacity .38s ease,transform .38s cubic-bezier(.34,1.4,.64,1);
+}
+.toast.show{opacity:1;transform:none}
+.panel-head{display:flex;align-items:center;gap:9px;margin-bottom:12px;flex-wrap:wrap}
+.panel-title{
+  font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.5px;
+  background:linear-gradient(160deg,var(--indigo-glow),var(--indigo));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
 .score{
-  font-family:var(--display);font-weight:700;font-size:13px;
-  padding:3px 11px;border-radius:20px;letter-spacing:.3px;
-  transition:color .35s ease,background .35s ease,border-color .35s ease;
+  font-family:var(--display);font-weight:700;font-size:12.5px;
+  padding:3px 10px;border-radius:20px;
   border:1px solid rgba(245,165,36,.3);background:rgba(245,165,36,.12);color:var(--amber);
 }
 .score.good{border-color:rgba(52,211,153,.32);background:rgba(52,211,153,.12);color:var(--green)}
-.arrow{color:var(--text-dim);font-size:13px}
+.arrow{color:var(--text-dim);font-size:12px}
 .rewrite{
-  font-size:13.5px;line-height:1.72;color:var(--text-mid);
-  border-left:2px solid var(--indigo);padding-left:14px;
+  font-size:13px;line-height:1.7;color:var(--text-mid);
+  border-left:2px solid var(--indigo);padding-left:12px;
 }
 .rewrite .lbl{color:var(--text);font-weight:600}
-.rewrite .fill{
-  color:var(--indigo-light);background:rgba(109,94,252,.13);
-  border-radius:4px;padding:1px 5px;
+.rewrite .fill{color:var(--indigo-light);background:rgba(109,94,252,.13);border-radius:4px;padding:1px 5px}
+.tactions{display:flex;gap:8px;margin-top:14px}
+.tbtn{
+  font-family:var(--body);font-size:12px;font-weight:600;
+  padding:8px 13px;border-radius:8px;transition:transform .15s ease,background .2s ease;
 }
-.gain{
-  margin-top:13px;font-size:12.5px;color:var(--green);font-weight:600;
-  opacity:0;transition:opacity .4s ease;
-}
+.tbtn.primary{background:var(--indigo);color:#fff}
+.tbtn.primary.press{transform:scale(.94);background:var(--indigo-deep)}
+.tbtn.ghost{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.gain{margin-top:12px;font-size:12px;color:var(--green);font-weight:600;opacity:0;transition:opacity .4s ease}
 .gain.show{opacity:1}
+
+.cursor{
+  position:absolute;left:0;top:0;width:20px;height:22px;z-index:6;
+  pointer-events:none;opacity:0;
+  transition:opacity .3s ease,transform .75s cubic-bezier(.42,0,.2,1);
+}
+.cursor.on{opacity:1}
+.cursor svg{display:block;filter:drop-shadow(0 2px 5px rgba(0,0,0,.6))}
+.ripple{
+  position:absolute;left:-8px;top:-8px;width:36px;height:36px;
+  border-radius:50%;border:2px solid var(--indigo-light);opacity:0;
+}
+.cursor.click .ripple{animation:rip .55s ease-out}
+@keyframes rip{0%{opacity:.85;transform:scale(.3)}100%{opacity:0;transform:scale(1.25)}}
 
 /* ---------- sections ---------- */
 section{padding:76px 0}
@@ -225,7 +317,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
   .sides,.privacy-grid{grid-template-columns:1fr}
   section{padding:58px 0}
   .hero{padding:60px 0 52px}
-  .demo{padding:17px}
+  .bbody{min-height:380px;padding:16px 13px 13px}
+  .toast{position:static;width:auto;max-width:none;margin-bottom:12px}
+  .cursor{display:none}
+  .msg{max-width:94%;font-size:12.8px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto}
@@ -243,11 +338,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
 
 <header class="hero" id="top">
   <div class="wrap hero-in">
-    <h1>Vos équipes utilisent déjà l'IA.<br><span class="accent">Personne ne sait comment.</span></h1>
+    <h1>L'IA est déjà dans votre entreprise.<br><span class="accent">Reste à bien s'en servir.</span></h1>
     <p class="lede">
-      Knowstell accompagne vos collaborateurs au moment où ils écrivent leur prompt,
-      et vous donne enfin une vision de l'usage réel dans l'entreprise.
-      Sans jamais stocker ce qui est écrit.
+      Knowstell est une solution de gouvernance et de coaching de l'usage de l'IA en entreprise.
+      Elle protège vos données sensibles, fait progresser vos équipes sur la qualité de leurs prompts
+      et vous donne une vision claire de l'usage réel. Sans jamais stocker ce qui est écrit.
     </p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#demander">Demander une démo</a>
@@ -258,25 +353,57 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
     <!-- simulation -->
     <div class="demo" aria-label="Démonstration du coaching Knowstell">
       <div class="demo-label">
-        <span>Ce que voit le collaborateur</span>
+        <span>Ce que voit le collaborateur, dans son navigateur</span>
         <button class="replay" id="replay" type="button">Rejouer</button>
       </div>
-      <div class="field" id="field"><span id="typed"></span><span class="caret" id="caret"></span></div>
 
-      <div class="panel" id="panel">
-        <div class="panel-head">
-          <span class="panel-title">Knowstell</span>
-          <span class="score" id="score">2/10</span>
-          <span class="arrow" id="arrow" style="opacity:0">→</span>
-          <span class="score good" id="score2" style="opacity:0">9/10</span>
+      <div class="browser">
+        <div class="bbar">
+          <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="url">chatgpt.com</div>
+          <div class="ext" id="ext" title="Extension Knowstell">K</div>
         </div>
-        <div class="rewrite">
-          Rédige un email professionnel avec les éléments suivants&nbsp;:<br>
-          <span class="lbl">Destinataire</span> · <span class="fill" id="f1">[à compléter]</span><br>
-          <span class="lbl">Objectif</span> · <span class="fill" id="f2">[à compléter]</span><br>
-          <span class="lbl">Ton</span> · <span class="fill" id="f3">[à compléter]</span>
+
+        <div class="bbody" id="bbody">
+          <div class="chat">
+            <div class="greeting" id="greeting">Comment puis-je vous aider aujourd'hui&nbsp;?</div>
+            <div class="msg user" id="msgUser">Rédige un email professionnel. Destinataire&nbsp;: Camille Rivière, directrice commerciale. Objectif&nbsp;: relancer sur la proposition envoyée la semaine dernière. Ton&nbsp;: direct et cordial.</div>
+            <div class="typing" id="typing"><i></i><i></i><i></i></div>
+            <div class="msg bot" id="msgBot"><b>Objet&nbsp;: Suite à notre proposition</b><br>Bonjour Camille,<br>Je me permets de revenir vers vous au sujet de la proposition que nous vous avons adressée la semaine dernière…</div>
+          </div>
+
+          <div class="toast" id="toast">
+            <div class="panel-head">
+              <span class="panel-title">Knowstell</span>
+              <span class="score" id="score">2/10</span>
+              <span class="arrow" id="arrow" style="opacity:0">→</span>
+              <span class="score good" id="score2" style="opacity:0">9/10</span>
+            </div>
+            <div class="rewrite">
+              Rédige un email professionnel&nbsp;:<br>
+              <span class="lbl">Destinataire</span> · <span class="fill" id="f1">[à compléter]</span><br>
+              <span class="lbl">Objectif</span> · <span class="fill" id="f2">[à compléter]</span><br>
+              <span class="lbl">Ton</span> · <span class="fill" id="f3">[à compléter]</span>
+            </div>
+            <div class="gain" id="gain">Qualité réévaluée · +7 points</div>
+            <div class="tactions">
+              <span class="tbtn primary" id="accept">Envoyer le prompt amélioré</span>
+              <span class="tbtn ghost">Ignorer</span>
+            </div>
+          </div>
+
+          <div class="prompt" id="prompt">
+            <div class="ptext" id="ptext"></div>
+            <div class="send" id="send">↑</div>
+          </div>
+
+          <div class="cursor" id="cursor">
+            <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 1L1 17L5.2 13.2L8.2 20L11.4 18.6L8.4 12L14 12L1 1Z" fill="#F2F3F9" stroke="#0A0D18" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+            <span class="ripple"></span>
+          </div>
         </div>
-        <div class="gain" id="gain">Prompt complété · qualité mesurée à nouveau · +7 points</div>
       </div>
     </div>
   </div>
@@ -286,11 +413,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
 
 <section id="probleme">
   <div class="wrap">
-    <p class="eyebrow">Le point aveugle</p>
-    <h2>L'IA est entrée dans votre entreprise sans passer par la porte.</h2>
+    <p class="eyebrow">Reprendre la main</p>
+    <h2>Vous savez que l'IA est là. Il vous manque les moyens d'agir.</h2>
     <div class="body-copy">
-      <p>Elle s'est installée sans DSI, sans budget et sans process. Les gens s'en servent, c'est tout. Et ce n'est pas un sujet technique&nbsp;: c'est le marketing, les RH, le juridique, les commerciaux.</p>
-      <p>Pendant ce temps, des informations clients partent chez des tiers sans que personne ne le voie. Et beaucoup de collaborateurs perdent du temps avec des prompts mal formulés, sans savoir qu'ils en perdent.</p>
+      <p>Ce n'est pas une découverte&nbsp;: vos équipes utilisent l'IA au quotidien, dans tous les services. La question n'est plus de le constater, mais de pouvoir intervenir.</p>
+      <p>Les chartes d'usage se lisent une fois. Les formations s'oublient. Entre les deux, il manque quelque chose qui agisse au moment précis où le prompt est écrit. C'est le seul instant où l'on peut encore éviter qu'une information sensible parte, ou corriger une consigne mal formulée.</p>
+      <p>Knowstell vous apporte ces informations, et donne à vos équipes les moyens d'exploiter pleinement l'IA.</p>
     </div>
   </div>
 </section>
@@ -310,22 +438,25 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
     <div class="sides">
       <div class="side">
         <p class="who">Côté collaborateur</p>
-        <h3>Il progresse sans y penser</h3>
-        <p class="intro">Knowstell intervient au moment où il écrit, dans son navigateur. Pas après coup, pas dans une formation qu'il oubliera.</p>
+        <h3>Il progresse, et il le voit</h3>
+        <p class="intro">Knowstell intervient au moment où il écrit, dans son navigateur. Et il retrouve sa progression dans son espace personnel.</p>
         <ul>
-          <li>Son prompt est reformulé et il voit pourquoi</li>
+          <li>Son prompt est reformulé, et il comprend pourquoi</li>
           <li>Il est alerté avant qu'une information sensible parte</li>
-          <li>Il retrouve les prompts qui marchent dans une bibliothèque partagée</li>
+          <li>Il suit son score, ses défis et ses badges dans son espace</li>
+          <li>Il accède à un parcours de formation et à une bibliothèque de prompts partagée</li>
         </ul>
       </div>
       <div class="side">
         <p class="who">Côté direction</p>
-        <h3>Vous savez enfin où vous en êtes</h3>
-        <p class="intro">Un tableau de bord qui montre l'usage réel, équipe par équipe, et la progression dans le temps.</p>
+        <h3>Vous pilotez, et vous mesurez</h3>
+        <p class="intro">Un tableau de bord qui montre l'usage réel, équipe par équipe, et ce que l'IA vous fait gagner.</p>
         <ul>
           <li>Volume et nature des requêtes, par équipe</li>
           <li>Alertes sur les données sensibles détectées</li>
           <li>Qualité des prompts avant et après coaching</li>
+          <li>Temps économisé et retour sur investissement estimé</li>
+          <li>Règles d'usage que vous définissez pour l'entreprise</li>
         </ul>
       </div>
     </div>
@@ -339,7 +470,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
     <p class="eyebrow">Confidentialité</p>
     <h2>Vous voyez l'usage. Jamais le contenu.</h2>
     <div class="body-copy">
-      <p>C'est la première question que posent les DSI, les DPO et les représentants du personnel. La réponse est dans la conception du produit, pas dans une clause ajoutée après coup.</p>
+      <p>Knowstell a été conçu dès le départ pour respecter le RGPD et le droit du travail français. Ces garanties sont inscrites dans l'architecture du produit, pas ajoutées après coup.</p>
     </div>
     <div class="privacy-grid">
       <div class="pcard">
@@ -375,72 +506,110 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
 
 <footer>
   <div class="wrap" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;width:100%">
-    <span>Knowstell — Marseille, France</span>
+    <span>Knowstell</span>
     <a href="mailto:nicolas@knowstell.com">nicolas@knowstell.com</a>
   </div>
 </footer>
 
 <script>
 (function(){
-  var TEXT = "fais cet email";
-  var typed = document.getElementById('typed');
-  var caret = document.getElementById('caret');
-  var field = document.getElementById('field');
-  var panel = document.getElementById('panel');
-  var score = document.getElementById('score');
-  var score2 = document.getElementById('score2');
-  var arrow = document.getElementById('arrow');
-  var gain  = document.getElementById('gain');
-  var f1 = document.getElementById('f1'), f2 = document.getElementById('f2'), f3 = document.getElementById('f3');
-  var replay = document.getElementById('replay');
+  var TEXT = "fais cet email pour mon client";
+  var FILL = ['Camille Rivière, directrice commerciale',
+              'relancer sur la proposition envoyée',
+              'direct et cordial'];
+
+  var $ = function(id){ return document.getElementById(id); };
+  var bbody=$('bbody'), ptext=$('ptext'), prompt=$('prompt'), send=$('send'), ext=$('ext'),
+      toast=$('toast'), score2=$('score2'), arrow=$('arrow'), gain=$('gain'),
+      f1=$('f1'), f2=$('f2'), f3=$('f3'), accept=$('accept'),
+      greeting=$('greeting'), msgUser=$('msgUser'), msgBot=$('msgBot'), typing=$('typing'),
+      cursor=$('cursor'), replay=$('replay');
+
   var timers = [];
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   function at(ms, fn){ timers.push(setTimeout(fn, ms)); }
   function clear(){ timers.forEach(clearTimeout); timers = []; }
 
+  function moveTo(el){
+    var b = bbody.getBoundingClientRect(), t = el.getBoundingClientRect();
+    cursor.style.transform = 'translate(' +
+      (t.left - b.left + t.width/2 - 3) + 'px,' +
+      (t.top  - b.top  + t.height/2 - 3) + 'px)';
+  }
+  function click(){
+    cursor.classList.remove('click');
+    void cursor.offsetWidth;
+    cursor.classList.add('click');
+  }
+
   function reset(){
     clear();
-    typed.textContent = '';
-    caret.style.display = 'inline-block';
-    field.classList.remove('armed');
-    panel.classList.remove('show');
-    score.textContent = '2/10';
-    score2.style.opacity = 0; arrow.style.opacity = 0;
+    ptext.innerHTML = '';
+    prompt.classList.remove('armed');
+    send.classList.remove('hot','press');
+    ext.classList.remove('lit');
+    toast.classList.remove('show');
+    accept.classList.remove('press');
+    arrow.style.opacity = 0; score2.style.opacity = 0;
     gain.classList.remove('show');
-    f1.textContent = '[à compléter]'; f2.textContent = '[à compléter]'; f3.textContent = '[à compléter]';
+    f1.textContent='[à compléter]'; f2.textContent='[à compléter]'; f3.textContent='[à compléter]';
+    greeting.classList.remove('hide');
+    msgUser.classList.remove('show');
+    msgBot.classList.remove('show');
+    typing.classList.remove('show');
+    cursor.classList.remove('on','click');
+    cursor.style.transition = 'none';
+    moveTo(prompt);
+    void cursor.offsetWidth;
+    cursor.style.transition = '';
   }
 
   function finalState(){
-    typed.textContent = TEXT;
-    caret.style.display = 'none';
-    field.classList.add('armed');
-    panel.classList.add('show');
-    f1.textContent = 'Patrick Duchel, directeur commercial';
-    f2.textContent = 'relancer sur la proposition envoyée';
-    f3.textContent = 'direct et cordial';
-    arrow.style.opacity = 1; score2.style.opacity = 1;
-    gain.classList.add('show');
+    ptext.textContent = '';
+    greeting.classList.add('hide');
+    msgUser.classList.add('show');
+    msgBot.classList.add('show');
   }
 
   function play(){
     reset();
     if (reduced){ finalState(); return; }
+
     var i = 0;
     (function type(){
       if (i <= TEXT.length){
-        typed.textContent = TEXT.slice(0, i);
+        ptext.innerHTML = TEXT.slice(0, i) + '<span class="caret"></span>';
         i++;
-        timers.push(setTimeout(type, 62));
+        timers.push(setTimeout(type, 52));
       } else {
-        field.classList.add('armed');
-        caret.style.display = 'none';
-        at(420,  function(){ panel.classList.add('show'); });
-        at(1500, function(){ f1.textContent = 'Patrick Duchel, directeur commercial'; });
-        at(1900, function(){ f2.textContent = 'relancer sur la proposition envoyée'; });
-        at(2300, function(){ f3.textContent = 'direct et cordial'; });
-        at(2950, function(){ arrow.style.opacity = 1; score2.style.opacity = 1; });
-        at(3250, function(){ gain.classList.add('show'); });
+        ptext.textContent = TEXT;
+
+        at(200,  function(){ cursor.classList.add('on'); moveTo(send); });
+        at(1000, function(){ click(); send.classList.add('press'); });
+        at(1160, function(){ send.classList.remove('press'); send.classList.add('hot'); });
+        at(1500, function(){ ext.classList.add('lit'); prompt.classList.add('armed'); toast.classList.add('show'); });
+
+        at(2300, function(){ f1.textContent = FILL[0]; });
+        at(2680, function(){ f2.textContent = FILL[1]; });
+        at(3060, function(){ f3.textContent = FILL[2]; });
+
+        at(3600, function(){ moveTo(accept); });
+        at(4400, function(){ click(); accept.classList.add('press'); });
+        at(4560, function(){ accept.classList.remove('press'); });
+        at(4700, function(){ arrow.style.opacity = 1; score2.style.opacity = 1; });
+        at(5000, function(){ gain.classList.add('show'); });
+
+        at(5900, function(){
+          toast.classList.remove('show');
+          cursor.classList.remove('on');
+          ptext.innerHTML = '';
+          prompt.classList.remove('armed');
+          send.classList.remove('hot');
+          greeting.classList.add('hide');
+        });
+        at(6300, function(){ msgUser.classList.add('show'); });
+        at(7000, function(){ typing.classList.add('show'); });
+        at(8200, function(){ typing.classList.remove('show'); msgBot.classList.add('show'); });
       }
     })();
   }
@@ -450,9 +619,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
   var started = false;
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
-      if (e.isIntersecting && !started){ started = true; play(); }
+      if (e.isIntersecting && !started){ started = true; at(300, play); }
     });
-  }, {threshold:.35});
+  }, {threshold:.3});
   io.observe(document.querySelector('.demo'));
 })();
 </script>
