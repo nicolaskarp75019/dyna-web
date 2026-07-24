@@ -85,7 +85,7 @@ h1 .accent{
 /* ---------- simulation navigateur ---------- */
 .demo{margin-top:56px}
 .demo-label{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  display:flex;align-items:center;justify-content:flex-end;gap:12px;
   font-size:11.5px;letter-spacing:1.1px;text-transform:uppercase;
   color:var(--text-dim);font-weight:600;margin-bottom:14px;
 }
@@ -284,6 +284,12 @@ h1 .accent{
 .dtable .tr{border-bottom:1px solid rgba(255,255,255,.045);color:var(--text-mid)}
 .dtable .tr:last-child{border-bottom:none}
 .dtable .tr .q{color:var(--text)}
+.dtable .tr.fresh{
+  opacity:0;transform:translateY(-8px);
+  background:rgba(109,94,252,.06);
+  transition:opacity .5s ease,transform .5s ease;
+}
+.dtable .tr.fresh.in{opacity:1;transform:none}
 .badge{
   display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;
   border:1px solid rgba(109,94,252,.28);background:rgba(109,94,252,.1);color:var(--indigo-light);
@@ -292,6 +298,56 @@ h1 .accent{
 .badge.no{border-color:rgba(247,100,100,.28);background:rgba(247,100,100,.1);color:var(--red)}
 .prog .b{color:var(--text-dim)}
 .prog .a{color:var(--green);font-weight:600}
+
+
+/* ---------- scène ROI ---------- */
+.bars{display:flex;flex-direction:column;gap:11px;margin-top:2px}
+.bar-row{display:grid;grid-template-columns:100px 1fr 62px;gap:12px;align-items:center;font-size:12px}
+.bar-row .nm{color:var(--text-mid)}
+.bar-track{height:7px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--indigo),var(--indigo-light));width:0;transition:width 1.1s cubic-bezier(.2,.7,.3,1)}
+.bar-row .vv{color:var(--text);font-weight:600;text-align:right;font-family:var(--display);font-size:12.5px}
+.note{
+  font-size:11.5px;color:var(--text-dim);border-left:2px solid var(--border);
+  padding-left:11px;line-height:1.55;
+}
+
+/* ---------- scène espace collaborateur ---------- */
+.sp-top{display:flex;gap:12px;align-items:stretch}
+.sp-score{
+  flex:none;width:150px;background:var(--surface);border:1px solid var(--border);
+  border-radius:11px;padding:14px;display:flex;flex-direction:column;justify-content:center;
+}
+.sp-score .lab{font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--text-dim);font-weight:600;margin-bottom:7px}
+.sp-score .val{font-family:var(--display);font-weight:700;font-size:30px;line-height:1;color:var(--indigo-light)}
+.sp-score .sub{font-size:10.5px;color:var(--green);margin-top:6px;font-weight:600}
+.badges{
+  flex:1;background:var(--surface);border:1px solid var(--border);
+  border-radius:11px;padding:14px;
+}
+.badges .lab{font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--text-dim);font-weight:600;margin-bottom:11px}
+.badge-list{display:flex;gap:8px;flex-wrap:wrap}
+.bdg{
+  display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--text);
+  border:1px solid var(--border);background:var(--bg);border-radius:20px;padding:5px 12px 5px 6px;
+  opacity:0;transform:scale(.9);transition:opacity .35s ease,transform .35s cubic-bezier(.34,1.5,.64,1);
+}
+.bdg.in{opacity:1;transform:none}
+.bdg i{
+  width:19px;height:19px;border-radius:50%;display:grid;place-items:center;
+  font-size:10px;font-style:normal;background:rgba(109,94,252,.16);color:var(--indigo-light);
+}
+.bdg.g i{background:rgba(52,211,153,.16);color:var(--green)}
+.bdg.locked{opacity:.45;color:var(--text-dim)}
+.bdg.locked.in{opacity:.45}
+.chals{display:flex;flex-direction:column;gap:9px;flex:1;min-height:0}
+.chal{
+  background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:12px 14px;
+}
+.chal .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
+.chal .nm{font-size:12.5px;color:var(--text);font-weight:600}
+.chal .ct{font-family:var(--display);font-size:12px;color:var(--indigo-light);font-weight:700}
+.chal .ct.done{color:var(--green)}
 
 /* ---------- sections ---------- */
 section{padding:76px 0}
@@ -384,6 +440,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
   .dtable .th,.dtable .tr{grid-template-columns:1.6fr .8fr;font-size:11px}
   .dtable .th span:nth-child(2),.dtable .tr span:nth-child(2),
   .dtable .th span:nth-child(4),.dtable .tr span:nth-child(4){display:none}
+  .bar-row{grid-template-columns:80px 1fr 50px;font-size:11px}
+  .sp-top{flex-direction:column}
+  .sp-score{width:auto}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto}
@@ -416,7 +475,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
     <!-- simulation -->
     <div class="demo" aria-label="Démonstration du coaching Knowstell">
       <div class="demo-label">
-        <span id="dlabel">Ce que voit le collaborateur, dans son navigateur</span>
         <button class="replay" id="replay" type="button">Rejouer</button>
       </div>
 
@@ -496,6 +554,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
             </div>
             <div class="dtable">
               <div class="th"><span>Requête</span><span>Équipe</span><span>Qualité</span><span>Heure</span></div>
+              <div class="tr fresh" id="fresh">
+                <span class="q">Requête — Professionnel <span class="badge">Coachée · acceptée</span></span>
+                <span>Direction</span>
+                <span class="prog"><span class="b">3/10</span> → <span class="a">9/10</span></span>
+                <span>à l'instant</span>
+              </div>
               <div class="tr">
                 <span class="q">Requête — Professionnel <span class="badge">Coachée · acceptée</span></span>
                 <span>Commerce</span>
@@ -522,8 +586,82 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
               </div>
             </div>
           </div>
+
+          <div class="dash" id="roi">
+            <div class="dash-top">
+              <div class="dash-title">Knowstell <span>· ROI &amp; économies</span></div>
+              <span class="pill">30 derniers jours</span>
+            </div>
+            <div class="kpis">
+              <div class="kpi g">
+                <div class="lab">Temps économisé</div>
+                <div class="val" data-to="31" data-suffix="h">0</div>
+                <div class="sub">sur le mois</div>
+              </div>
+              <div class="kpi g">
+                <div class="lab">Valeur estimée</div>
+                <div class="val" data-to="1240" data-suffix=" €">0</div>
+                <div class="sub">temps valorisé</div>
+              </div>
+              <div class="kpi">
+                <div class="lab">Prompts améliorés</div>
+                <div class="val" data-to="21">0</div>
+                <div class="sub">coaching accepté</div>
+              </div>
+              <div class="kpi a">
+                <div class="lab">Fuites évitées</div>
+                <div class="val" data-to="7">0</div>
+                <div class="sub">alertes respectées</div>
+              </div>
+            </div>
+            <div class="bars">
+              <div class="bar-row"><span class="nm">Commerce</span><span class="bar-track"><span class="bar-fill" data-w="82"></span></span><span class="vv">11 h</span></div>
+              <div class="bar-row"><span class="nm">Marketing</span><span class="bar-track"><span class="bar-fill" data-w="64"></span></span><span class="vv">8 h</span></div>
+              <div class="bar-row"><span class="nm">RH</span><span class="bar-track"><span class="bar-fill" data-w="45"></span></span><span class="vv">6 h</span></div>
+              <div class="bar-row"><span class="nm">Support</span><span class="bar-track"><span class="bar-fill" data-w="38"></span></span><span class="vv">5 h</span></div>
+            </div>
+            <p class="note">Estimation calculée sur le temps de reformulation évité et les requêtes hors périmètre interceptées.</p>
+          </div>
+
+          <div class="dash" id="space">
+            <div class="dash-top">
+              <div class="dash-title">Mon espace <span>· Progression</span></div>
+              <span class="pill">Vue collaborateur</span>
+            </div>
+            <div class="sp-top">
+              <div class="sp-score">
+                <div class="lab">Qualité moyenne</div>
+                <div class="val" data-to="78" data-suffix="" data-div="10">0</div>
+                <div class="sub">+1,4 ce mois</div>
+              </div>
+              <div class="badges">
+                <div class="lab">Badges débloqués</div>
+                <div class="badge-list">
+                  <span class="bdg g" data-i="0"><i>✓</i>Premier coaching</span>
+                  <span class="bdg g" data-i="1"><i>✓</i>Dix prompts améliorés</span>
+                  <span class="bdg" data-i="2"><i>★</i>Régularité</span>
+                  <span class="bdg locked" data-i="3"><i>·</i>Expert prompts</span>
+                </div>
+              </div>
+            </div>
+            <div class="chals">
+              <div class="chal">
+                <div class="hd"><span class="nm">Améliorer cinq prompts cette semaine</span><span class="ct done">5 / 5</span></div>
+                <span class="bar-track"><span class="bar-fill" data-w="100"></span></span>
+              </div>
+              <div class="chal">
+                <div class="hd"><span class="nm">Atteindre 8/10 de qualité moyenne</span><span class="ct">7,8 / 8</span></div>
+                <span class="bar-track"><span class="bar-fill" data-w="88"></span></span>
+              </div>
+              <div class="chal">
+                <div class="hd"><span class="nm">Terminer le module « Écrire un bon prompt »</span><span class="ct">3 / 4</span></div>
+                <span class="bar-track"><span class="bar-fill" data-w="75"></span></span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </header>
@@ -642,34 +780,65 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
       toast=$('toast'), score2=$('score2'), arrow=$('arrow'), gain=$('gain'),
       f1=$('f1'), f2=$('f2'), f3=$('f3'), accept=$('accept'),
       greeting=$('greeting'), msgUser=$('msgUser'), msgBot=$('msgBot'), typing=$('typing'),
-      cursor=$('cursor'), replay=$('replay'), chat=$('chat'),
-      dash=$('dash'), url=$('url'), dlabel=$('dlabel');
+      cursor=$('cursor'), replay=$('replay'), chat=$('chat'), fresh=$('fresh'),
+      dash=$('dash'), roi=$('roi'), space=$('space'),
+      url=$('url');
 
-  var LBL_USER = "Ce que voit le collaborateur, dans son navigateur";
-  var LBL_DIR  = "Ce que voit la direction, dans son tableau de bord";
-  var counters = dash.querySelectorAll('.val');
+  var SCENES = [
+    {el:null,  url:'chatgpt.com',              lab:"Ce que voit le collaborateur, dans son navigateur"},
+    {el:dash,  url:'knowstell.com/dashboard',  lab:"Ce que voit la direction, dans son tableau de bord"},
+    {el:roi,   url:'knowstell.com/roi',        lab:"Le retour sur investissement, mesuré"},
+    {el:space, url:'knowstell.com/mon-espace', lab:"L'espace du collaborateur : défis et progression"}
+  ];
 
-  var timers = [];
+  var timers = [], visible = false, running = false;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function at(ms, fn){ timers.push(setTimeout(fn, ms)); }
   function clear(){ timers.forEach(clearTimeout); timers = []; }
 
   function countUp(el){
-    var to = parseInt(el.getAttribute('data-to'), 10);
+    var to  = parseInt(el.getAttribute('data-to'), 10);
     var sfx = el.getAttribute('data-suffix') || '';
-    var start = null, dur = 900;
+    var div = parseInt(el.getAttribute('data-div') || '0', 10);
+    var start = null, dur = 950;
+    function fmt(n){
+      if (div) return (n/div).toFixed(1).replace('.', ',') + '/10';
+      return n.toLocaleString('fr-FR') + sfx;
+    }
     function step(ts){
       if (!start) start = ts;
       var p = Math.min((ts - start) / dur, 1);
-      el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))) + sfx;
+      el.textContent = fmt(Math.round(to * (1 - Math.pow(1 - p, 3))));
       if (p < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
   }
-  function resetCounters(){
-    counters.forEach(function(el){
-      el.textContent = '0' + (el.getAttribute('data-suffix') || '');
+
+  function animate(root){
+    root.querySelectorAll('[data-to]').forEach(countUp);
+    root.querySelectorAll('.bar-fill').forEach(function(b, i){
+      setTimeout(function(){ b.style.width = b.getAttribute('data-w') + '%'; }, 120 + i*110);
     });
+    root.querySelectorAll('.bdg').forEach(function(b, i){
+      setTimeout(function(){ b.classList.add('in'); }, 200 + i*130);
+    });
+  }
+  function clearScene(root){
+    root.querySelectorAll('[data-to]').forEach(function(el){
+      var div = parseInt(el.getAttribute('data-div') || '0', 10);
+      el.textContent = div ? '0,0/10' : '0' + (el.getAttribute('data-suffix') || '');
+    });
+    root.querySelectorAll('.bar-fill').forEach(function(b){ b.style.width = '0'; });
+    root.querySelectorAll('.bdg').forEach(function(b){ b.classList.remove('in'); });
+  }
+
+  function showScene(n){
+    SCENES.forEach(function(sc, i){ if (sc.el) sc.el.classList.toggle('show', i === n); });
+    var first = (n === 0);
+    chat.classList.toggle('out', !first);
+    prompt.classList.toggle('out', !first);
+    url.textContent = SCENES[n].url;
+    if (SCENES[n].el){ clearScene(SCENES[n].el); animate(SCENES[n].el); }
   }
 
   function moveTo(el){
@@ -679,15 +848,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
       (t.top  - b.top  + t.height/2 - 3) + 'px)';
   }
   function click(){
-    cursor.classList.remove('click');
-    void cursor.offsetWidth;
-    cursor.classList.add('click');
+    cursor.classList.remove('click'); void cursor.offsetWidth; cursor.classList.add('click');
   }
 
   function reset(){
     clear();
     ptext.innerHTML = '';
-    prompt.classList.remove('armed');
+    prompt.classList.remove('armed','out');
     send.classList.remove('hot','press');
     ext.classList.remove('lit');
     toast.classList.remove('show');
@@ -696,39 +863,21 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
     gain.classList.remove('show');
     f1.textContent='[à compléter]'; f2.textContent='[à compléter]'; f3.textContent='[à compléter]';
     greeting.classList.remove('hide');
-    msgUser.classList.remove('show');
-    msgBot.classList.remove('show');
+    msgUser.classList.remove('show'); msgBot.classList.remove('show');
     typing.classList.remove('show');
+    fresh.classList.remove('in');
     cursor.classList.remove('on','click');
-    chat.classList.remove('out'); prompt.classList.remove('out');
-    dash.classList.remove('show');
-    url.textContent = 'chatgpt.com';
-    dlabel.textContent = LBL_USER;
-    resetCounters();
-    cursor.style.transition = 'none';
-    moveTo(prompt);
-    void cursor.offsetWidth;
-    cursor.style.transition = '';
-  }
-
-  function showDash(){
-    chat.classList.add('out'); prompt.classList.add('out');
-    url.textContent = 'knowstell.com/dashboard';
-    dlabel.textContent = LBL_DIR;
-    dash.classList.add('show');
-    counters.forEach(countUp);
-  }
-
-  function finalState(){
-    greeting.classList.add('hide');
-    msgUser.classList.add('show');
-    msgBot.classList.add('show');
-    showDash();
+    chat.classList.remove('out');
+    [dash, roi, space].forEach(function(el){ el.classList.remove('show'); clearScene(el); });
+    url.textContent = SCENES[0].url;
+    cursor.style.transition = 'none'; moveTo(prompt);
+    void cursor.offsetWidth; cursor.style.transition = '';
   }
 
   function play(){
+    running = true;
     reset();
-    if (reduced){ finalState(); return; }
+    if (reduced){ showScene(1); return; }
 
     var i = 0;
     (function type(){
@@ -766,19 +915,23 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
         at(6900, function(){ typing.classList.add('show'); });
         at(8000, function(){ typing.classList.remove('show'); msgBot.classList.add('show'); });
 
-        at(9800, showDash);
+        at(9600,  function(){ showScene(1); });
+        at(11000, function(){ fresh.classList.add('in'); });
+        at(13600, function(){ showScene(2); });
+        at(17600, function(){ showScene(3); });
+        at(21800, function(){ running = false; if (visible) play(); });
       }
     })();
   }
 
   replay.addEventListener('click', play);
 
-  var started = false;
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
-      if (e.isIntersecting && !started){ started = true; at(300, play); }
+      visible = e.isIntersecting;
+      if (visible && !running) play();
     });
-  }, {threshold:.3});
+  }, {threshold:.25});
   io.observe(document.querySelector('.demo'));
 })();
 </script>
