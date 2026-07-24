@@ -235,6 +235,64 @@ h1 .accent{
 .cursor.click .ripple{animation:rip .55s ease-out}
 @keyframes rip{0%{opacity:.85;transform:scale(.3)}100%{opacity:0;transform:scale(1.25)}}
 
+/* ---------- tableau de bord simulé ---------- */
+.scene{transition:opacity .5s ease}
+.scene.out{opacity:0;pointer-events:none}
+.dash{
+  position:absolute;inset:0;padding:18px 20px;
+  display:flex;flex-direction:column;gap:14px;
+  opacity:0;pointer-events:none;transition:opacity .5s ease;
+}
+.dash.show{opacity:1}
+.dash-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.dash-title{font-family:var(--display);font-weight:600;font-size:14px;color:var(--text)}
+.dash-title span{color:var(--text-dim);font-weight:400}
+.pill{
+  font-size:11px;color:var(--indigo-light);border:1px solid rgba(109,94,252,.32);
+  background:rgba(109,94,252,.1);padding:4px 11px;border-radius:20px;font-weight:600;
+}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.kpi{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:11px;padding:13px 14px;position:relative;overflow:hidden;
+}
+.kpi::before{content:'';position:absolute;left:0;top:0;right:0;height:2px;background:var(--indigo)}
+.kpi.g::before{background:var(--green)}
+.kpi.a::before{background:var(--amber)}
+.kpi .lab{
+  font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--text-dim);font-weight:600;margin-bottom:6px;
+}
+.kpi .val{font-family:var(--display);font-weight:700;font-size:23px;line-height:1;color:var(--indigo-light)}
+.kpi.g .val{color:var(--green)}
+.kpi.a .val{color:var(--amber)}
+.kpi .sub{font-size:10.5px;color:var(--text-dim);margin-top:5px}
+
+.dtable{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:11px;overflow:hidden;flex:1;min-height:0;
+}
+.dtable .th,.dtable .tr{
+  display:grid;grid-template-columns:1.7fr .9fr .8fr .5fr;
+  gap:10px;padding:9px 14px;align-items:center;font-size:11.5px;
+}
+.dtable .th{
+  color:var(--text-dim);text-transform:uppercase;letter-spacing:.7px;
+  font-size:9.5px;font-weight:600;background:rgba(255,255,255,.03);
+  border-bottom:1px solid var(--border);
+}
+.dtable .tr{border-bottom:1px solid rgba(255,255,255,.045);color:var(--text-mid)}
+.dtable .tr:last-child{border-bottom:none}
+.dtable .tr .q{color:var(--text)}
+.badge{
+  display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;
+  border:1px solid rgba(109,94,252,.28);background:rgba(109,94,252,.1);color:var(--indigo-light);
+}
+.badge.ok{border-color:rgba(52,211,153,.28);background:rgba(52,211,153,.1);color:var(--green)}
+.badge.no{border-color:rgba(247,100,100,.28);background:rgba(247,100,100,.1);color:var(--red)}
+.prog .b{color:var(--text-dim)}
+.prog .a{color:var(--green);font-weight:600}
+
 /* ---------- sections ---------- */
 section{padding:76px 0}
 .eyebrow{
@@ -321,6 +379,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
   .toast{position:static;width:auto;max-width:none;margin-bottom:12px}
   .cursor{display:none}
   .msg{max-width:94%;font-size:12.8px}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .dash{padding:14px 13px}
+  .dtable .th,.dtable .tr{grid-template-columns:1.6fr .8fr;font-size:11px}
+  .dtable .th span:nth-child(2),.dtable .tr span:nth-child(2),
+  .dtable .th span:nth-child(4),.dtable .tr span:nth-child(4){display:none}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto}
@@ -353,19 +416,19 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
     <!-- simulation -->
     <div class="demo" aria-label="Démonstration du coaching Knowstell">
       <div class="demo-label">
-        <span>Ce que voit le collaborateur, dans son navigateur</span>
+        <span id="dlabel">Ce que voit le collaborateur, dans son navigateur</span>
         <button class="replay" id="replay" type="button">Rejouer</button>
       </div>
 
       <div class="browser">
         <div class="bbar">
           <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-          <div class="url">chatgpt.com</div>
+          <div class="url" id="url">chatgpt.com</div>
           <div class="ext" id="ext" title="Extension Knowstell">K</div>
         </div>
 
         <div class="bbody" id="bbody">
-          <div class="chat">
+          <div class="chat scene" id="chat">
             <div class="greeting" id="greeting">Comment puis-je vous aider aujourd'hui&nbsp;?</div>
             <div class="msg user" id="msgUser">Rédige un email professionnel. Destinataire&nbsp;: Camille Rivière, directrice commerciale. Objectif&nbsp;: relancer sur la proposition envoyée la semaine dernière. Ton&nbsp;: direct et cordial.</div>
             <div class="typing" id="typing"><i></i><i></i><i></i></div>
@@ -392,7 +455,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
             </div>
           </div>
 
-          <div class="prompt" id="prompt">
+          <div class="prompt scene" id="prompt">
             <div class="ptext" id="ptext"></div>
             <div class="send" id="send">↑</div>
           </div>
@@ -402,6 +465,62 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
               <path d="M1 1L1 17L5.2 13.2L8.2 20L11.4 18.6L8.4 12L14 12L1 1Z" fill="#F2F3F9" stroke="#0A0D18" stroke-width="1.4" stroke-linejoin="round"/>
             </svg>
             <span class="ripple"></span>
+          </div>
+
+          <div class="dash" id="dash">
+            <div class="dash-top">
+              <div class="dash-title">Knowstell <span>· Vue d'ensemble</span></div>
+              <span class="pill">30 derniers jours</span>
+            </div>
+            <div class="kpis">
+              <div class="kpi">
+                <div class="lab">Requêtes analysées</div>
+                <div class="val" data-to="194">0</div>
+                <div class="sub">sur la période</div>
+              </div>
+              <div class="kpi g">
+                <div class="lab">Coaching accepté</div>
+                <div class="val" data-to="52" data-suffix="%">0</div>
+                <div class="sub">des prompts coachés</div>
+              </div>
+              <div class="kpi a">
+                <div class="lab">Hors périmètre</div>
+                <div class="val" data-to="15" data-suffix="%">0</div>
+                <div class="sub">requêtes détectées</div>
+              </div>
+              <div class="kpi">
+                <div class="lab">Temps économisé</div>
+                <div class="val" data-to="31" data-suffix="h">0</div>
+                <div class="sub">estimation sur le mois</div>
+              </div>
+            </div>
+            <div class="dtable">
+              <div class="th"><span>Requête</span><span>Équipe</span><span>Qualité</span><span>Heure</span></div>
+              <div class="tr">
+                <span class="q">Requête — Professionnel <span class="badge">Coachée · acceptée</span></span>
+                <span>Commerce</span>
+                <span class="prog"><span class="b">2/10</span> → <span class="a">9/10</span></span>
+                <span>14:22</span>
+              </div>
+              <div class="tr">
+                <span class="q">Requête — Professionnel <span class="badge ok">Autorisée</span></span>
+                <span>Marketing</span>
+                <span class="prog"><span class="b">8/10</span></span>
+                <span>14:05</span>
+              </div>
+              <div class="tr">
+                <span class="q">Requête hors périmètre <span class="badge no">Bloquée</span></span>
+                <span>Support</span>
+                <span class="prog"><span class="b">—</span></span>
+                <span>13:47</span>
+              </div>
+              <div class="tr">
+                <span class="q">Requête — Professionnel <span class="badge">Coachée · acceptée</span></span>
+                <span>RH</span>
+                <span class="prog"><span class="b">4/10</span> → <span class="a">9/10</span></span>
+                <span>13:12</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -523,12 +642,35 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
       toast=$('toast'), score2=$('score2'), arrow=$('arrow'), gain=$('gain'),
       f1=$('f1'), f2=$('f2'), f3=$('f3'), accept=$('accept'),
       greeting=$('greeting'), msgUser=$('msgUser'), msgBot=$('msgBot'), typing=$('typing'),
-      cursor=$('cursor'), replay=$('replay');
+      cursor=$('cursor'), replay=$('replay'), chat=$('chat'),
+      dash=$('dash'), url=$('url'), dlabel=$('dlabel');
+
+  var LBL_USER = "Ce que voit le collaborateur, dans son navigateur";
+  var LBL_DIR  = "Ce que voit la direction, dans son tableau de bord";
+  var counters = dash.querySelectorAll('.val');
 
   var timers = [];
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function at(ms, fn){ timers.push(setTimeout(fn, ms)); }
   function clear(){ timers.forEach(clearTimeout); timers = []; }
+
+  function countUp(el){
+    var to = parseInt(el.getAttribute('data-to'), 10);
+    var sfx = el.getAttribute('data-suffix') || '';
+    var start = null, dur = 900;
+    function step(ts){
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))) + sfx;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  function resetCounters(){
+    counters.forEach(function(el){
+      el.textContent = '0' + (el.getAttribute('data-suffix') || '');
+    });
+  }
 
   function moveTo(el){
     var b = bbody.getBoundingClientRect(), t = el.getBoundingClientRect();
@@ -558,17 +700,30 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
     msgBot.classList.remove('show');
     typing.classList.remove('show');
     cursor.classList.remove('on','click');
+    chat.classList.remove('out'); prompt.classList.remove('out');
+    dash.classList.remove('show');
+    url.textContent = 'chatgpt.com';
+    dlabel.textContent = LBL_USER;
+    resetCounters();
     cursor.style.transition = 'none';
     moveTo(prompt);
     void cursor.offsetWidth;
     cursor.style.transition = '';
   }
 
+  function showDash(){
+    chat.classList.add('out'); prompt.classList.add('out');
+    url.textContent = 'knowstell.com/dashboard';
+    dlabel.textContent = LBL_DIR;
+    dash.classList.add('show');
+    counters.forEach(countUp);
+  }
+
   function finalState(){
-    ptext.textContent = '';
     greeting.classList.add('hide');
     msgUser.classList.add('show');
     msgBot.classList.add('show');
+    showDash();
   }
 
   function play(){
@@ -608,8 +763,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--indigo);outline-off
           greeting.classList.add('hide');
         });
         at(6300, function(){ msgUser.classList.add('show'); });
-        at(7000, function(){ typing.classList.add('show'); });
-        at(8200, function(){ typing.classList.remove('show'); msgBot.classList.add('show'); });
+        at(6900, function(){ typing.classList.add('show'); });
+        at(8000, function(){ typing.classList.remove('show'); msgBot.classList.add('show'); });
+
+        at(9800, showDash);
       }
     })();
   }
