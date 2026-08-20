@@ -1210,11 +1210,13 @@ const CAT_COLORS = {
   unknown:             '#9AA0B8',
 };
 const ACTION_STATUS = {
-  prompt_sent:       'ok',
-  coaching_shown:    'coached',
-  coaching_accepted: 'coached_accepted',
-  coaching_ignored:  'coached_ignored',
-  warning_shown:     'blocked',
+  prompt_sent:        'ok',
+  coaching_shown:     'coached',
+  coaching_accepted:  'coached_accepted',
+  coaching_ignored:   'coached_ignored',
+  warning_shown:      'blocked',
+  sensitive_confirmed:'sensitive_confirmed',
+  sensitive_cancelled:'sensitive_cancelled',
 };
 const ACTION_LABELS = {
   prompt_sent:        'Requête envoyée',
@@ -1245,11 +1247,13 @@ let vChart = null;
 // ── HELPERS ───────────────────────────────────────────────────
 function badge(s) {
   const m = {
-    ok:              ['✓ Autorisée',         's-ok'],
-    blocked:         ['✕ Bloquée',           's-blocked'],
-    coached:         ['◈ Coachée',           's-coached'],
-    coached_accepted:['◈ Coachée — acceptée','s-coached'],
-    coached_ignored: ['◈ Coachée — ignorée', 's-coached'],
+    ok:                 ['✓ Autorisée',            's-ok'],
+    blocked:            ['✕ Bloquée',              's-blocked'],
+    coached:            ['◈ Coachée',              's-coached'],
+    coached_accepted:   ['◈ Coachée — acceptée',   's-coached'],
+    coached_ignored:    ['◈ Coachée — ignorée',    's-coached'],
+    sensitive_confirmed:['⚠ Envoyé malgré alerte', 's-blocked'],
+    sensitive_cancelled:['⚠ Alerte respectée',     's-ok'],
   };
   const [lbl,cls] = m[s] || ['?',''];
   return '<span class="status-badge '+cls+'">'+lbl+'</span>';
@@ -1783,6 +1787,23 @@ function dedupeCoachingEvents(events) {
   });
 }
 
+// Masque l'alerte "warning_shown" (données sensibles) quand une décision
+// (sensitive_confirmed / sensitive_cancelled) partageant le MÊME sensitive_id existe :
+// on ne garde alors que la ligne de décision (qui porte l'issue réelle), pas le doublon.
+// L'alerte seule reste affichée si elle n'a pas de sensitive_id ou pas encore de décision.
+// Ne touche qu'aux warning_shown de catégorie donnees_sensibles ; tous les autres passent.
+function dedupeSensitiveEvents(events) {
+  return events.filter(ev => {
+    if (ev.category !== 'donnees_sensibles' || ev.action !== 'warning_shown') return true;
+    if (!ev.sensitive_id) return true;
+    const decided = events.some(o =>
+      (o.action === 'sensitive_confirmed' || o.action === 'sensitive_cancelled') &&
+      o.sensitive_id === ev.sensitive_id
+    );
+    return !decided;
+  });
+}
+
 function renderFeed(evs) {
   evs = (evs || recentEvents).filter(ev => ev.action !== 'badge_unlocked' && ev.action !== 'challenge_completed' && ev.category !== 'badge' && ev.category !== 'challenge');
   const today = new Date().toDateString();
@@ -1797,13 +1818,15 @@ function renderFeed(evs) {
   document.getElementById('rt-blocked').textContent = rtBlocked;
   document.getElementById('feed-counter').textContent = todayEvs.length+' requête'+(todayEvs.length>1?'s':'')+' aujourd\'hui';
 
-  const visible = dedupeCoachingEvents(evs).slice(0, 8);
+  const visible = dedupeSensitiveEvents(dedupeCoachingEvents(evs)).slice(0, 8);
   document.getElementById('realtime-feed').innerHTML = visible.length
     ? visible.map(ev=>{
         const status = ACTION_STATUS[ev.action]||'ok';
-        const label  = ev.category==='professionnel'
-          ? 'Requête — '+(CAT_LABELS[ev.category]||ev.category)
-          : 'Requête hors périmètre — '+(CAT_LABELS[ev.category]||ev.category);
+        const label  = ev.category==='donnees_sensibles'
+          ? 'Requête avec donnée sensible'
+          : ev.category==='professionnel'
+            ? 'Requête — '+(CAT_LABELS[ev.category]||ev.category)
+            : 'Requête hors périmètre — '+(CAT_LABELS[ev.category]||ev.category);
         const time = formatDate(ev.ts);
         return `<div class="feed-item feed-item-clickable" onclick="openModalById(${ev.id})"><div class="feed-time">${time}</div><div class="feed-text">${label}</div><div class="feed-dept">${ev.team||SITE_LABELS[ev.site]||ev.site}</div><div class="feed-status">${badge(status)}</div><div class="feed-arrow">›</div></div>`;
       }).join('')
@@ -1826,9 +1849,11 @@ function formatDate(ts) {
 
 function rowHtml(ev) {
   const status = ACTION_STATUS[ev.action]||'ok';
-  const label  = ev.category==='professionnel'
-    ? 'Requête — '+(CAT_LABELS[ev.category]||ev.category)
-    : 'Requête hors périmètre — '+(CAT_LABELS[ev.category]||ev.category);
+  const label  = ev.category==='donnees_sensibles'
+    ? 'Requête avec donnée sensible'
+    : ev.category==='professionnel'
+      ? 'Requête — '+(CAT_LABELS[ev.category]||ev.category)
+      : 'Requête hors périmètre — '+(CAT_LABELS[ev.category]||ev.category);
   const time = formatDate(ev.ts);
   const hasProg = ev.score_before != null && ev.score_after != null && ev.score_after !== ev.score_before;
   const qColor  = (hasProg && ev.score_after > ev.score_before) ? '#34D399' : '#6D5EFC';
@@ -1839,7 +1864,7 @@ function rowHtml(ev) {
 }
 const TABLE_HEAD = '<thead><tr><th>Requête</th><th>Équipe / Site</th><th>Statut</th><th>Qualité</th><th>Heure</th><th style="width:20px"></th></tr></thead>';
 function renderTables(evs) {
-  evs = dedupeCoachingEvents((evs || recentEvents).filter(ev => ev.action !== 'badge_unlocked' && ev.action !== 'challenge_completed' && ev.category !== 'badge' && ev.category !== 'challenge'));
+  evs = dedupeSensitiveEvents(dedupeCoachingEvents((evs || recentEvents).filter(ev => ev.action !== 'badge_unlocked' && ev.action !== 'challenge_completed' && ev.category !== 'badge' && ev.category !== 'challenge')));
   const EMPTY = TABLE_HEAD+'<tbody>'+emptyTr('Aucune requête analysée pour le moment.',6)+'</tbody>';
   if (!evs.length) {
     document.getElementById('req-table-dash').innerHTML = EMPTY;
