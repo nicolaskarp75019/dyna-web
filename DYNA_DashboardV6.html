@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 :root {
@@ -900,10 +901,16 @@ body{
       <div style="font-size:13px;color:var(--text-mid);margin-top:6px;max-width:760px;line-height:1.5;">Dispositif d'accompagnement conforme à l'Article 4 du Règlement UE 2024/1689, sans stockage du contenu des échanges.</div>
     </div>
 
-    <div style="display:flex;align-items:center;gap:4px;margin-bottom:24px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:4px;width:fit-content;">
-      <button class="comp-period-btn" data-days="30">30 jours</button>
-      <button class="comp-period-btn active" data-days="90">90 jours</button>
-      <button class="comp-period-btn" data-days="365">1 an</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:4px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:4px;width:fit-content;">
+        <button class="comp-period-btn" data-days="30">30 jours</button>
+        <button class="comp-period-btn active" data-days="90">90 jours</button>
+        <button class="comp-period-btn" data-days="365">1 an</button>
+      </div>
+      <button id="comp-export-btn" style="display:flex;align-items:center;gap:7px;padding:8px 16px;background:linear-gradient(135deg,#6D5EFC,#5346E0);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:600;font-family:var(--font-body);cursor:pointer;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+        Exporter en PDF
+      </button>
     </div>
 
     <div class="section-title">Périmètre</div>
@@ -3383,6 +3390,7 @@ document.querySelectorAll('.nav-item').forEach(item=>{
 // Fetch de GET /v1/compliance/report via apiGet (même base URL + auth Bearer que le reste).
 const COMPLIANCE_PLATFORM_LABELS = { chatgpt:'ChatGPT', claude:'Claude', gemini:'Gemini', mistral:'Mistral' };
 let _compliancePeriodDays = 90;
+let lastComplianceReport = null;   // dernier rapport chargé (période affichée) — source du PDF
 
 async function loadCompliance(days) {
   if (days) _compliancePeriodDays = days;
@@ -3392,6 +3400,7 @@ async function loadCompliance(days) {
   const IDS = ['comp-nb-equipes','comp-plateformes','comp-total-requetes','comp-coachings','comp-conseils','comp-alertes'];
   try {
     const rep = await apiGet(`/v1/compliance/report?from=${from}&to=${to}`);
+    lastComplianceReport = rep;   // conserve les données exactes de la période affichée pour le PDF
     const p = rep.perimetre || {}, d = rep.dispositif || {};
     setTxt('comp-nb-equipes', p.nb_equipes ?? 0);
     const plats = (p.plateformes || []).map(s => COMPLIANCE_PLATFORM_LABELS[s] || (s.charAt(0).toUpperCase() + s.slice(1)));
@@ -3456,6 +3465,137 @@ document.querySelectorAll('.comp-period-btn').forEach(btn => {
     loadCompliance(parseInt(btn.dataset.days, 10));
   });
 });
+
+// ── EXPORT PDF du rapport de conformité (jsPDF, mise en page sur mesure) ───────
+const _compToast = (msg) => { if (typeof _toast === 'function') _toast(msg); else alert(msg); };
+const _compFmtDate = (ts) => { const d = new Date(ts); const p = n => String(n).padStart(2,'0'); return `${p(d.getDate())}/${p(d.getMonth()+1)}/${d.getFullYear()}`; };
+const _compPlat = (s) => COMPLIANCE_PLATFORM_LABELS[s] || (String(s || '').charAt(0).toUpperCase() + String(s || '').slice(1));
+const _compNum = (v) => (v || 0).toLocaleString('fr-FR');
+
+async function exportCompliancePDF() {
+  const JsPDF = window.jspdf && window.jspdf.jsPDF;
+  if (!JsPDF) { _compToast('Librairie PDF non chargée, réessayez dans un instant.'); return; }
+  if (!lastComplianceReport) { await loadCompliance(); }
+  const rep = lastComplianceReport;
+  if (!rep) { _compToast('Aucune donnée à exporter pour le moment.'); return; }
+
+  const p = rep.perimetre || {}, d = rep.dispositif || {};
+  const per = rep.par_equipe || [], ppl = rep.par_plateforme || [];
+  const INDIGO = [109, 94, 252], GRAY = [70, 70, 82], MUTED = [140, 140, 150];
+  const M = 18, PW = 210, PH = 297, CW = PW - M * 2;
+  const doc = new JsPDF({ unit: 'mm', format: 'a4' });
+  let y = 20;
+
+  const ensure = (space) => { if (y + space > PH - 18) { doc.addPage(); y = 20; } };
+  const para = (text, { size = 10, color = GRAY, lh = 5, align = 'left', bold = false, gap = 3 } = {}) => {
+    doc.setFont('helvetica', bold ? 'bold' : 'normal'); doc.setFontSize(size); doc.setTextColor(color[0], color[1], color[2]);
+    const lines = doc.splitTextToSize(text, CW);
+    ensure(lines.length * lh + gap);
+    doc.text(lines, M, y, { align, maxWidth: CW });
+    y += lines.length * lh + gap;
+  };
+  const sectionTitle = (txt) => {
+    ensure(12); y += 3;
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.setTextColor(INDIGO[0], INDIGO[1], INDIGO[2]);
+    doc.text(txt, M, y); y += 2.5;
+    doc.setDrawColor(INDIGO[0], INDIGO[1], INDIGO[2]); doc.setLineWidth(0.4); doc.line(M, y, M + CW, y);
+    y += 5;
+  };
+
+  // a) EN-TÊTE
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(26); doc.setTextColor(INDIGO[0], INDIGO[1], INDIGO[2]);
+  doc.text('Knowstell', M, y); y += 8;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(40, 40, 50);
+  doc.text('Rapport de conformité — Maîtrise de l’IA (AI literacy)', M, y); y += 7;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(MUTED[0], MUTED[1], MUTED[2]);
+  const periodeStr = (p2 => p2 && p2.from && p2.to ? `${_compFmtDate(p2.from)} au ${_compFmtDate(p2.to)}` : '—')(rep.period);
+  doc.text(`Période couverte : ${periodeStr}`, M, y); y += 4.5;
+  doc.text(`Date de génération : ${_compFmtDate(Date.now())}`, M, y); y += 4;
+  doc.setDrawColor(225, 225, 232); doc.setLineWidth(0.3); doc.line(M, y, M + CW, y); y += 7;
+
+  // b) INTRODUCTION
+  para('L’Article 4 du Règlement (UE) 2024/1689 (« AI Act ») impose à toute organisation utilisant des systèmes d’intelligence artificielle de garantir un niveau suffisant de maîtrise de l’IA parmi les membres de son personnel, et de pouvoir en apporter la preuve. Le présent rapport documente le dispositif d’accompagnement continu mis en place au sein de l’organisation, sans stockage du contenu des échanges.',
+    { align: 'justify', gap: 5 });
+
+  // c) PÉRIMÈTRE COUVERT
+  sectionTitle('Périmètre couvert');
+  const platsStr = (p.plateformes || []).map(_compPlat).join(', ') || '—';
+  para(`• ${_compNum(p.nb_equipes)} équipe(s) accompagnée(s).`, { gap: 1.5 });
+  para(`• Plateformes IA couvertes : ${platsStr}.`, { gap: 1.5 });
+  para(`• ${_compNum(p.total_requetes)} requête(s) analysée(s) sur la période.`, { gap: 4 });
+
+  // d) DISPOSITIF D'ACCOMPAGNEMENT
+  sectionTitle('Dispositif d’accompagnement');
+  para(`• ${_compNum(d.coachings)} accompagnements délivrés — chaque collaborateur est guidé en temps réel vers une meilleure formulation de ses requêtes.`, { gap: 2 });
+  para(`• ${_compNum(d.conseils)} conseils pédagogiques — des techniques de rédaction de prompts sont enseignées au fil de l’usage.`, { gap: 2 });
+  para(`• ${_compNum(d.alertes_sensibles)} alertes de données sensibles — le dispositif prévient l’envoi d’informations confidentielles vers les outils d’IA.`, { gap: 4 });
+
+  // e) ACCOMPAGNEMENT PAR ÉQUIPE (tableau dessiné à la main)
+  sectionTitle('Accompagnement par équipe');
+  const headers = ['Équipe', 'Requêtes', 'Accompagnements', 'Conseils', 'Alertes'];
+  const widths  = [46, 26, 42, 30, 30]; // somme = 174 = CW
+  const rowH = 7.5;
+  const drawTableHeader = () => {
+    doc.setFillColor(INDIGO[0], INDIGO[1], INDIGO[2]); doc.rect(M, y, CW, rowH, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); doc.setTextColor(255, 255, 255);
+    let x = M; headers.forEach((h, i) => { doc.text(h, x + 2, y + 5); x += widths[i]; });
+    y += rowH;
+  };
+  ensure(rowH * 2); drawTableHeader();
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]);
+  if (per.length) {
+    per.forEach((r, ri) => {
+      if (y + rowH > PH - 18) { doc.addPage(); y = 20; drawTableHeader(); doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(GRAY[0], GRAY[1], GRAY[2]); }
+      if (ri % 2) { doc.setFillColor(244, 243, 251); doc.rect(M, y, CW, rowH, 'F'); }
+      const cells = [String(r.team || ''), _compNum(r.requetes), _compNum(r.coachings), _compNum(r.conseils), _compNum(r.alertes_sensibles)];
+      let x = M; cells.forEach((c, i) => { doc.text(c, x + 2, y + 5); x += widths[i]; });
+      doc.setDrawColor(228, 228, 234); doc.setLineWidth(0.2); doc.line(M, y + rowH, M + CW, y + rowH);
+      y += rowH;
+    });
+  } else {
+    doc.text('Aucune donnée sur la période.', M + 2, y + 5); y += rowH;
+  }
+  y += 6;
+
+  // f) RÉPARTITION PAR PLATEFORME IA
+  sectionTitle('Répartition par plateforme IA');
+  const totalPl = ppl.reduce((s, r) => s + (r.requetes || 0), 0);
+  if (ppl.length) {
+    ppl.forEach(r => {
+      const pct = totalPl ? Math.round((r.requetes / totalPl) * 100) : 0;
+      para(`• ${_compPlat(r.site)} : ${_compNum(r.requetes)} requêtes (${pct}%).`, { gap: 1.5 });
+    });
+    y += 2.5;
+  } else {
+    para('Aucune donnée sur la période.', { gap: 4 });
+  }
+
+  // g) ENCADRÉ CONFIDENTIALITÉ
+  const confText = 'Ce dispositif assure l’accompagnement des collaborateurs sans jamais lire ni stocker le contenu de leurs échanges avec l’IA (Privacy by Design), dans le respect du RGPD et du droit du travail français.';
+  doc.setFont('helvetica', 'italic'); doc.setFontSize(9.5);
+  const confLines = doc.splitTextToSize(confText, CW - 10);
+  const boxH = confLines.length * 5 + 8;
+  ensure(boxH + 4);
+  doc.setFillColor(240, 239, 254); doc.setDrawColor(INDIGO[0], INDIGO[1], INDIGO[2]); doc.setLineWidth(0.3);
+  doc.roundedRect(M, y, CW, boxH, 2, 2, 'FD');
+  doc.setTextColor(60, 55, 90); doc.text(confLines, M + 5, y + 6);
+  y += boxH + 4;
+
+  // h) PIED DE PAGE + numéros de page (sur toutes les pages)
+  const todayStr = _compFmtDate(Date.now());
+  const pageCount = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(MUTED[0], MUTED[1], MUTED[2]);
+    doc.text(`Rapport généré par Knowstell — ${todayStr}`, M, PH - 10);
+    doc.text(`Page ${i} / ${pageCount}`, PW - M, PH - 10, { align: 'right' });
+  }
+
+  const fd = new Date(); const pf = n => String(n).padStart(2, '0');
+  doc.save(`rapport-conformite-ai-literacy-${fd.getFullYear()}-${pf(fd.getMonth() + 1)}-${pf(fd.getDate())}.pdf`);
+}
+
+document.getElementById('comp-export-btn')?.addEventListener('click', exportCompliancePDF);
 
 // ── FILTERS ───────────────────────────────────────────────────
 document.querySelectorAll('.period-btn').forEach(btn=>{
