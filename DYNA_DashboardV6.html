@@ -937,6 +937,25 @@ body{
         <div class="kpi-label" style="margin-top:8px;margin-bottom:0;">alertes de données sensibles traitées</div>
       </div>
     </div>
+
+    <div class="section-title" style="margin-top:28px;">Accompagnement par équipe</div>
+    <div class="card" style="margin-bottom:26px;padding:0;overflow:hidden;">
+      <table class="req-table">
+        <thead><tr>
+          <th>Équipe</th><th>Requêtes analysées</th><th>Accompagnements</th><th>Conseils</th><th>Alertes sensibles</th>
+        </tr></thead>
+        <tbody id="comp-team-tbody">
+          <tr><td colspan="5" style="color:var(--text-dim);font-size:12px;padding:18px;text-align:center;">Chargement…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title">Répartition par plateforme IA</div>
+    <div class="card">
+      <div id="comp-platform-list">
+        <div style="color:var(--text-dim);font-size:12px;padding:6px;text-align:center;">Chargement…</div>
+      </div>
+    </div>
   </div>
 
   <!-- PAGE UTILISATEURS -->
@@ -3381,8 +3400,51 @@ async function loadCompliance(days) {
     setTxt('comp-coachings', d.coachings ?? 0);
     setTxt('comp-conseils', d.conseils ?? 0);
     setTxt('comp-alertes', d.alertes_sensibles ?? 0);
+    renderComplianceBreakdown(rep.par_equipe, rep.par_plateforme);
   } catch (e) {
     IDS.forEach(id => setTxt(id, '—'));   // erreur/401 gérée par apiGet : on n'affiche pas de valeur trompeuse
+    renderComplianceBreakdown([], []);    // vide -> messages discrets, pas de tableau vide
+  }
+}
+
+// Remplit les deux ventilations (tableau par équipe + barres par plateforme).
+function renderComplianceBreakdown(par_equipe, par_plateforme) {
+  const escHtml = (s) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const prettyPlat = (s) => COMPLIANCE_PLATFORM_LABELS[s] || (String(s || '').charAt(0).toUpperCase() + String(s || '').slice(1));
+  const num = (v) => (v || 0).toLocaleString('fr-FR');
+
+  // 1) Tableau par équipe
+  const tb = document.getElementById('comp-team-tbody');
+  if (tb) {
+    const eq = par_equipe || [];
+    tb.innerHTML = eq.length
+      ? eq.map(r => `<tr>
+          <td class="req-text">${escHtml(r.team)}</td>
+          <td style="font-variant-numeric:tabular-nums;">${num(r.requetes)}</td>
+          <td style="font-variant-numeric:tabular-nums;color:#34D399;">${num(r.coachings)}</td>
+          <td style="font-variant-numeric:tabular-nums;color:#6D5EFC;">${num(r.conseils)}</td>
+          <td style="font-variant-numeric:tabular-nums;color:#F5A524;">${num(r.alertes_sensibles)}</td>
+        </tr>`).join('')
+      : `<tr><td colspan="5" style="color:var(--text-dim);font-size:12px;padding:18px;text-align:center;">Aucune donnée sur la période.</td></tr>`;
+  }
+
+  // 2) Barres de proportion par plateforme
+  const pl = document.getElementById('comp-platform-list');
+  if (pl) {
+    const arr = par_plateforme || [];
+    const total = arr.reduce((s, r) => s + (r.requetes || 0), 0);
+    pl.innerHTML = arr.length
+      ? arr.map(r => {
+          const pct = total ? Math.round((r.requetes / total) * 100) : 0;
+          return `<div style="display:flex;align-items:center;gap:12px;margin:10px 0;">
+            <div style="width:92px;flex-shrink:0;font-size:13px;color:var(--text);">${escHtml(prettyPlat(r.site))}</div>
+            <div style="flex:1;height:8px;background:rgba(255,255,255,0.05);border-radius:4px;overflow:hidden;">
+              <div style="width:${pct}%;height:100%;background:linear-gradient(90deg,#6D5EFC,#897CFF);border-radius:4px;"></div>
+            </div>
+            <div style="width:120px;flex-shrink:0;text-align:right;font-size:12px;color:var(--text-mid);font-variant-numeric:tabular-nums;">${num(r.requetes)} <span style="color:var(--text-dim);">(${pct}%)</span></div>
+          </div>`;
+        }).join('')
+      : `<div style="color:var(--text-dim);font-size:12px;padding:6px;text-align:center;">Aucune donnée sur la période.</div>`;
   }
 }
 
