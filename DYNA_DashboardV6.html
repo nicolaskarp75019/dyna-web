@@ -897,7 +897,7 @@ body{
   <!-- PAGE CONFORMITÉ AI ACT -->
   <div class="page" id="page-compliance">
     <div style="margin-bottom:20px;">
-      <div style="font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--text);">Conformité — Maîtrise de l'IA (AI literacy)</div>
+      <div style="font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--text);">Conformité : maîtrise de l'IA (AI literacy)</div>
       <div style="font-size:13px;color:var(--text-mid);margin-top:6px;max-width:760px;line-height:1.5;">Dispositif d'accompagnement conforme à l'Article 4 du Règlement UE 2024/1689, sans stockage du contenu des échanges.</div>
     </div>
 
@@ -3506,9 +3506,9 @@ async function exportCompliancePDF() {
   doc.setFont('helvetica', 'bold'); doc.setFontSize(26); doc.setTextColor(INDIGO[0], INDIGO[1], INDIGO[2]);
   doc.text('Knowstell', M, y); y += 8;
   doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(40, 40, 50);
-  doc.text('Rapport de conformité — Maîtrise de l’IA (AI literacy)', M, y); y += 7;
+  doc.text('Rapport de conformité sur la maîtrise de l’IA (AI literacy)', M, y); y += 7;
   doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(MUTED[0], MUTED[1], MUTED[2]);
-  const periodeStr = (p2 => p2 && p2.from && p2.to ? `${_compFmtDate(p2.from)} au ${_compFmtDate(p2.to)}` : '—')(rep.period);
+  const periodeStr = (p2 => p2 && p2.from && p2.to ? `${_compFmtDate(p2.from)} au ${_compFmtDate(p2.to)}` : 'non disponible')(rep.period);
   doc.text(`Période couverte : ${periodeStr}`, M, y); y += 4.5;
   doc.text(`Date de génération : ${_compFmtDate(Date.now())}`, M, y); y += 4;
   doc.setDrawColor(225, 225, 232); doc.setLineWidth(0.3); doc.line(M, y, M + CW, y); y += 7;
@@ -3519,16 +3519,16 @@ async function exportCompliancePDF() {
 
   // c) PÉRIMÈTRE COUVERT
   sectionTitle('Périmètre couvert');
-  const platsStr = (p.plateformes || []).map(_compPlat).join(', ') || '—';
+  const platsStr = (p.plateformes || []).map(_compPlat).join(', ') || 'aucune';
   para(`• ${_compNum(p.nb_equipes)} équipe(s) accompagnée(s).`, { gap: 1.5 });
   para(`• Plateformes IA couvertes : ${platsStr}.`, { gap: 1.5 });
   para(`• ${_compNum(p.total_requetes)} requête(s) analysée(s) sur la période.`, { gap: 4 });
 
   // d) DISPOSITIF D'ACCOMPAGNEMENT
   sectionTitle('Dispositif d’accompagnement');
-  para(`• ${_compNum(d.coachings)} accompagnements délivrés — chaque collaborateur est guidé en temps réel vers une meilleure formulation de ses requêtes.`, { gap: 2 });
-  para(`• ${_compNum(d.conseils)} conseils pédagogiques — des techniques de rédaction de prompts sont enseignées au fil de l’usage.`, { gap: 2 });
-  para(`• ${_compNum(d.alertes_sensibles)} alertes de données sensibles — le dispositif prévient l’envoi d’informations confidentielles vers les outils d’IA.`, { gap: 4 });
+  para(`• ${_compNum(d.coachings)} accompagnements délivrés. Chaque collaborateur est guidé en temps réel vers une meilleure formulation de ses requêtes.`, { gap: 2 });
+  para(`• ${_compNum(d.conseils)} conseils pédagogiques. Des techniques de rédaction de prompts sont enseignées au fil de l’usage.`, { gap: 2 });
+  para(`• ${_compNum(d.alertes_sensibles)} alertes de données sensibles. Le dispositif prévient l’envoi d’informations confidentielles vers les outils d’IA.`, { gap: 4 });
 
   // e) ACCOMPAGNEMENT PAR ÉQUIPE (tableau dessiné à la main)
   sectionTitle('Accompagnement par équipe');
@@ -3587,7 +3587,7 @@ async function exportCompliancePDF() {
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(MUTED[0], MUTED[1], MUTED[2]);
-    doc.text(`Rapport généré par Knowstell — ${todayStr}`, M, PH - 10);
+    doc.text(`Rapport généré par Knowstell le ${todayStr}`, M, PH - 10);
     doc.text(`Page ${i} / ${pageCount}`, PW - M, PH - 10, { align: 'right' });
   }
 
