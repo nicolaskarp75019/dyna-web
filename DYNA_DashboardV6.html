@@ -81,6 +81,10 @@ body{
 .period-selector{display:flex;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;}
 .period-btn{padding:5px 11px;font-size:12px;color:var(--text-dim);cursor:pointer;border:none;background:transparent;font-family:var(--font-body);transition:all 0.15s ease;}
 .period-btn.active{background:linear-gradient(135deg,#6D5EFC 0%,#9AA0B8 100%);color:#0A0D18;font-weight:600;}
+/* Boutons de période de l'onglet Conformité : même look que .period-btn, classe dédiée
+   pour ne PAS déclencher le handler global de .period-btn (qui recharge les données live). */
+.comp-period-btn{padding:5px 11px;font-size:12px;color:var(--text-dim);cursor:pointer;border:none;background:transparent;font-family:var(--font-body);border-radius:6px;transition:all 0.15s ease;}
+.comp-period-btn.active{background:linear-gradient(135deg,#6D5EFC 0%,#9AA0B8 100%);color:#0A0D18;font-weight:600;}
 .live-badge{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--green);background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.25);border-radius:20px;padding:4px 10px;}
 .live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
@@ -363,6 +367,8 @@ body{
     <div class="nav-item" data-page="library"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.3-4.5-2-7-2v13c2.5 0 5 .7 7 2 2-1.3 4.5-2 7-2V4c-2.5 0-5 .7-7 2z"/><path d="M12 6v13"/></svg></span> Bibliothèque</div>
     <div class="nav-item" data-page="rules"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4.5"/></svg></span> Règles</div>
     <div class="nav-item" data-page="my-space"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3.1"/><path d="M6.6 18.4c1-2.4 3-3.7 5.4-3.7s4.4 1.3 5.4 3.7"/></svg></span> Mon espace</div>
+    <div class="nav-section">Conformité</div>
+    <div class="nav-item" data-page="compliance"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9.5 14l2 2 3.5-3.5"/></svg></span> Conformité AI Act</div>
     <div class="nav-section">Administration</div>
     <div class="nav-item" data-page="users"><span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="3.1"/><path d="M2.6 19c0-2.9 2.4-4.8 5.4-4.8s5.4 1.9 5.4 4.8"/><path d="M16 8.5h5.4M16 12h5.4M16 15.5h3.6"/></svg></span> Utilisateurs</div>
   </nav>
@@ -885,6 +891,52 @@ body{
   </div>
   <div style="margin-top:auto;padding:12px 24px;border-top:1px solid rgba(255,255,255,0.06);font-size:11.5px;color:var(--text-dim);line-height:1.5;background:var(--bg);">
     🔒 <strong style="color:var(--text-mid);">Privacy by Design actif</strong> — Le contenu des requêtes n'est jamais lu ni stocké. L'admin voit uniquement les catégories et statistiques agrégées. Conforme RGPD et droit du travail français.
+  </div>
+
+  <!-- PAGE CONFORMITÉ AI ACT -->
+  <div class="page" id="page-compliance">
+    <div style="margin-bottom:20px;">
+      <div style="font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--text);">Conformité — Maîtrise de l'IA (AI literacy)</div>
+      <div style="font-size:13px;color:var(--text-mid);margin-top:6px;max-width:760px;line-height:1.5;">Dispositif d'accompagnement conforme à l'Article 4 du Règlement UE 2024/1689, sans stockage du contenu des échanges.</div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:4px;margin-bottom:24px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:4px;width:fit-content;">
+      <button class="comp-period-btn" data-days="30">30 jours</button>
+      <button class="comp-period-btn active" data-days="90">90 jours</button>
+      <button class="comp-period-btn" data-days="365">1 an</button>
+    </div>
+
+    <div class="section-title">Périmètre</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;">
+      <div class="kpi-card purple">
+        <div class="kpi-label">Équipes accompagnées</div>
+        <div class="kpi-value" id="comp-nb-equipes">—</div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="kpi-label">Plateformes IA couvertes</div>
+        <div class="kpi-value" id="comp-plateformes" style="font-size:17px;line-height:1.35;">—</div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="kpi-label">Requêtes analysées</div>
+        <div class="kpi-value" id="comp-total-requetes">—</div>
+      </div>
+    </div>
+
+    <div class="section-title">Dispositif d'accompagnement</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+      <div class="kpi-card green">
+        <div class="kpi-value" id="comp-coachings">—</div>
+        <div class="kpi-label" style="margin-top:8px;margin-bottom:0;">accompagnements délivrés</div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="kpi-value" id="comp-conseils">—</div>
+        <div class="kpi-label" style="margin-top:8px;margin-bottom:0;">conseils pédagogiques (techniques enseignées)</div>
+      </div>
+      <div class="kpi-card orange">
+        <div class="kpi-value" id="comp-alertes">—</div>
+        <div class="kpi-label" style="margin-top:8px;margin-bottom:0;">alertes de données sensibles traitées</div>
+      </div>
+    </div>
   </div>
 
   <!-- PAGE UTILISATEURS -->
@@ -3285,7 +3337,7 @@ function buildCarbonChart(evs) {
   });
 }
 
-const PAGE_TITLES = {dashboard:'Dashboard',realtime:'Temps réel',requests:'Requêtes',teams:'Équipes',maturity:'Maturité IA',coaching:'Coaching & Progression',carbon:'Empreinte Carbone',roi:'ROI & Économies',library:'Bibliothèque',rules:'Règles','my-space':'Mon espace',users:'Utilisateurs'};
+const PAGE_TITLES = {dashboard:'Dashboard',realtime:'Temps réel',requests:'Requêtes',teams:'Équipes',maturity:'Maturité IA',coaching:'Coaching & Progression',carbon:'Empreinte Carbone',roi:'ROI & Économies',library:'Bibliothèque',rules:'Règles','my-space':'Mon espace',compliance:'Conformité AI Act',users:'Utilisateurs'};
 document.querySelectorAll('.nav-item').forEach(item=>{
   item.addEventListener('click',()=>{
     const page = item.dataset.page;
@@ -3304,6 +3356,42 @@ document.querySelectorAll('.nav-item').forEach(item=>{
     if (page === 'coaching' && recentEvents.length > 0) renderCoachingPage();
     if (page === 'my-space' && recentEvents.length > 0) renderMySpace();
     if(page==='users') renderUsersPage();
+    if(page==='compliance') loadCompliance();
+  });
+});
+
+// ── CONFORMITÉ AI ACT (AI literacy) ───────────────────────────
+// Fetch de GET /v1/compliance/report via apiGet (même base URL + auth Bearer que le reste).
+const COMPLIANCE_PLATFORM_LABELS = { chatgpt:'ChatGPT', claude:'Claude', gemini:'Gemini', mistral:'Mistral' };
+let _compliancePeriodDays = 90;
+
+async function loadCompliance(days) {
+  if (days) _compliancePeriodDays = days;
+  const to   = Date.now();
+  const from = to - _compliancePeriodDays * 24 * 60 * 60 * 1000;
+  const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  const IDS = ['comp-nb-equipes','comp-plateformes','comp-total-requetes','comp-coachings','comp-conseils','comp-alertes'];
+  try {
+    const rep = await apiGet(`/v1/compliance/report?from=${from}&to=${to}`);
+    const p = rep.perimetre || {}, d = rep.dispositif || {};
+    setTxt('comp-nb-equipes', p.nb_equipes ?? 0);
+    const plats = (p.plateformes || []).map(s => COMPLIANCE_PLATFORM_LABELS[s] || (s.charAt(0).toUpperCase() + s.slice(1)));
+    setTxt('comp-plateformes', plats.length ? plats.join(', ') : '—');
+    setTxt('comp-total-requetes', (p.total_requetes ?? 0).toLocaleString('fr-FR'));
+    setTxt('comp-coachings', d.coachings ?? 0);
+    setTxt('comp-conseils', d.conseils ?? 0);
+    setTxt('comp-alertes', d.alertes_sensibles ?? 0);
+  } catch (e) {
+    IDS.forEach(id => setTxt(id, '—'));   // erreur/401 gérée par apiGet : on n'affiche pas de valeur trompeuse
+  }
+}
+
+// Boutons de période propres à l'onglet (classe dédiée pour ne pas heurter le handler global .period-btn).
+document.querySelectorAll('.comp-period-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.comp-period-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    loadCompliance(parseInt(btn.dataset.days, 10));
   });
 });
 
