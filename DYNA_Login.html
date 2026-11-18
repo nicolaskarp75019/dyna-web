@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="config.js"></script>
 <style>
 :root{
   --bg:#070A14;--bg2:#0E1220;--bg3:#141829;
@@ -179,9 +180,7 @@ body{
 <script>
 'use strict';
 
-const API_BASE = (window.location.hostname === 'localhost' || window.location.protocol === 'file:')
-  ? 'http://localhost:3000'
-  : 'https://dyna-backend-production.up.railway.app';
+const API_BASE = window.DYNA_CONFIG.BACKEND_URL;
 
 // Si déjà connecté, rediriger directement
 (function checkExisting() {

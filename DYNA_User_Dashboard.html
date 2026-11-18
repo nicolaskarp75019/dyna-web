@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="config.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -506,9 +507,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--f
 'use strict';
 
 // ── ÉTAT ─────────────────────────────────────────────────────
-const useLocal = new URLSearchParams(window.location.search).get('local') === 'true';
 const API = {
-  base: useLocal ? 'http://localhost:3000' : 'https://dyna-backend-production.up.railway.app',
+  base: window.DYNA_CONFIG.BACKEND_URL,
   token: localStorage.getItem('dyna_jwt')
 };
 const KEY  = 'dyna-pilot-key-2024';
@@ -1577,7 +1577,7 @@ Génère un coaching personnalisé bienveillant en JSON :
 Ton : bienveillant, encourageant, concret. Pas de jargon technique. Maximum 3 exercices.`;
 
   try {
-    const base     = 'https://dyna-backend-production.up.railway.app';
+    const base     = window.DYNA_CONFIG.BACKEND_URL;
     const jwt      = localStorage.getItem('dyna_jwt');
     const response = await fetch(base + '/v1/coaching/analyze', {
       method: 'POST',
